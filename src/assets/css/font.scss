@@ -1,0 +1,14 @@
+@font-face {
+    font-family: Muli;
+    src: url('assets/fonts/muli/Muli-ExtraLight.ttf');
+  }
+
+  @font-face {
+    font-family: MuliLight;
+    src: url('assets/fonts/muli/Muli-Light.ttf');
+  }
+
+  *{
+    // font-family: Muli;
+    --ion-font-family: Muli;
+  }

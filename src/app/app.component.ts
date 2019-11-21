@@ -1,19 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, AfterViewInit } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { Subscription } from 'rxjs';
+import { MobileAccessibility } from '@ionic-native/mobile-accessibility/ngx';
+import { AuthService } from './services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements  OnDestroy, AfterViewInit{
+
+  backButtonSubscription: Subscription;
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private mobileAccessibility: MobileAccessibility,
+    private statusBar: StatusBar,
+    private router: Router,
+    private authService: AuthService
   ) {
     this.initializeApp();
   }
@@ -22,6 +32,37 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      
+      //Handles zoom fonts on android devices
+      this.mobileAccessibility.usePreferredTextZoom(false);
+
+      //Handles status bar display 
+      if (this.platform.is('android')) {
+        this.statusBar.overlaysWebView(false);
+        this.statusBar.backgroundColorByHexString('#000000');
+      }
+
+      this.authService.authState.subscribe(state => {
+        if (state === true) {
+          console.log('Go to tabs, you\'re logged in');
+          this.router.navigateByUrl('/tabs');
+        } else if (state === false) {
+          console.log('You\'re logged out')
+          this.router.navigateByUrl('/login');
+        }
+      });
+
     });
+  }
+
+  // Handles back button to close app
+  ngAfterViewInit() {
+    this.backButtonSubscription = this.platform.backButton.subscribe(() => {
+      navigator['app'].exitApp();
+    });
+  }
+
+  ngOnDestroy() {
+    this.backButtonSubscription.unsubscribe();
   }
 }

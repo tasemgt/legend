@@ -1,0 +1,36 @@
+ion-item{
+  --border-style: solid;
+  --border-width: 2px;
+  --border-color: red;
+}
+
+.payment-method{
+  height: 65px;
+  width: 100%;
+  font-size: 0.9rem;
+  border-radius: 5px;
+  margin-bottom: 1.3rem;
+  padding: 0px 25px;
+  background: var(--ion-color-secondary);
+  box-shadow: 1px 3px 5px -1px rgba(0,0,0,0.75);
+  span{
+    margin-top: 20px;
+    display: inline-block;
+    position: relative;
+
+    img{
+      position: absolute;
+      top: 0.3rem;
+      left: 0.12rem;
+    }
+  }
+  span:last-child{
+    float: right;
+    margin-top: 10px;
+    height: 45px;
+    width: 45px;
+    background: var(--ion-color-tertiary);
+    border-radius: 50%;
+    border: 1.5px solid var(--ion-color-primary);
+  }
+}

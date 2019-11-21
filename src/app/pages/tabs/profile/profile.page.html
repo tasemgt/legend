@@ -1,0 +1,37 @@
+<ion-content>
+  <ion-grid class="tabs-area">
+    <ion-row>
+      <ion-col size="12" class="name-heading ion-text-center">
+        <p>User</p>
+        <p></p>
+      </ion-col>
+      <ion-col size="12" class="col-profile-details">
+        <div class="profile-details">
+          <div class="profile-image-wrapper"></div>
+          <div class="profile-image">
+            <h1>{{user?.firstName.charAt(0) +'.'+ user?.lastName.charAt(0)}}</h1>
+          </div>
+          <div class="profile-details-content">
+            <p><span>Group:</span><span>OTT-Product</span></p>
+            <p><span>Expire Time:</span><span>Never Expires</span></p>
+            <p><span>Whether the arrears:</span><span>No</span></p>
+            <p><span>Balance:</span><span>&#x20a6; 0.00</span></p>
+            <p><span>Mobile:</span><span>+23412345678</span></p>
+            <p><span>Email:</span><span>{{user?.email}}</span></p>
+            <p><span>Date of Birth:</span><span>01-02-1980</span></p> 
+          </div>
+        </div>
+      </ion-col>
+      <ion-col size="12">
+        <div class="btn-wrapper">
+          <ion-button class="legend-btn ion-text-capitalize" type="button">Edit Profile</ion-button>
+        </div>
+      </ion-col>
+      <ion-col size="12">
+        <div class="btn-wrapper">
+          <ion-button class="legend-btn legend-btn-inverse ion-text-capitalize" type="button" (click)="logout()">Log Out</ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

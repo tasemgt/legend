@@ -1,0 +1,105 @@
+// Common global styles for whole app
+
+//Grid style for login and signup
+ion-grid.auth-body{
+    margin-top: 40%;
+    --ion-grid-padding: 20px;
+}
+
+ion-col{
+    margin: 10px auto;
+
+    &.logo-area{
+        img { width: 25%; }
+    }
+
+}.legend-input{
+    ion-item{
+    --border-width: 1.2px;
+    --border-radius: 7px;
+    --border-color: var(--ion-color-primary);
+    --highlight-color-focused: transparent;
+    --highlight-color-invalid: transparent;
+    --highlight-color-valid: transparent;
+    }
+
+    ion-input {
+    --background: transparent;
+    --color: #FFFFFF;
+    font-size: 0.9rem;
+    --placeholder-color: #FFFFFF;
+    --highlight-color-focused: transparent;
+    --highlight-color-invalid: transparent;
+    --highlight-color-valid: transparent;
+    }
+}
+
+// Default Legend buttons
+
+.btn-wrapper{
+    width: 100%;
+    text-align: center;
+    border: 4px solid var(--ion-color-tertiary-shade);
+    border-radius: 8px;
+}
+
+ion-button.legend-btn{
+    margin: 0px;
+    width: 100%;
+    height: 55px;
+    --border-radius: 8px;
+    --box-shadow: none;
+
+    &.legend-btn-inverse{
+        --background: transparent;
+        --color: var(--ion-color-primary);
+        --background-activated: transparent;
+        --background-focused: transparent;
+        --background-hover: transparent;
+        --border-color: var(--ion-color-primary);
+        --border-style: solid;
+        --border-width: 1px;
+    }
+}
+
+// Authentication form area 
+.auth-form{
+    p { font-size: 0.9rem;}
+    .btn-wrapper+p a{ color: var(--ion-color-primary); }
+    a { color: #FFFFFF; }
+}
+
+
+/** 
+    Tabs Area Styles
+**/
+
+ion-grid.tabs-area{
+    --ion-grid-padding: 20px;
+}
+
+// Name headings of Tabs in Tabs area
+.name-heading{
+    p{ margin: 10px auto; }
+    span{
+        font-family: MuliLight; 
+        font-weight: bold; 
+    }
+    p:last-child{
+        height: 7px;
+        width: 30%;
+        background-color: var(--ion-color-primary);
+    }
+}
+
+
+//Alerts and pop ups
+.alert-title.sc-ion-alert-md,
+.alert-title.sc-ion-alert-ios{
+    color: var(--ion-color-tertiary);
+}
+
+.sc-ion-alert-md-h,
+.sc-ion-alert-ios-h{
+    --background:#FFFFFF;
+}

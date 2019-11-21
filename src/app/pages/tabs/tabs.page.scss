@@ -1,0 +1,14 @@
+ion-tab-bar{
+    --background: var(--ion-color-secondary);
+    height: 12%;
+}
+
+ion-tab-button{
+    --color: #FFFFFF;
+    ion-icon{
+        font-size: 20px;
+    }
+    ion-label{
+        font-family: Muli;
+    }
+}
