@@ -5,7 +5,8 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 
 import { BehaviorSubject } from 'rxjs';
 import { Constants } from '../models/constants';
-import { User } from '../models/user';
+import { User, UserCred } from '../models/user';
+import { HTTP } from '@ionic-native/http/ngx';
 
 
 @Injectable({
@@ -28,6 +29,7 @@ export class AuthService {
   constructor(
     private platform: Platform, 
     private storage: Storage,
+    private http2: HTTP,
     private http: HttpClient) {
     this.platform.ready().then(() =>{
       this.checkToken(); // Check auth state on every app instantiation
@@ -40,14 +42,22 @@ export class AuthService {
     });
   }
 
+  public register(userCred: UserCred) : Promise<any>{
+    const headers = {Accept: 'application/json', 'Content-Type': 'application/json'};
+    return this.http.post(`${this.baseUrl}/sign-up`, userCred, {headers})
+      .toPromise()
+      .then((resp) =>{
+        return Promise.resolve(resp);
+      })
+      .catch((error: HttpErrorResponse) =>{
+          return Promise.reject(error);
+        });
+  }
+
   public login(email: string, password: string) : Promise<User>{
-    const headers = new HttpHeaders();
-    headers.append('Accept', 'application/json');
-    headers.append('Content-Type', 'application/json');
-
     let usr: User;
-
-    return this.http.post(`${this.baseUrl}/email-login`, {email, password}, this.httpOptions)
+    const headers = {Accept: 'application/json', 'Content-Type': 'application/json'};
+    return this.http.post(`${this.baseUrl}/email-login`, {email, password}, {headers})
       .toPromise()
       .then((user: User) =>{
         if(user){
@@ -78,6 +88,9 @@ export class AuthService {
   public logout() {
     return this.storage.remove(this.authUser).then(() => {
       this.authState.next(false);
+      return this.storage.remove('userBalance')
+    }).then(() =>{
+      return true;
     });
   }
 

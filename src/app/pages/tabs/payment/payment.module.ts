@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PaymentPage } from './payment.page';
+import { FundWalletPage } from '../../modals/fund-wallet/fund-wallet.page';
+
 
 @NgModule({
   imports: [
@@ -12,6 +14,7 @@ import { PaymentPage } from './payment.page';
     FormsModule,
     RouterModule.forChild([{ path: '', component: PaymentPage }])
   ],
-  declarations: [PaymentPage]
+  declarations: [PaymentPage, FundWalletPage],
+  entryComponents: [FundWalletPage]
 })
 export class PaymentPageModule {}

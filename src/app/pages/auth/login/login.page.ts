@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { AuthService } from 'src/app/services/auth.service';
 import { UtilService } from 'src/app/services/util.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { LoadingController } from '@ionic/angular';
 
 
 @Component({
@@ -12,14 +14,18 @@ import { UtilService } from 'src/app/services/util.service';
 })
 export class LoginPage implements OnInit {
 
+  @ViewChild('loginForm', null) loginForm: NgForm;
+
   constructor(
+    private loadingCtrl: LoadingController,
     private authService: AuthService,
     private utilService: UtilService) { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+      this.loginForm.resetForm();
+    }
 
-  public async login(form: NgForm){
+  public login(form: NgForm){
     if(form.invalid){
       this.utilService.showToast('Login form cannot be empty.', 2000, 'danger');
       return;
@@ -35,19 +41,26 @@ export class LoginPage implements OnInit {
       .then(() =>{
         this.utilService.dismissLoading();
       })
-      .catch((error) =>{
-        this.utilService.dismissLoading();
-        console.log(error);
-        switch(error.status){
-          case(0):
-            this.utilService.showToast('Cannot connect to server', 3000, 'danger');
-            break;
-          case(401):
-            this.utilService.showToast('Invalid Login Credentials', 3000, 'danger');
-            break;
-          case(500):
-            this.utilService.showToast('Server connection error', 3000, 'danger');
-            break;
+      .catch((error:HttpErrorResponse) => {
+        console.log(error.status);
+        if(error.status === 0){
+          setTimeout(()=>{
+            this.loadingCtrl.dismiss();
+            console.log('No network')
+            this.utilService.showToast('Cannot connect to server, check network...', 3000, 'danger');
+          },2000);
+        }   
+        else{
+          switch(error.status){
+            case(401):
+              this.loadingCtrl.dismiss();
+              this.utilService.showToast('Invalid Login Credentials', 3000, 'danger');
+              break;
+            case(500):
+              this.loadingCtrl.dismiss();
+              this.utilService.showToast('Server connection error', 3000, 'danger');
+              break;
+          }
         }
       });
 

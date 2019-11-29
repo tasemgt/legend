@@ -4,15 +4,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LogsPage } from './logs.page';
-import { LogComponent } from 'src/app/components/log/log.component';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
-    RouterModule.forChild([{ path: '', component: LogsPage }])
+    RouterModule.forChild([{ path: '', component: LogsPage }]),
+    ComponentsModule
   ],
-  declarations: [LogsPage, LogComponent]
+  declarations: [LogsPage]
 })
 export class LogsPageModule {}

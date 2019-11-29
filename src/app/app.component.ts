@@ -33,10 +33,10 @@ export class AppComponent implements  OnDestroy, AfterViewInit{
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       
-      //Handles zoom fonts on android devices
+      // Handles zoom fonts on android devices
       this.mobileAccessibility.usePreferredTextZoom(false);
 
-      //Handles status bar display 
+      // Handles status bar display 
       if (this.platform.is('android')) {
         this.statusBar.overlaysWebView(false);
         this.statusBar.backgroundColorByHexString('#000000');

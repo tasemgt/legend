@@ -1,0 +1,13 @@
+ion-grid.auth-body{
+    margin-top: 5%;
+    --ion-grid-padding: 20px;
+}
+
+ion-col{
+    margin: 3px auto;
+
+    &.logo-area{
+        img { width: 15%; }
+    }
+
+}

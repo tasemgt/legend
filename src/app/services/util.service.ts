@@ -32,8 +32,8 @@ export class UtilService {
     return loading.present();
   }
 
-  public async dismissLoading(){
-    return await this.loadingCtrl.dismiss();
+  public async dismissLoading(id?: string){
+    return await this.loadingCtrl.dismiss(null, null, id);
   }
 
   public async presentAlertConfirm(header:string, message: string, okayCallBack: Function) {
@@ -64,6 +64,28 @@ export class UtilService {
     // tslint:disable-next-line:max-line-length
     let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
+  }
+
+  public greetMessage(currentTime = new Date()): string{
+      const currentHour = currentTime.getHours();
+      const splitAfternoon = 12; // 24hr time to split the afternoon
+      const splitEvening = 16; // 24hr time to split the evening
+    
+      if (currentHour >= splitAfternoon && currentHour <= splitEvening) {
+        // Between 12 PM and 5PM
+        return 'Good afternoon';
+      } else if (currentHour >= splitEvening) {
+        // Between 5PM and Midnight
+        return 'Good evening';
+      }
+      // Between dawn and noon
+      return 'Good morning';
+  }
+
+  public transformPhone(phone: string){
+    let newPhone = '';
+    newPhone = `234${phone.substring(1)}`;
+    return newPhone;
   }
 
   public getErrorMessage(error: HttpErrorResponse): string {

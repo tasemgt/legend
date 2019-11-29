@@ -1,4 +1,4 @@
-<ion-content>
+<ion-content class="ion-no-padding">
     <ion-grid class="tabs-area">
       <ion-row>
         <ion-col size="12" class="name-heading ion-text-center">
@@ -6,7 +6,12 @@
           <p></p>
         </ion-col>
         <ion-col>
-          <app-log></app-log>
+          <ion-list *ngFor="let log of data let i = index;" class="accordion-list">
+            <log-view [log]="log" tappable (click)="toggleItem(i)"></log-view>
+            <div *ngIf="log.child && log.open">
+              TEST
+            </div>
+          </ion-list>
         </ion-col>
         </ion-row>
     </ion-grid>

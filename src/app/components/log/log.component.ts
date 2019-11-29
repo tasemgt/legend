@@ -1,32 +1,16 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { Content } from '@angular/compiler/src/render3/r3_ast';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-log',
+  selector: 'log-view',
   templateUrl: './log.component.html',
   styleUrls: ['./log.component.scss'],
 })
-export class LogComponent {
-  data = {
-    items: [1,2,3,4,5,67,8,75,4,3]
-  }  //@Input() data: any;
-  @Input() events: any;
-  // @ViewChild(Content) content: Content;
+export class LogComponent implements OnInit {
+
+  @Input() log: any;
 
   constructor() { }
 
-  onEvent(event: string, item: any, e: any) {
-    if (this.events[event]) {
-      this.events[event](item);
-    }
-  }
-
-  toggleGroup(group: any) {
-    group.show = !group.show;
-  }
-
-  isGroupShown(group: any) {
-    return group.show;
-  }
+  ngOnInit() {}
 
 }

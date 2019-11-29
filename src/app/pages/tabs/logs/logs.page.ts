@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Data } from 'src/app/models/constants';
 
 @Component({
   selector: 'app-logs',
@@ -7,6 +8,14 @@ import { Component } from '@angular/core';
 })
 export class LogsPage {
 
-  constructor() {}
+  data: any[] = Data.records;
+
+  constructor() {
+    this.data[0].open = true;
+  }
+
+  toggleItem(index){
+    this.data[index].open = !this.data[index].open;
+  }
 
 }

@@ -2,7 +2,7 @@
   <ion-grid class="tabs-area">
     <ion-row>
       <ion-col size="12" class="name-heading ion-text-center">
-        <p>Good Morning, <span>Mike</span></p>
+        <p>{{greetMsg}}, <span>{{user?.firstName}}</span></p>
         <p></p>
       </ion-col>
       <ion-col size="12">
@@ -15,13 +15,13 @@
       </ion-col>
       <ion-col size="12" class="ion-text-center">
         <div class="btn-wrapper">
-          <ion-button class="legend-btn ion-text-capitalize" type="button">Renewals</ion-button>
+          <ion-button class="legend-btn ion-text-capitalize" type="button" (click)="openBuyBundleModal()">Renewals</ion-button>
         </div>
       </ion-col>
       <ion-col size="12" class=" ion-text-center summary-blocks">
         <div>
           <ion-icon src="assets/imgs/profile.svg"></ion-icon>
-          <p>Username <br/><span>9449</span></p>
+          <p>Username <br/><span>{{user?.firstName}}</span></p>
         </div>
         <div>
           <ion-icon src="assets/imgs/status.svg"></ion-icon>
@@ -29,7 +29,7 @@
         </div>
         <div>
           <ion-icon src="assets/imgs/balance.svg"></ion-icon>
-          <p>Balance <br/><span>99,999.00</span></p>
+          <p>Balance <br/><span>&#x20a6; {{balance}}<span *ngIf="!balance">Loading...</span></span></p>
         </div>
       </ion-col>
       <ion-col size="12">
