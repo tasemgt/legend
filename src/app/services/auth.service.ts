@@ -88,9 +88,6 @@ export class AuthService {
   public logout() {
     return this.storage.remove(this.authUser).then(() => {
       this.authState.next(false);
-      return this.storage.remove('userBalance')
-    }).then(() =>{
-      return true;
     });
   }
 

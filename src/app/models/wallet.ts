@@ -7,3 +7,11 @@ export interface FundWalletObject{
     phone: string,
     pin: string
 }
+
+export interface Balance{
+    code: number,
+    balance: string,
+    bundle: string,
+    expiry: string,
+    duration: number
+}

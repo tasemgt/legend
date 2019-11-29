@@ -13,6 +13,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class BuyBundlePage implements OnInit {
 
   @ViewChild('bundleForm', null) bundleForm: NgForm;
+  public bundles: {name: string, amount: string, discription:{duration:string, package:string}}[];
 
   constructor(
     private modalCtrl: ModalController, 
@@ -22,19 +23,29 @@ export class BuyBundlePage implements OnInit {
 
   ngOnInit() {
     this.bundleForm.reset();
+    this.getBundleTypes();
+  }
+
+
+  private getBundleTypes(){
+    this.bundleService.getBundleTypes().then((bundles) =>{
+      this.bundles = bundles;
+    });
   }
 
   public buyBundle(form: NgForm){
+    console.log(form.value.bundle);
     if(form.invalid){
       this.utilService.showToast('Please enter valid data.', 2000, 'danger');
       return;
     }
     let payload: any = {
-      amount: form.value.amount,
+      amount: (form.value.bundle.amount).replace(/,/g, ''),
       pin: form.value.pin,
-      bundle: 'Sweet Bundle'
+      bundle: form.value.bundle.name
     };
 
+    console.log(payload);
     this.utilService.presentLoading('Funding your wallet.')
       .then(() =>{
         console.log(payload);
@@ -42,13 +53,16 @@ export class BuyBundlePage implements OnInit {
           .then((resp) =>{
             this.loadingCtrl.dismiss();
             if(resp.code === 100){
-              this.utilService.showToast(`You have sucessfully purchased \u20A6${payload.amount} worth of bundle`, 3000, 'success');
+              this.utilService.showToast(`You have sucessfully purchased the ${payload.bundle} bundle`, 3000, 'success');
+              this.closeModal();
+              this.bundleForm.reset();
+            }
+            else if(resp.code === 418){
+              this.utilService.showToast(`${resp.message}`, 3000, 'danger');
             }
             else{
               this.utilService.showToast(`Your purchase could not be completed at this time`, 2000, 'danger');
             }
-            this.closeModal();
-            this.bundleForm.reset();
           })
           .catch((error: HttpErrorResponse) =>{
             if(error.status === 0){

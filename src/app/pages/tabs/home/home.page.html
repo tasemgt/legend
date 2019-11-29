@@ -8,8 +8,8 @@
       <ion-col size="12">
         <div class="circle-wrapper">
           <div class="circle">
-            <p>Dual play</p>
-            <p>Days Left <br/><span>59</span></p>
+            <p>{{balance?.bundle || "..."}}</p>
+            <p>Days Left <br/><span>{{balance?.duration || "..."}}</span></p>
           </div>
         </div>
       </ion-col>
@@ -29,7 +29,7 @@
         </div>
         <div>
           <ion-icon src="assets/imgs/balance.svg"></ion-icon>
-          <p>Balance <br/><span>&#x20a6; {{balance}}<span *ngIf="!balance">Loading...</span></span></p>
+          <p>Balance <br/><span>&#x20a6; {{balance?.balance}}<span *ngIf="!balance">Loading...</span></span></p>
         </div>
       </ion-col>
       <ion-col size="12">

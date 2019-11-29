@@ -40,7 +40,7 @@ export class BundleService{
   public buyBundle(payload: any): Promise<any>{
     return this.authService.getUser()
       .then(user => {
-        const headers = {Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json'};
+        const headers = {Authorization: `Bearer ${user.token}`, Accept: 'application/json', 'Content-Type': 'application/json'};
         return this.http.post(`${this.baseUrl}/buy-bundle`, payload, {headers} ).toPromise()
       })
       .then((resp:any) => {

@@ -18,7 +18,7 @@ import { Subscription } from 'rxjs';
 export class FundWalletPage implements OnInit, OnDestroy {
 
   @ViewChild('fundForm', null) fundWalletForm: NgForm;
-  public userPhone: string;
+  public email: string;
   public amount = "";
   public paymentType = "";
 
@@ -32,7 +32,7 @@ export class FundWalletPage implements OnInit, OnDestroy {
     private paymentService: PaymentService,
     private utilService: UtilService) {
 
-      this.userPhone = this.navParams.get('userPhone');
+      this.email = this.navParams.get('email');
       this.paymentType = this.navParams.get('paymentType');
   }
 
@@ -51,7 +51,7 @@ export class FundWalletPage implements OnInit, OnDestroy {
 
     this.utilService.presentLoading('Funding your wallet.')
       .then(() =>{
-        this.paymentService.makePayment(amount, this.paymentType)// Calls the payment service
+        this.paymentService.makePayment(amount, this.email, this.paymentType)// Calls the payment service
         this.responseSubscription = this.paymentService.getResponseSubject()
           .subscribe((response) =>{
             if(!response){

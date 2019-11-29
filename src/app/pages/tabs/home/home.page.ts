@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { UtilService } from 'src/app/services/util.service';
 import { ModalController } from '@ionic/angular';
 import { BuyBundlePage } from 'src/app/page/modals/buy-bundle/buy-bundle.page';
+import { Balance } from 'src/app/models/wallet';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,7 @@ export class HomePage implements OnInit, OnDestroy{
 
   user: User;
   greetMsg: string;
-  balance: string;
+  balance: Balance;
   balanceSubscription: Subscription;
 
   constructor(
@@ -48,10 +49,10 @@ export class HomePage implements OnInit, OnDestroy{
   }
 
   private getBalance(){
-    this.walletService.getBalance().then((resp) =>{
-      this.balance = resp.balance;
+    this.walletService.getBalance().then((balance) =>{
+      this.balance = balance;
     }).catch(err => {
-      this.balance = '0.00';
+      this.balance.balance = '0.00';
       console.log(err);
     });
   }

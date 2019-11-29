@@ -24,10 +24,10 @@ export class PaymentService implements OnDestroy {
     private authService: AuthService) { }
 
   // Function to Handle requests for pay url and response for fund wallet modal
-  public async makePayment(amount: string, paymentType: string){
+  public async makePayment(amount: string, email: string, type: string){
     const user = await this.authService.getUser();
     const headers = { Authorization: `Bearer ${user.token}`, Accept: 'application/json'};
-    this.http.post(`${this.baseUrl}/webpay`, {amount, paymentType}, {headers}).toPromise()
+    this.http.post(`${this.baseUrl}/web-pay`, {amount, email, type}, {headers}).toPromise()
       .then((resp) =>{
         console.log(resp);
       })
@@ -36,7 +36,7 @@ export class PaymentService implements OnDestroy {
         if(err.error.code === 100){
           console.log(err.error.url);
           const url = `${err.error.url}?phone=${user.phone}`;
-          this.openBrowser(url, paymentType)
+          this.openBrowser(url, type)
           .subscribe((event) => {
               this.responseSubject.next(this.paymentResponse);
           });

@@ -14,15 +14,17 @@
         <ion-col size="12" class="legend-input">
           <ion-item>
             <span>&#x20a6;</span>
-            <ion-input placeholder="Amount" type="text" name="amount" [(ngModel)]="amount"  required></ion-input>
+            <ion-label>Amount:</ion-label>
+            <ion-input  type="text" name="amount" [(ngModel)]="amount"  required></ion-input>
           </ion-item>
         </ion-col>
-        <ion-col size="12" class="legend-input">
+        <!-- <ion-col size="12" class="legend-input">
           <ion-item>
             <span><ion-icon name="keypad"></ion-icon></span>
-            <ion-input placeholder="Pin" maxlength="4" type="password" name="pin" ngModel></ion-input>
+            <ion-label>Amount</ion-label>
+            <ion-input maxlength="4" type="password" name="pin" ngModel></ion-input>
           </ion-item>
-        </ion-col>
+        </ion-col> -->
         <ion-col size="12" class="ion-text-center">
           <div class="btn-wrapper">
             <ion-button class="legend-btn ion-text-capitalize" color="primary" type="submit">Make Payment</ion-button>

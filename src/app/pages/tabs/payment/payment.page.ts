@@ -28,7 +28,7 @@ export class PaymentPage implements OnInit {
     private modalCtrl: ModalController,
     private authService: AuthService) {
 
-      this.paymentType = this.paymentMethods[0].name.toLocaleLowerCase(); // Initialize with first item on list
+      this.paymentType = this.paymentMethods[0].name.toLowerCase(); // Initialize with first item on list
     }
 
 
@@ -44,7 +44,7 @@ export class PaymentPage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: FundWalletPage,
       componentProps: {
-        'userPhone': this.user.phone,
+        'email': this.user.email,
         'paymentType': this.paymentType
       }
     });
