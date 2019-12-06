@@ -2,3 +2,51 @@ ion-grid{
     padding-right: 0px;
     padding-left: 0px;
 }
+
+.list-ios{
+    margin-bottom: 0px;
+}
+
+ion-segment-button{
+    --color-activated: var(--ion-color-primary-contrast);
+    --color: var(--ion-color-medium);
+    --color-checked: var(--ion-color-primary-contrast);
+    --indicator-color-checked: var(--ion-color-primary);
+    // --padding-end: 0px;
+    // --padding-start: 0px;
+
+    font-size: 0.8rem;
+    text-transform: capitalize;
+    width: 10%;
+}
+
+.sc-ion-segment-ios-h{
+    margin-bottom: 0.2rem;
+}
+
+ion-col{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+ion-list{
+    padding: 0px;
+}
+
+.log-content{
+    background-color: var(--ion-color-secondary);
+    padding: 0.2rem 1.2rem 0.5rem 1.2rem;
+
+    p{
+        font-size: 0.9rem;
+        margin: 5px;
+        span:last-child{
+            float: right;
+        }
+    }
+
+    &.faster{
+        // animation-delay: 200ms;
+        animation-duration: 300ms;
+    }
+}

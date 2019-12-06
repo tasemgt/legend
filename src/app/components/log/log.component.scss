@@ -1,0 +1,39 @@
+.item{
+    padding: 0.5rem 1.5rem;
+    height: 70px;
+    width: 100%;
+    background: var(--ion-color-secondary);
+    border-top: 1.5px solid var(--ion-color-tertiary);;
+}
+.text-area{
+    display: inline-block;
+    font-weight: bold;
+    margin-top: 0.4rem;
+    p{
+        margin: 0px;
+        font-size: small;
+    }
+}
+
+span.icon{
+    float: right;
+    margin-top: 0.5rem;
+    height: 35px;
+    width: 35px;
+    text-align: center;
+    background: var(--ion-color-tertiary);
+    border-radius: 50%;
+    border: 1.2px solid var(--ion-color-primary);
+  }
+
+  ion-icon{
+    font-size: 12px;
+
+    &.down-arrow{
+        margin-top: 0.7rem;
+    }
+
+    &.up-arrow{
+        margin-top: 0.6rem;
+    }
+  }

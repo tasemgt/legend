@@ -1,7 +1,10 @@
-<ion-item>
-  <ion-icon slot="end" name="arrow-forward" *ngIf="!log.open"></ion-icon>
-  <ion-icon slot="end" name="arrow-down" *ngIf="log.open"></ion-icon>
-  <ion-label>
-    {{log.id}}
-  </ion-label>
-</ion-item>
+<div class="item">
+  <div class="text-area">
+    <p>ID: {{log.id}}</p>
+    <p>Product: {{log.financial_type || log.product}}</p>
+  </div>
+  <span class="icon">
+    <ion-icon src="assets/imgs/arrow-down.svg" class="down-arrow"  *ngIf="!log.open"></ion-icon>
+    <ion-icon src="assets/imgs/arrow-up.svg" class="up-arrow" *ngIf="log.open"></ion-icon>
+  </span>
+</div>

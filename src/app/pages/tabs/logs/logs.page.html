@@ -5,14 +5,57 @@
           <p>Logs</p>
           <p></p>
         </ion-col>
-        <!-- <ion-col>
-          <ion-list *ngFor="let log of data let i = index;" class="accordion-list">
-            <log-view [log]="log" tappable (click)="toggleItem(i)"></log-view>
-            <div *ngIf="log.child && log.open">
-              TEST
+        <ion-col>
+          <!-- <ion-toolbar> -->
+            <ion-segment (ionChange)="segmentChanged($event)" value="payment">
+                <ion-segment-button value="usage">
+                  Usage Log
+                </ion-segment-button>
+                <ion-segment-button value="payment">
+                  Payment Records
+                </ion-segment-button>
+                <ion-segment-button value="financial">
+                  Financial <br/> Checkout List
+                </ion-segment-button>
+            </ion-segment>
+          <!-- </ion-toolbar> -->
+        <div [ngSwitch]="category">
+          <div *ngSwitchCase="'usage'">
+              <ion-list *ngFor="let log of data.usage let i = index;">
+                  <log-view [log]="log" tappable (click)="toggleItem('usage', i)"></log-view>
+                  <div *ngIf="log.child && log.open" class="log-content">
+                    <p><span>Pay Numer:</span><span>23000</span></p>
+                    <p><span>Pay Type:</span><span>Quickteler (01/06/19)</span></p>
+                    <p><span>Create Time:</span><span>2019-10-27 10:55:11</span></p>
+                    <p><span>Manage Name:</span><span>Api: Continuum SDP</span></p>
+                  </div>
+                </ion-list>
             </div>
-          </ion-list>
-        </ion-col> -->
+            <div *ngSwitchCase="'payment'">
+              <ion-list *ngFor="let log of data.records let i = index;">
+                  <log-view [log]="log" tappable (click)="toggleItem('records', i)"></log-view>
+                  <div *ngIf="log.child && log.open" class="log-content">
+                    <p><span>Pay Num:</span><span>23000</span></p>
+                    <p><span>Pay Type:</span><span>Quickteler (01/06/19)</span></p>
+                    <p><span>Create Time:</span><span>2019-10-27 10:55:11</span></p>
+                    <p><span>Manage Name:</span><span>Api: Continuum SDP</span></p>
+                  </div>
+                </ion-list>
+            </div>
+            <div *ngSwitchCase="'financial'">
+              <ion-list *ngFor="let log of data.financial let i = index;">
+                  <log-view [log]="log" tappable (click)="toggleItem('financial', i)"></log-view>
+                  <div *ngIf="log.child && log.open" class="log-content">
+                    <p><span>Money:</span><span>{{log.child[0].money}}</span></p>
+                    <p><span>Minutes:</span><span>{{log.child[0].minutes}}</span></p>
+                    <p><span>Sum Times:</span><span>{{log.child[0].sum_times}}</span></p>
+                    <p><span>Create Time:</span><span>{{log.child[0].create_time}}</span></p>
+                  </div>
+                </ion-list>
+            </div>
+        </div>
+          
+        </ion-col>
         </ion-row>
     </ion-grid>
 </ion-content>

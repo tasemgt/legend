@@ -5,8 +5,9 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Subscription } from 'rxjs';
 import { UtilService } from 'src/app/services/util.service';
 import { ModalController } from '@ionic/angular';
-import { BuyBundlePage } from 'src/app/page/modals/buy-bundle/buy-bundle.page';
+
 import { Balance } from 'src/app/models/wallet';
+import { BuyBundlePage } from '../../modals/buy-bundle/buy-bundle.page';
 
 @Component({
   selector: 'app-home',
@@ -31,7 +32,7 @@ export class HomePage implements OnInit, OnDestroy{
     this.balanceSubscription = this.walletService.balanceState.subscribe((balance) =>{
       this.getBalance();
     });
-
+    this.utilService.showToast('hi', 1000000000, 'success');
     this.greetMsg = this.utilService.greetMessage();
     this.getUser();
     this.getBalance();

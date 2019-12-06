@@ -27,7 +27,7 @@ export class PaymentService implements OnDestroy {
   public async makePayment(amount: string, email: string, type: string){
     const user = await this.authService.getUser();
     const headers = { Authorization: `Bearer ${user.token}`, Accept: 'application/json'};
-    this.http.post(`${this.baseUrl}/web-pay`, {amount, email, type}, {headers}).toPromise()
+    this.http.post(`${this.baseUrl}/webpay`, {amount, email, type}, {headers}).toPromise()
       .then((resp) =>{
         console.log(resp);
       })
@@ -35,7 +35,7 @@ export class PaymentService implements OnDestroy {
         console.log(err); // Ask why it is giving me response on error sha..
         if(err.error.code === 100){
           console.log(err.error.url);
-          const url = `${err.error.url}?phone=${user.phone}`;
+          const url = `${err.error.url}`;
           this.openBrowser(url, type)
           .subscribe((event) => {
               this.responseSubject.next(this.paymentResponse);
@@ -46,7 +46,7 @@ export class PaymentService implements OnDestroy {
 
   // Function to handle browser related stuff...
   private openBrowser(url: string, paymentType: string){
-    const browser = this.iab.create(url, '_blank', 'location=no');
+    const browser = this.iab.create(url, '_blank', 'location=no,zoom=no');
 
     // Listens for browser fully load and excutes scripts for completion url on Pay
     this.loadStopSub = browser.on('loadstop')
@@ -55,7 +55,12 @@ export class PaymentService implements OnDestroy {
         if(window.location.pathname.includes('/api/flutterwave/verify')){
           console.log("Exect script gave a true for this");
           document.getElementsByTagName('pre')[0].innerHTML
-        }else{
+        }
+        else if(window.location.pathname.includes('/api/flutterwave/failed')){
+          console.log("Exect script gave a true for this");
+          document.getElementsByTagName('pre')[0].innerHTML
+        }
+        else{
           console.log("Exect script gave a false for this");
         }
         `}).then((resp) =>{

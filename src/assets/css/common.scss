@@ -113,6 +113,11 @@ ion-grid.tabs-area{
     --background:#FFFFFF;
 }
 
+//Style for select box pop up on ios
+.alert-radio-label.sc-ion-alert-ios{
+    color: var(--ion-color-tertiary);
+}
+
 /** 
     Modals Styles
 **/

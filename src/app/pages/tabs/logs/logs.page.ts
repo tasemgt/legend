@@ -8,14 +8,20 @@ import { Data } from 'src/app/models/constants';
 })
 export class LogsPage {
 
-  data: any[] = Data.records;
+  public data: any = Data;
+  public category: string;
 
   constructor() {
-    this.data[0].open = true;
+    this.category = 'payment';
   }
 
-  toggleItem(index){
-    this.data[index].open = !this.data[index].open;
+  toggleItem(categoryName: string, index){
+    this.data[categoryName][index].open = !this.data[categoryName][index].open;
+  }
+
+  segmentChanged(event){
+    console.log(event.detail.value);
+    this.category = event.detail.value;
   }
 
 }

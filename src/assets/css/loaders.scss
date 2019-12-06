@@ -6,6 +6,11 @@
   .sc-ion-loading-md-h{
     --background: transparent;
   }
+
+  .loading-translucent.sc-ion-loading-ios-h .loading-wrapper.sc-ion-loading-ios{
+    backdrop-filter: unset;
+    background-color: transparent;
+  }
   
   .loading-wrapper.sc-ion-loading-md,
   .loading-wrapper.sc-ion-loading-ios{

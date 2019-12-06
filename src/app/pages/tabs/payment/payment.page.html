@@ -9,7 +9,7 @@
           <div class="payment-method" *ngFor="let paymentMethod of paymentMethods" (click)="onClickItem(paymentMethod)">
             <span>{{paymentMethod.name}}</span>
             <span>
-              <img *ngIf="paymentMethod.isActive" src="assets/imgs/check.svg">
+              <img *ngIf="paymentMethod.isActive" class="animated pulse" src="assets/imgs/check.svg">
             </span>
           </div>
         </ion-col>
