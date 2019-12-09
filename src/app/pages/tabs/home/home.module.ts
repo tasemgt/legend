@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 import { BuyBundlePage } from '../../modals/buy-bundle/buy-bundle.page';
+import { BundleTypesPage } from '../../modals/bundle-types/bundle-types.page';
 
 
 @NgModule({
@@ -14,7 +15,7 @@ import { BuyBundlePage } from '../../modals/buy-bundle/buy-bundle.page';
     FormsModule,
     RouterModule.forChild([{ path: '', component: HomePage }])
   ],
-  declarations: [HomePage, BuyBundlePage],
-  entryComponents: [BuyBundlePage]
+  declarations: [HomePage, BuyBundlePage, BundleTypesPage],
+  entryComponents: [BuyBundlePage, BundleTypesPage]
 })
 export class HomePageModule {}

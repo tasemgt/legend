@@ -3,6 +3,11 @@ export const Constants = {
     authUser: 'authUser'
 }
 
+export const BundleImage = {
+    TriplePlay : "assets/imgs/triple-play-icons.png",
+    DualPlay : "assets/imgs/dual-play-icons.png"
+  }
+
 export const Data = {
     records: [
         {

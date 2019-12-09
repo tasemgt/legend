@@ -5,6 +5,9 @@ import { UtilService } from 'src/app/services/util.service';
 import { BundleService } from 'src/app/services/bundle.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
+import { BundleTypesPage } from '../bundle-types/bundle-types.page';
+import { Bundle } from 'src/app/models/bundle';
+
 @Component({
   selector: 'app-buy-bundle',
   templateUrl: './buy-bundle.page.html',
@@ -13,7 +16,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class BuyBundlePage implements OnInit {
 
   @ViewChild('bundleForm', null) bundleForm: NgForm;
-  public bundles: {name: string, amount: string, description:{duration:string, package:string}}[];
+  public bundles: {name: string, amount: string, description: { duration: string, package: string}}[];
+
+  public chosenBundle: Bundle;
 
   constructor(
     private modalCtrl: ModalController, 
@@ -23,14 +28,6 @@ export class BuyBundlePage implements OnInit {
 
   ngOnInit() {
     this.bundleForm.reset();
-    this.getBundleTypes();
-  }
-
-
-  private getBundleTypes(){
-    this.bundleService.getBundleTypes().then((bundles) =>{
-      this.bundles = bundles;
-    });
   }
 
   public buyBundle(form: NgForm){
@@ -39,10 +36,14 @@ export class BuyBundlePage implements OnInit {
       this.utilService.showToast('Please enter valid data.', 2000, 'danger');
       return;
     }
-    let payload: any = {
-      amount: (form.value.bundle.amount).replace(/,/g, ''),
+    if(!this.chosenBundle){
+      this.utilService.showToast('Please select a bundle first', 2000, 'danger');
+      return;
+    }
+    const payload: any = {
+      amount: (this.chosenBundle.amount).replace(/,/g, ''),
       pin: form.value.pin,
-      bundle: form.value.bundle.name
+      bundle: this.chosenBundle.name
     };
 
     console.log(payload);
@@ -80,6 +81,16 @@ export class BuyBundlePage implements OnInit {
             } 
           });
       })
+  }
+
+  public async openBundleTypesModal(){
+    const modal = await this.modalCtrl.create({
+      component: BundleTypesPage,
+    });
+    await modal.present();
+    const {data} = await modal.onDidDismiss();
+    
+    this.chosenBundle = data.bundle;
   }
 
   public closeModal(){

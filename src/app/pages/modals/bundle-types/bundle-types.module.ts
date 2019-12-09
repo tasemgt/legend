@@ -12,6 +12,7 @@ import { BundleTypesPage } from './bundle-types.page';
     FormsModule,
     IonicModule
   ],
-  declarations: [BundleTypesPage]
+  declarations: [BundleTypesPage],
+  exports: [BundleTypesPage]
 })
 export class BundleTypesPageModule {}

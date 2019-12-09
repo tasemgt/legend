@@ -12,8 +12,9 @@
     <form class="auth-form" (ngSubmit)="buyBundle(bundleForm)" #bundleForm="ngForm">
       <ion-row>
         <ion-col size="12" class="legend-input">
-          <ion-button class="legend-btn legend-btn-inverse ion-text-capitalize"  type="button">
-            <span class="bundle-type-text">Bundle Type:</span>
+          <ion-button class="legend-btn legend-btn-inverse ion-text-capitalize" (click)="openBundleTypesModal()"  type="button">
+            <span class="bundle-type">Select Bundle Type:</span>
+            <span class="bundle-type-text">{{chosenBundle?.name | uppercase}}</span>
           </ion-button>
           <!-- <ion-item>
             <span><ion-icon name="desktop"></ion-icon></span>

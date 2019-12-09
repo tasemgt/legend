@@ -4,16 +4,14 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { BuyBundlePageRoutingModule } from './buy-bundle-routing.module';
-
 import { BuyBundlePage } from './buy-bundle.page';
+import { BundleTypesPage } from '../bundle-types/bundle-types.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    IonicModule,
-    BuyBundlePageRoutingModule
+    IonicModule
   ],
   declarations: [BuyBundlePage]
 })
