@@ -19,9 +19,9 @@ export class PaymentPage implements OnInit {
 
 
   public paymentMethods: PaymentMethod[] = [
-    { name: 'Flutterwave', isActive: true, value: 1},
-    { name: 'Paystack', isActive: false, value: 2},
-    { name: 'NetPlus', isActive: false, value: 3}
+    { name: 'LegendPay', isActive: true, value: 1}
+    // { name: 'Paystack', isActive: false, value: 2},
+    // { name: 'NetPlus', isActive: false, value: 3}
   ];
 
   constructor(

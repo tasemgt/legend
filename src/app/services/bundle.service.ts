@@ -6,12 +6,15 @@ import { User } from '../models/user';
 import { WalletService } from './wallet.service';
 import { BehaviorSubject } from 'rxjs';
 
+import { Storage } from '@ionic/storage';
+
 @Injectable({
   providedIn: 'root'
 })
 export class BundleService{
 
   constructor(
+    private storage: Storage,
     private http: HttpClient, 
     private authService: AuthService,
     private walletService: WalletService) { 
@@ -50,6 +53,14 @@ export class BundleService{
         return Promise.resolve(resp);
       })
       .catch(err => console.log(err) );
+  }
+
+  public setBundleBalanceToStorage(balance:any){
+    this.storage.set('balance', balance);
+  }
+
+  public getBundleBalanceFromStorage(){
+    return this.storage.get('balance');
   }
 
 }

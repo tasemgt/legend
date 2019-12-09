@@ -2,16 +2,16 @@ export interface Wallet {
 }
 
 export interface FundWalletObject{
-    ref: string,
-    amount: number,
-    phone: string,
-    pin: string
+    ref: string;
+    amount: number;
+    phone: string;
+    pin: string;
 }
 
-export interface Balance{
-    code: number,
-    balance: string,
-    bundle: string,
-    expiry: string,
-    duration: number
+export class Balance{
+    code: number;
+    balance: string;
+    bundle: string;
+    expiry: string;
+;    duration: number;
 }

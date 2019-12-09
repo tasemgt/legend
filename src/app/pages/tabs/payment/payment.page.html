@@ -9,10 +9,18 @@
           <div class="payment-method" *ngFor="let paymentMethod of paymentMethods" (click)="onClickItem(paymentMethod)">
             <span>{{paymentMethod.name}}</span>
             <span>
-              <img *ngIf="paymentMethod.isActive" class="animated pulse" src="assets/imgs/check.svg">
+              <img class="animated pulse" src="assets/imgs/check.svg">
             </span>
           </div>
         </ion-col>
+        <!-- <ion-col size="12">
+          <div class="payment-method" *ngFor="let paymentMethod of paymentMethods" (click)="onClickItem(paymentMethod)">
+            <span>{{paymentMethod.name}}</span>
+            <span>
+              <img *ngIf="paymentMethod.isActive" class="animated pulse" src="assets/imgs/check.svg">
+            </span>
+          </div>
+        </ion-col> -->
         <ion-col size="12">
           <div class="btn-wrapper">
             <ion-button class="legend-btn ion-text-capitalize" type="button" (click)="openFundWalletModal()">Pay Now</ion-button>

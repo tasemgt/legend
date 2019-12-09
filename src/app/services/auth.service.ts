@@ -86,7 +86,7 @@ export class AuthService {
   }
 
   public logout() {
-    return this.storage.remove(this.authUser).then(() => {
+    return this.storage.clear().then(() => {
       this.authState.next(false);
     });
   }
@@ -102,5 +102,9 @@ export class AuthService {
 
   public isAuthenticated() {
     return this.authState.value;
+  }
+
+  public getAuthStateSubject(){
+    return this.authState;
   }
 }

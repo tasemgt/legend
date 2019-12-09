@@ -52,11 +52,11 @@ export class PaymentService implements OnDestroy {
     this.loadStopSub = browser.on('loadstop')
       .subscribe((event: InAppBrowserEvent) => {
         browser.executeScript({code:`
-        if(window.location.pathname.includes('/api/flutterwave/verify')){
+        if(window.location.pathname.includes('/api/legendpay/verify')){
           console.log("Exect script gave a true for this");
           document.getElementsByTagName('pre')[0].innerHTML
         }
-        else if(window.location.pathname.includes('/api/flutterwave/failed')){
+        else if(window.location.pathname.includes('/api/legendpay/failed')){
           console.log("Exect script gave a true for this");
           document.getElementsByTagName('pre')[0].innerHTML
         }

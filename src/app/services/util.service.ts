@@ -82,6 +82,11 @@ export class UtilService {
       return 'Good morning';
   }
 
+  public getDateDifference(endDate: Date, startDate: Date): number{
+    const days = (endDate.getTime() - startDate.getTime()) / 86400000;
+    return Math.floor(days);
+  }
+
   public transformPhone(phone: string){
     let newPhone = '';
     newPhone = `234${phone.substring(1)}`;

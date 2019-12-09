@@ -13,7 +13,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class BuyBundlePage implements OnInit {
 
   @ViewChild('bundleForm', null) bundleForm: NgForm;
-  public bundles: {name: string, amount: string, discription:{duration:string, package:string}}[];
+  public bundles: {name: string, amount: string, description:{duration:string, package:string}}[];
 
   constructor(
     private modalCtrl: ModalController, 

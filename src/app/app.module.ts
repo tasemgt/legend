@@ -8,6 +8,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { HTTP } from '@ionic-native/http/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { Network } from '@ionic-native/network/ngx';
 
 import { MobileAccessibility } from '@ionic-native/mobile-accessibility/ngx';
 
@@ -30,6 +31,7 @@ import { AppComponent } from './app.component';
     MobileAccessibility,
     HTTP,
     InAppBrowser,
+    Network,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
