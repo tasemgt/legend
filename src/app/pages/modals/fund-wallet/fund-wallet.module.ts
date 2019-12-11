@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { FundWalletPage } from './fund-wallet.page';
 
 @NgModule({
   imports: [
@@ -12,6 +11,6 @@ import { FundWalletPage } from './fund-wallet.page';
     FormsModule,
     IonicModule
   ],
-  declarations: [FundWalletPage]
+  declarations: []
 })
 export class FundWalletPageModule {}

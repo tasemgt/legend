@@ -37,7 +37,7 @@ export class AppComponent implements  OnDestroy, AfterViewInit{
       this.mobileAccessibility.usePreferredTextZoom(false);
 
       // Handles status bar display 
-      if (this.platform.is('android')) {
+      if (this.platform.is('android') || this.platform.is('ios')) {
         this.statusBar.overlaysWebView(false);
         this.statusBar.backgroundColorByHexString('#000000');
       }

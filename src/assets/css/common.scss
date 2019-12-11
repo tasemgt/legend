@@ -1,8 +1,14 @@
 // Common global styles for whole app
 
+
+//To prevent default scrolling
+.no-scroll .scroll-content {
+    overflow: hidden;
+  }
+
 //Grid style for login and signup
 ion-grid.auth-body{
-    margin-top: 40%;
+    margin-top: 35%;
     --ion-grid-padding: 20px;
 }
 
@@ -12,7 +18,7 @@ ion-grid.auth-body{
 **/
 
 ion-col{
-    margin: 10px auto;
+    margin: 1.2rem auto;
 
     &.logo-area{
         img { width: 25%; }

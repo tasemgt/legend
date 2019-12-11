@@ -4,14 +4,12 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { BundleDetailsPage } from './bundle-details.page';
-
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule
   ],
-  declarations: [BundleDetailsPage]
+  declarations: []
 })
 export class BundleDetailsPageModule {}
