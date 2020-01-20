@@ -1,12 +1,13 @@
 import { Component, OnDestroy, AfterViewInit } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, ModalController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Subscription } from 'rxjs';
 import { MobileAccessibility } from '@ionic-native/mobile-accessibility/ngx';
 import { AuthService } from './services/auth.service';
 import { Router } from '@angular/router';
+import { AppMinimize } from '@ionic-native/app-minimize/ngx';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +21,9 @@ export class AppComponent implements  OnDestroy, AfterViewInit{
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
+    private modalCtrl: ModalController,
     private mobileAccessibility: MobileAccessibility,
+    private appMinimize: AppMinimize,
     private statusBar: StatusBar,
     private router: Router,
     private authService: AuthService
@@ -57,8 +60,17 @@ export class AppComponent implements  OnDestroy, AfterViewInit{
 
   // Handles back button to close app
   ngAfterViewInit() {
-    this.backButtonSubscription = this.platform.backButton.subscribe(() => {
-      navigator['app'].exitApp();
+    this.backButtonSubscription = this.platform.backButton.subscribe(async () => {
+      console.log("Pressed...");
+      const isModalOpened = await this.modalCtrl.getTop();
+      const url = this.router.url.toString();
+      if((url === '/tabs/home' || url === '/tabs/payment' || url === '/tabs/profile') && isModalOpened){
+        this.modalCtrl.dismiss();
+      }
+      else{
+        this.appMinimize.minimize();
+        // navigator['app'].exitApp();
+      }
     });
   }
 

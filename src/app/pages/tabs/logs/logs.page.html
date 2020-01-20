@@ -1,4 +1,4 @@
-<ion-content class="ion-no-padding">
+<ion-content class="ion-no-padding" scrollY="false">
     <ion-grid class="tabs-area">
       <ion-row>
         <ion-col size="12" class="name-heading ion-text-center">
@@ -21,40 +21,57 @@
           <!-- </ion-toolbar> -->
         <div [ngSwitch]="category">
           <div *ngSwitchCase="'usage'">
-              <ion-list *ngFor="let log of data.usage let i = index;">
-                  <log-view [log]="log" tappable (click)="toggleItem('usage', i)"></log-view>
-                  <div *ngIf="log.child && log.open" class="log-content">
-                    <p><span>Pay Numer:</span><span>23000</span></p>
-                    <p><span>Pay Type:</span><span>Quickteler (01/06/19)</span></p>
-                    <p><span>Create Time:</span><span>2019-10-27 10:55:11</span></p>
-                    <p><span>Manage Name:</span><span>Api: Continuum SDP</span></p>
-                  </div>
-                </ion-list>
-            </div>
-            <div *ngSwitchCase="'payment'">
-              <ion-list *ngFor="let log of data.records let i = index;">
-                  <log-view [log]="log" tappable (click)="toggleItem('records', i)"></log-view>
-                  <div *ngIf="log.child && log.open" class="log-content">
-                    <p><span>Pay Num:</span><span>23000</span></p>
-                    <p><span>Pay Type:</span><span>Quickteler (01/06/19)</span></p>
-                    <p><span>Create Time:</span><span>2019-10-27 10:55:11</span></p>
-                    <p><span>Manage Name:</span><span>Api: Continuum SDP</span></p>
-                  </div>
-                </ion-list>
-            </div>
-            <div *ngSwitchCase="'financial'">
-              <ion-list *ngFor="let log of data.financial let i = index;">
-                  <log-view [log]="log" tappable (click)="toggleItem('financial', i)"></log-view>
-                  <div *ngIf="log.child && log.open" class="log-content">
-                    <p><span>Money:</span><span>{{log.child[0].money}}</span></p>
-                    <p><span>Minutes:</span><span>{{log.child[0].minutes}}</span></p>
-                    <p><span>Sum Times:</span><span>{{log.child[0].sum_times}}</span></p>
-                    <p><span>Create Time:</span><span>{{log.child[0].create_time}}</span></p>
-                  </div>
-                </ion-list>
-            </div>
-        </div>
-          
+            <ion-content id="scroll-content">
+              <ion-list *ngFor="let log of usageLogs let i = index;">
+                <log-view [log]="log" [logCategory]="'usage'" tappable (click)="toggleItem('usage', i)"></log-view> 
+                <div *ngIf="log.total_bytes && log.open" class="log-content">
+                  <p><span>Detail ID:</span><span>{{ log.detail_id}}</span></p>
+                  <p><span>Total Bytes:</span><span>{{ log.total_bytes}}</span></p>
+                  <p><span>Time Long:</span><span>{{ log.time_long }}</span></p>
+                  <p><span>User Charge:</span><span>{{ log.user_charge}}</span></p>
+                </div>
+              </ion-list>
+              <div class="spinner-wrapper" *ngIf="!usageLogs">
+                <ion-spinner name="dots"></ion-spinner>
+              </div>
+              <p *ngIf="usageLogs && usageLogs?.length <= 0" class="no-data-message">You have no usage logs history.</p>
+            </ion-content>
+          </div>
+          <div *ngSwitchCase="'payment'">
+            <ion-content id="scroll-content" scrollX="true">
+              <ion-list *ngFor="let log of records let i = index;">
+                <log-view [log]="log" [logCategory]="'records'" tappable (click)="toggleItem('records', i)"></log-view> 
+                <div *ngIf="log.amount && log.open" class="log-content">
+                  <p><span>Pay Amount:</span><span>&#x20a6; {{log.amount}}</span></p>
+                  <p><span>Pay Type:</span><span>LegendPay</span></p>
+                  <p><span>Pay Date:</span><span>{{log.dateraw | date}}</span></p>
+                  <p><span>Pay Time:</span><span>{{ log.date }}</span></p>
+                </div>
+              </ion-list>
+              <div class="spinner-wrapper" *ngIf="!records">
+                <ion-spinner name="dots"></ion-spinner>
+              </div>
+              <p *ngIf="records && records?.length <= 0" class="no-data-message">You have no payment records history.</p>
+            </ion-content>
+          </div>
+          <div *ngSwitchCase="'financial'">
+            <ion-content id="scroll-content">
+              <ion-list *ngFor="let log of financialLogs let i = index;">
+                <log-view [log]="log" [logCategory]="'financial'" tappable (click)="toggleItem('financial', i)"></log-view>
+                <div *ngIf="log.username && log.open" class="log-content">
+                  <p><span>ID:</span><span>{{log.id}}</span></p>
+                  <p><span>Username:</span><span>{{log.username}}</span></p>
+                  <p><span>Minutes:</span><span>{{log.minutes}}</span></p>
+                  <p><span>Create Time:</span><span>{{log.date}}</span></p>
+                </div>
+              </ion-list>
+              <div class="spinner-wrapper" *ngIf="!financialLogs">
+                <ion-spinner name="dots"></ion-spinner>
+              </div>
+              <p *ngIf="financialLogs && financialLogs?.length <= 0" class="no-data-message">You have no financial logs history.</p>
+            </ion-content>
+          </div>
+        </div>   
         </ion-col>
         </ion-row>
     </ion-grid>

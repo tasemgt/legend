@@ -6,22 +6,24 @@
         <p></p>
       </ion-col>
       <ion-col size="12">
-        <div class="circle-wrapper">
-          <div class="circle animated pulse">
-            <p>{{balance?.bundle || "..."}}</p>
-            <p>Days Left <br/><span>{{daysLeft || "..."}}</span></p>
-          </div>
+        <div class="circle-wrapper" [ngStyle]="{'transform': rotateCircle ? 'rotate(' + (rotateCirclePos+12) + 'deg)' : 'rotate('+ rotateCirclePos +'deg)' }">
+          <div class="small-circle" ></div>
+          <div class="swoosh"></div>
+        </div>
+        <div class="circle animated pulse">
+          <p>{{balance?.bundle.substring(0,38) || "......"}}</p>
+          <p>Days Left <br/><span #numberFlip>{{daysLeft || "..."}}</span></p>
         </div>
       </ion-col>
       <ion-col size="12" class="ion-text-center">
         <div class="btn-wrapper">
-          <ion-button class="legend-btn ion-text-capitalize" type="button" (click)="openBuyBundleModal()">Renewals</ion-button>
+          <ion-button class="legend-btn ion-text-capitalize" type="button" (click)="openBundleDetailsModal()">Renewals</ion-button>
         </div>
       </ion-col>
       <ion-col size="12" class=" ion-text-center summary-blocks">
         <div>
           <ion-icon src="assets/imgs/profile.svg"></ion-icon>
-          <p>Username <br/><span>{{user?.firstName}}</span></p>
+          <p>Username <br/><span>{{profile?.username || "..."}}</span></p>
         </div>
         <div>
           <ion-icon src="assets/imgs/status.svg"></ion-icon>
@@ -29,14 +31,14 @@
         </div>
         <div>
           <ion-icon src="assets/imgs/balance.svg"></ion-icon>
-          <p>Balance <br/><span>&#x20a6; {{balance?.balance}}<span *ngIf="!balance">Loading...</span></span></p>
+          <p>Balance <br/><span *ngIf="balance">&#x20a6; {{balance?.balance}}</span><span *ngIf="!balance">......</span></p>
         </div>
       </ion-col>
-      <!-- <ion-col size="12">
+      <ion-col size="12">
         <div class="btn-wrapper">
-          <ion-button class="legend-btn legend-btn-inverse ion-text-capitalize"  type="button">Manage Devices</ion-button>
+          <ion-button class="legend-btn legend-btn-inverse ion-text-capitalize" (click)="openManageDevices()" type="button">Manage Devices</ion-button>
         </div>
-      </ion-col> -->
+      </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>

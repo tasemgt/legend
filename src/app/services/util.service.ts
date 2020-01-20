@@ -66,6 +66,16 @@ export class UtilService {
     return re.test(String(email).toLowerCase());
   }
 
+  public validatePhone(phone): boolean{
+    if(Number(phone) === NaN){
+      return false;
+    }
+    if(phone.length < 13){
+      return false;
+    }
+    return true;
+  }
+
   public greetMessage(currentTime = new Date()): string{
       const currentHour = currentTime.getHours();
       const splitAfternoon = 12; // 24hr time to split the afternoon
@@ -83,8 +93,12 @@ export class UtilService {
   }
 
   public getDateDifference(endDate: Date, startDate: Date): number{
-    const days = (endDate.getTime() - startDate.getTime()) / 86400000;
-    return Math.floor(days);
+    let days = (endDate.getTime() - startDate.getTime()) / 86400000;
+    days = Math.floor(days);
+    if(days <= 0 ){
+      return 0;
+    }
+    return days;
   }
 
   public transformPhone(phone: string){

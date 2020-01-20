@@ -26,6 +26,10 @@ export class RegisterPage implements OnInit {
       this.loginForm.resetForm();
     }
 
+    ionViewWillLeave(){
+      this.loginForm.resetForm();
+    }
+
   register(form: NgForm){
     if(form.invalid){
       this.utilService.showToast('Form cannot contain empty fields.', 2000, 'danger');
@@ -40,15 +44,14 @@ export class RegisterPage implements OnInit {
       this.utilService.showToast('Passwords do not match', 2000, 'danger');
       return;
     }
-    console.log(form.value.email, form.value.password, form.value.password_confirmation, this.utilService.transformPhone(form.value.phone), form.value.pin, form.value.bvn, form.value.firstName, form.value.lastName);
+    console.log(form.value.email, form.value.password, form.value.password_confirmation, this.utilService.transformPhone(form.value.phone), form.value.username, form.value.firstName, form.value.lastName);
 
     const userAccount: UserCred = {
       firstName: form.value.firstName,
       lastName: form.value.lastName,
       email: form.value.email,
       phone: this.utilService.transformPhone(form.value.phone),
-      pin: form.value.pin,
-      bvn: form.value.bvn,
+      username: form.value.username,
       password: form.value.password,
       password_confirmation: form.value.password_confirmation
     }
@@ -61,7 +64,7 @@ export class RegisterPage implements OnInit {
         this.router.navigateByUrl('/login');
       })
       .catch((error:HttpErrorResponse) => {
-        console.log(error.status);
+        console.log(error);
         if(error.status === 0){
           setTimeout(()=>{
             this.loadingCtrl.dismiss();
@@ -77,7 +80,8 @@ export class RegisterPage implements OnInit {
               break;
             case(422):
               this.loadingCtrl.dismiss();
-              this.utilService.showToast('Check that you inputed correct information', 3000, 'danger');
+              let m = error.error.errors.username[0] || 'Check that you inputed correct information';
+              this.utilService.showToast(m, 3000, 'danger');
               break;
             case(500):
               this.loadingCtrl.dismiss();

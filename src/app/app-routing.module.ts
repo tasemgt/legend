@@ -6,7 +6,8 @@ const routes: Routes = [
   { path: '', redirectTo: 'tabs', pathMatch: 'full'},
   { path: 'login', loadChildren: './pages/auth/login/login.module#LoginPageModule' },
   { path: 'register', loadChildren: './pages/auth/register/register.module#RegisterPageModule' },
-  { path: 'tabs', canActivate: [AuthenGuard], loadChildren: './pages/tabs/tabs.module#TabsPageModule' }
+  { path: 'tabs', canActivate: [AuthenGuard], loadChildren: './pages/tabs/tabs.module#TabsPageModule' },
+  // { path: 'details', loadChildren: './pages/modals/bundle-details/bundle-details.module#BundleDetailsPageModule' }
 ];
 
 @NgModule({

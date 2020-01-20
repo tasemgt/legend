@@ -50,3 +50,53 @@ ion-list{
         animation-duration: 300ms;
     }
 }
+
+
+#scroll-content{
+    z-index: 10000;
+    height: 40rem;
+}
+
+.spinner-wrapper{
+    position: absolute;
+    top: 30%;
+    left: 45%;
+
+    ion-spinner{
+        height: 40px;
+        width: 40px;
+    }
+}
+
+.no-data-message{
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    font-size: 0.8rem;
+    top: 30%;
+}
+
+// div.scrollable{
+//     overflow: scroll;
+// }
+
+// div[scrollx=true], div[scrolly=true] {
+//     position: relative;
+//     overflow: hidden;
+  
+//     ::-webkit-scrollbar {
+//       display: none;
+//     }
+//   }
+  
+//   div[scrollx=true] {
+//     overflow-x: auto;
+//   }
+  
+//   div[scrolly=true] {
+//     overflow-y: auto;
+//   }
+
+//   #myFixZone {
+//     height: calc(100vh - 132px)
+// }

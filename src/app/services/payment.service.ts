@@ -24,10 +24,10 @@ export class PaymentService implements OnDestroy {
     private authService: AuthService) { }
 
   // Function to Handle requests for pay url and response for fund wallet modal
-  public async makePayment(amount: string, email: string, type: string){
+  public async makePayment(amount: string){
     const user = await this.authService.getUser();
     const headers = { Authorization: `Bearer ${user.token}`, Accept: 'application/json'};
-    this.http.post(`${this.baseUrl}/webpay`, {amount, email, type}, {headers}).toPromise()
+    this.http.post(`${this.baseUrl}/webpay`, {amount}, {headers}).toPromise()
       .then((resp) =>{
         console.log(resp);
       })
@@ -36,7 +36,7 @@ export class PaymentService implements OnDestroy {
         if(err.error.code === 100){
           console.log(err.error.url);
           const url = `${err.error.url}`;
-          this.openBrowser(url, type)
+          this.openBrowser(url)
           .subscribe((event) => {
               this.responseSubject.next(this.paymentResponse);
           });
@@ -45,8 +45,10 @@ export class PaymentService implements OnDestroy {
   }
 
   // Function to handle browser related stuff...
-  private openBrowser(url: string, paymentType: string){
-    const browser = this.iab.create(url, '_blank', 'location=no,zoom=no');
+  private openBrowser(url: string){
+    const browser = this.iab.create(url, '_blank', `
+    location=no,zoom=no,useWideViewPort=no,closebuttoncolor=#ffffff,
+    hidenavigationbuttons=yes,hideurlbar=yes,toolbarcolor=#2C3038`);
 
     // Listens for browser fully load and excutes scripts for completion url on Pay
     this.loadStopSub = browser.on('loadstop')
@@ -63,7 +65,7 @@ export class PaymentService implements OnDestroy {
         else{
           console.log("Exect script gave a false for this");
         }
-        `}).then((resp) =>{
+        `}).then((resp) =>{ // Traps the innerHTML value of the Pre tag. This contains the json response
           if(resp[0]){
             this.paymentResponse = resp[0];
             browser.close();

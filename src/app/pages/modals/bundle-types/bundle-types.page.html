@@ -1,28 +1,28 @@
 <ion-content class="legend-modal">
     <div class="back-arrow-wrapper">
-      <ion-icon name="arrow-back" (click)="closeModal()"></ion-icon>
+      <ion-icon name="arrow-back" color="primary" (click)="closeModal()"></ion-icon>
     </div>
   <ion-grid>
     <ion-row>
       <ion-col size="12" class="name-heading ion-text-center">
-        <p>Select a Bundle Type</p>
+        <p>Select a Product Bundle</p>
         <p></p>
       </ion-col>
-      <ion-col size="12" class="no-margin" *ngFor="let bundle of bundles">
+      <ion-col size="12" class="no-margin" *ngFor="let bundle of bundleList?.data">
         <ion-card (click)="closeModal(bundle)">
-          <img [src]="getBundleImagePath(bundle.name)" />
+          <!-- <img [src]="getBundleImagePath(bundle)" /> -->
           <ion-card-header>
-            <ion-card-title color="primary">{{bundle?.name}}</ion-card-title>
-            <ion-card-subtitle color="tertiary-tint">&#x20a6; {{bundle?.amount}}</ion-card-subtitle>
+            <ion-card-title color="primary">{{bundle?.products_name}}</ion-card-title>
+            <ion-card-subtitle color="tertiary-tint">&#x20a6; {{bundle?.checkout_amount}}</ion-card-subtitle>
           </ion-card-header>
           <ion-card-content>
-            {{bundle?.description.duration}}
+            {{bundle?.checkout_cycle}}
           </ion-card-content>
         </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>
-  <div class="spinner-wrapper" *ngIf="!bundles">
+  <div class="spinner-wrapper" *ngIf="!bundleList">
     <ion-spinner name="dots"></ion-spinner>
   </div>
 </ion-content>

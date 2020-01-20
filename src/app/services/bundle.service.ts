@@ -27,10 +27,15 @@ export class BundleService{
 
 
   public getBundleTypes(): Promise<any>{
-    return this.http.get(`${this.baseUrl}/bundle-list`).toPromise()
-      .then((bundles) =>{
-        return Promise.resolve(bundles);
+    return this.authService.getUser()
+      .then(user => {
+        const headers = {Authorization: `Bearer ${user.token}`, Accept: 'application/json', 'Content-Type': 'application/json'};
+        return this.http.get(`${this.baseUrl}/bundle-list`, {headers}).toPromise();
       })
+      .then((response: any) =>{
+        console.log(response);
+        return Promise.resolve(response);
+      });
   }
 
   public getBundle(){
@@ -40,11 +45,26 @@ export class BundleService{
       })
   }
 
-  public buyBundle(payload: any): Promise<any>{
+  public renewBundle(payload: any): Promise<any>{
     return this.authService.getUser()
       .then(user => {
         const headers = {Authorization: `Bearer ${user.token}`, Accept: 'application/json', 'Content-Type': 'application/json'};
-        return this.http.post(`${this.baseUrl}/buy-bundle`, payload, {headers} ).toPromise()
+        return this.http.post(`${this.baseUrl}/renewals`, payload, {headers} ).toPromise()
+      })
+      .then((resp:any) => {
+        if (resp.code === 100){
+          this.balanceState.next(true); 
+        }
+        return Promise.resolve(resp);
+      })
+      .catch(err => console.log(err) );
+  }
+
+  public buyBundle(renew: number, pid: number): Promise<any>{
+    return this.authService.getUser()
+      .then(user => {
+        const headers = {Authorization: `Bearer ${user.token}`, Accept: 'application/json', 'Content-Type': 'application/json'};
+        return this.http.get(`${this.baseUrl}/subscription/subscribe/${renew}/${pid}`, {headers} ).toPromise()
       })
       .then((resp:any) => {
         if (resp.code === 100){

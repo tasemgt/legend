@@ -8,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class LogComponent implements OnInit {
 
   @Input() log: any;
+  @Input() logCategory: string;
 
   constructor() { }
 

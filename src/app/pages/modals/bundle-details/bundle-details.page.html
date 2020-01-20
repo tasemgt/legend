@@ -1,9 +1,39 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>bundle-details</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="ion-padding legend-modal">
+  <div>
+    <ion-icon name="arrow-back" color="primary" (click)="closeModal()"></ion-icon>
+  </div>
 
-<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" class="name-heading ion-text-center">
+        <p>Product Information</p>
+        <p></p>
+      </ion-col>
+      <ion-col size="12">
+        <div class="product-details">
+          <p>
+            <span>Product Name</span><br>
+            <span>{{currentBundle.bundle || '---'}}</span>
+          </p>
+          <!-- <p>
+            <ion-button class="legend-btn legend-btn-inverse-small ion-text-capitalize" type="button">Switch Plan</ion-button>
+          </p> -->
+          <p>
+            <span>Product Balance</span><br>
+            <span>&#x20a6; {{currentBundle.prod_balance || '---'}}</span>
+          </p>
+        </div>
+      </ion-col>
+
+      <ion-col size="12" class="ion-text-center">
+        <div class="btn-wrapper" *ngIf="currentBundle?.bundle_id !== 22">
+          <ion-button class="legend-btn ion-text-capitalize" color="primary" type="button" (click)="openRenewBundleModal()">Renew Bundle</ion-button>
+        </div>
+        <p><a [routerLink]="" (click)="openBuyBundleModal()" *ngIf="currentBundle.bundle_id !== 22">Switch Plans</a></p>
+        <p><a [routerLink]="" (click)="openBuyBundleModal()" *ngIf="currentBundle.bundle_id === 22">New Subscription</a></p>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
 
 </ion-content>

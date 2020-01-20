@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProfilePage } from './profile.page';
+import { EditProfilePage } from '../../modals/edit-profile/edit-profile.page';
 
 @NgModule({
   imports: [
@@ -12,6 +13,7 @@ import { ProfilePage } from './profile.page';
     FormsModule,
     RouterModule.forChild([{ path: '', component: ProfilePage }])
   ],
-  declarations: [ProfilePage]
+  declarations: [ProfilePage, EditProfilePage],
+  entryComponents: [EditProfilePage]
 })
 export class ProfilePageModule {}

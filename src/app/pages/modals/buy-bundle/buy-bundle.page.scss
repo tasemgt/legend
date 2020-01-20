@@ -7,16 +7,31 @@
     }
 }
 
-.legend-btn-inverse{
+.legend-btn-inverse-small{
+    font-weight: bolder;
+    width: 40%;
+    height: 40px;
+    --background: transparent;
+    --color: var(--ion-color-primary);
+    --background-activated: transparent;
+    --background-focused: transparent;
+    --background-hover: transparent;
+    --border-color: var(--ion-color-primary);
+    --border-style: solid;
+    --border-width: 1px;
+}
+
+.legend-btn-inverse.select-btn{
     text-align: left;
     color: #FFF;
 }
 
 .bundle-type{
-    margin-left: -45%;
+    margin-left: -60%;
 }
 
 .bundle-type-text{
     position: absolute;
     right: 1rem;
+    font-size: x-small;
 }

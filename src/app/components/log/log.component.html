@@ -1,7 +1,15 @@
 <div class="item">
-  <div class="text-area">
-    <p>ID: {{log.id}}</p>
-    <p>Product: {{log.financial_type || log.product}}</p>
+  <div class="text-area" *ngIf="logCategory === 'usage'">
+    <p>Username: {{log.username}}</p>
+    <p>IP Address: {{log.user_ip}}</p>
+  </div>
+  <div class="text-area" *ngIf="logCategory === 'records'">
+    <p>Ref: {{log.reference}}</p>
+    <p>Product: {{log.name}}</p>
+  </div>
+  <div class="text-area" *ngIf="logCategory === 'financial'">
+    <p style="font-size: x-small;">Product Name: {{log.name}}</p>
+    <p>Amount: {{log.amount}}</p>
   </div>
   <span class="icon">
     <ion-icon src="assets/imgs/arrow-down.svg" class="down-arrow"  *ngIf="!log.open"></ion-icon>

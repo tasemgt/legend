@@ -11,7 +11,8 @@ import { BundleImage } from 'src/app/models/constants';
   styleUrls: ['./bundle-types.page.scss'],
 })
 export class BundleTypesPage implements OnInit {
-  public bundles: Bundle[];
+  
+  public bundleList: Bundle;
 
   constructor(
     private modalCtrl: ModalController,
@@ -23,12 +24,12 @@ export class BundleTypesPage implements OnInit {
 
   private getBundleTypes(){
     this.bundleService.getBundleTypes().then((bundles) =>{
-      this.bundles = bundles;
+      this.bundleList = bundles;
     });
   }
 
   public closeModal(bundle?: Bundle){
-    this.modalCtrl.dismiss({ 'bundle': bundle });
+    this.modalCtrl.dismiss({ bundle,  renew: this.bundleList.renew});
   }
 
   public getBundleImagePath(bundleName: string): string{

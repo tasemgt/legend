@@ -11,7 +11,12 @@ export interface FundWalletObject{
 export class Balance{
     code: number;
     balance: string;
+    prod_balance: string;
     bundle: string;
+    bundle_id: number;
     expiry: string;
-;    duration: number;
+    expiry_days: number;
+    condition: string;
+    checkout_mode: string;
+    duration?: number;
 }

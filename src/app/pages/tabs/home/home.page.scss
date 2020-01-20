@@ -6,45 +6,71 @@
   border: 6px solid var(--ion-color-tertiary-shade2);
   border-radius: 50%;
   text-align: center;
-  .circle{
-    width: 160px;
-    height: 160px;
+  transform: rotate(0deg);
+  transition: transform 0.7s linear;
+  
+  .small-circle{
     position: absolute;
-    top: 50%;
-    left: 50%;
-    margin: -80px 0 0 -80px;
-    border-radius: 50%;
+    width: 8px;
+    height: 8px;
     background-color: var(--ion-color-primary);
+    border-radius: 50%;
+    transform: rotate(0deg);
+    transition: transform 0.9s linear;
+    top: -4px;   /* -child size/2 */
+	  left: 94px;   /* parent size/2 - child size/2 */ //Was tweaked 2px less to fit well
+  }
 
-    &.animated.pulse{
-      // animation-iteration-count: infinite;
+  .swoosh{
+    width: 35px;
+    height: 35px;
+    border-top: 1.5px solid var(--ion-color-primary-tint2);
+    position: absolute;
+    transform: rotate(-2deg);
+    border-radius: 50% / 4px;
+	  left: 68px;
+  }
+}
+
+.circle{
+  width: 160px;
+  height: 160px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -80px 0 0 -80px;
+  border-radius: 50%;
+  background-color: var(--ion-color-primary);
+
+  &.animated.pulse{
+    // animation-iteration-count: infinite;
+  }
+
+  p { 
+    margin: 0px; 
+    text-align: center;
+  }
+
+  p:first-child{
+    background-color: var(--ion-color-secondary);
+    color: var(--ion-color-secondary-contrast);
+    width: 60%;
+    margin: 2rem auto 0.5rem auto;
+    font-size: 0.6rem;
+    border-radius: 5px;
+    padding: .1rem;
+  }
+  
+  p:last-child{
+    span{
+      font-size: 2.5rem;
+      line-height: 1;
+      font-family: MuliLight; 
+      font-weight: bold; 
     }
-
-    p { margin: 0px; }
-
-    p:first-child{
-      background-color: var(--ion-color-secondary);
-      color: var(--ion-color-secondary-contrast);
-      width: 50%;
-      margin: 2rem auto 0.5rem auto;
-      font-size: 0.9rem;
-      border-radius: 5px;
-      padding-bottom: .1rem;
-    }
-    
-    p:last-child{
-      span{
-        font-size: 2.5rem;
-        line-height: 1;
-        font-family: MuliLight; 
-        font-weight: bold; 
-      }
-    }
-
   }
 
 }
-
 
 .summary-blocks{
   margin-top: 1.5rem;

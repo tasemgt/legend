@@ -54,20 +54,22 @@ export class AuthService {
         });
   }
 
-  public login(email: string, password: string) : Promise<User>{
+  public login(username: string, password: string) : Promise<User>{
     let usr: User;
     const headers = {Accept: 'application/json', 'Content-Type': 'application/json'};
-    return this.http.post(`${this.baseUrl}/email-login`, {email, password}, {headers})
+    return this.http.post(`${this.baseUrl}/login`, {username, password}, {headers})
       .toPromise()
-      .then((user: User) =>{
-        if(user){
-          usr = user;
-          return this.storage.set(this.authUser, user);
+      .then((response: any) =>{
+        console.log(response);
+        if(response.code === 418){
+          return Promise.resolve(response); // Invalid login here, but pass along to be handled by page
         }
-      })
-      .then(() =>{
-        this.authState.next(true);
-        return Promise.resolve(usr);
+        usr = response;
+        return this.storage.set(this.authUser, response)
+          .then(() =>{
+            this.authState.next(true);
+            return Promise.resolve(usr);
+          });
       })
       .catch((error: HttpErrorResponse) =>{
           return Promise.reject(error);

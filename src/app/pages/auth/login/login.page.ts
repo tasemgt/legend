@@ -25,26 +25,36 @@ export class LoginPage implements OnInit {
       this.loginForm.resetForm();
     }
 
+  
+    ionViewWillLeave(){
+      console.log('Clearing');
+      this.loginForm.resetForm();
+    }
+  
+
   public login(form: NgForm){
     if(form.invalid){
       this.utilService.showToast('Login form cannot be empty.', 2000, 'danger');
       return;
     }
     
-    if(!this.utilService.validateEmail(form.value.email)){
-      this.utilService.showToast('Please enter a valid email.', 2000, 'danger');
-      return;
-    }
-    console.log(form.value.email, form.value.password);
+    // if(!this.utilService.validateEmail(form.value.email)){
+    //   this.utilService.showToast('Please enter a valid email.', 2000, 'danger');
+    //   return;
+    // }
+    console.log(form.value.username, form.value.password);
     this.utilService.presentLoading('Logging you in');
-    this.authService.login(form.value.email, form.value.password)
-      .then(() =>{
+    this.authService.login(form.value.username, form.value.password)
+      .then((response: any) =>{
         this.utilService.dismissLoading();
+        if(response.code === 418){
+          this.utilService.showToast('Incorrect Username or Password', 3000, 'danger');
+        }
       })
       .catch((error:HttpErrorResponse) => {
         console.log(error.status);
         if(error.status === 0){
-          setTimeout(()=>{
+          setTimeout(()=>{ // To give a little time for loadingCtrl to be available before dismissal
             this.loadingCtrl.dismiss();
             console.log('No network')
             this.utilService.showToast('Cannot connect to server, check network...', 3000, 'danger');

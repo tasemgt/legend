@@ -1,20 +1,20 @@
 <ion-content class="ion-padding legend-modal">
   <div>
-    <ion-icon name="arrow-back" (click)="closeModal()"></ion-icon>
+    <ion-icon name="arrow-back" color="primary" (click)="closeModal()"></ion-icon>
   </div>
   <ion-grid>
     <ion-row>
       <ion-col size="12" class="name-heading ion-text-center">
-        <p>Buy Bundle</p>
+        <p>Select New Plan</p>
         <p></p>
       </ion-col>
     </ion-row>
     <form class="auth-form" (ngSubmit)="buyBundle(bundleForm)" #bundleForm="ngForm">
       <ion-row>
         <ion-col size="12" class="legend-input">
-          <ion-button class="legend-btn legend-btn-inverse ion-text-capitalize" (click)="openBundleTypesModal()"  type="button">
-            <span class="bundle-type">Select Bundle Type:</span>
-            <span class="bundle-type-text">{{chosenBundle?.name | uppercase}}</span>
+          <ion-button class="legend-btn legend-btn-inverse select-btn ion-text-capitalize" (click)="openBundleTypesModal()"  type="button">
+            <span class="bundle-type">Select Product:</span>
+            <span class="bundle-type-text">{{chosenBundle?.products_name.substring(0, 22) | uppercase}}</span>
           </ion-button>
           <!-- <ion-item>
             <span><ion-icon name="desktop"></ion-icon></span>
@@ -30,16 +30,16 @@
             </ion-select>
           </ion-item> -->
         </ion-col>
-        <ion-col size="12" class="legend-input">
+        <!-- <ion-col size="12" class="legend-input">
           <ion-item>
-            <!-- <span><ion-icon name="keypad"></ion-icon></span> -->
+            <span><ion-icon name="keypad"></ion-icon></span>
             <ion-label>Pin:</ion-label>
             <ion-input maxlength="4" type="password" name="pin" ngModel required></ion-input>
           </ion-item>
-        </ion-col>
+        </ion-col> -->
         <ion-col size="12" class="ion-text-center">
           <div class="btn-wrapper">
-            <ion-button class="legend-btn ion-text-capitalize" color="primary" type="submit">Buy Bundle</ion-button>
+            <ion-button class="legend-btn ion-text-capitalize" color="primary" type="submit">Subscribe</ion-button>
           </div>
         </ion-col>
       </ion-row>

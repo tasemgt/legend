@@ -9,6 +9,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { HTTP } from '@ionic-native/http/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { Network } from '@ionic-native/network/ngx';
+import { AppMinimize } from '@ionic-native/app-minimize/ngx';
 
 import { MobileAccessibility } from '@ionic-native/mobile-accessibility/ngx';
 
@@ -31,6 +32,7 @@ import { AppComponent } from './app.component';
     MobileAccessibility,
     HTTP,
     InAppBrowser,
+    AppMinimize,
     Network,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

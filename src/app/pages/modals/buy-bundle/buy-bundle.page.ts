@@ -7,6 +7,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 import { BundleTypesPage } from '../bundle-types/bundle-types.page';
 import { Bundle } from 'src/app/models/bundle';
+import { WalletService } from 'src/app/services/wallet.service';
+
 
 @Component({
   selector: 'app-buy-bundle',
@@ -17,46 +19,43 @@ export class BuyBundlePage implements OnInit {
 
   @ViewChild('bundleForm', null) bundleForm: NgForm;
   public bundles: {name: string, amount: string, description: { duration: string, package: string}}[];
-
   public chosenBundle: Bundle;
+  public renewOrRequest: string;
 
   constructor(
     private modalCtrl: ModalController, 
     private loadingCtrl: LoadingController,
     private utilService: UtilService,
-    private bundleService: BundleService) { }
+    private bundleService: BundleService,
+    private walletService: WalletService) { 
+
+    }
 
   ngOnInit() {
     this.bundleForm.reset();
   }
 
   public buyBundle(form: NgForm){
-    console.log(form.value.bundle);
-    if(form.invalid){
-      this.utilService.showToast('Please enter valid data.', 2000, 'danger');
-      return;
-    }
     if(!this.chosenBundle){
       this.utilService.showToast('Please select a bundle first', 2000, 'danger');
       return;
     }
-    const payload: any = {
-      amount: (this.chosenBundle.amount).replace(/,/g, ''),
-      pin: form.value.pin,
-      bundle: this.chosenBundle.name
-    };
+    console.log(this.chosenBundle);
 
-    console.log(payload);
-    this.utilService.presentLoading('Funding your wallet.')
-      .then(() =>{
-        console.log(payload);
-        this.bundleService.buyBundle(payload)
+    if(this.renewOrRequest === '0'){
+      // send a request for subscription..
+      this.utilService.presentAlertConfirm('Send Subscription Request', `To activate plan, a request has to be made. <br/> Proceed?`, 
+      () =>{
+        this.utilService.presentLoading('Funding your wallet.')
+          .then(() =>{
+            // Make the request here...
+            return this.bundleService.buyBundle(Number(this.renewOrRequest), this.chosenBundle.products_id);
+          })
           .then((resp) =>{
             this.loadingCtrl.dismiss();
             if(resp.code === 100){
-              this.utilService.showToast(`You have sucessfully purchased the ${payload.bundle} bundle`, 3000, 'success');
+              this.utilService.showToast(`A subscription request has been made, and a confirmation email sent to you`, 3000, 'secondary');
               this.closeModal();
-              this.bundleForm.reset();
             }
             else if(resp.code === 418){
               this.utilService.showToast(`${resp.message}`, 3000, 'danger');
@@ -65,22 +64,58 @@ export class BuyBundlePage implements OnInit {
               this.utilService.showToast(`Your purchase could not be completed at this time`, 2000, 'danger');
             }
           })
-          .catch((error: HttpErrorResponse) =>{
-            if(error.status === 0){
-              this.utilService.showToast('Cannot connect to server, check network...', 3000, 'danger');
-              setTimeout(()=>{
-                this.loadingCtrl.dismiss();
-              },2000);
-            }
-            else{
-              this.utilService.showToast(`Transaction not successful.`, 2000, 'danger');
-              this.bundleForm.resetForm();
-              setTimeout(()=>{
-                this.loadingCtrl.dismiss();
-              },2000);
-            } 
-          });
-      })
+
+      });
+    }
+
+    if(this.renewOrRequest === '1'){
+      //Proceed to subscribe...
+
+      this.utilService.presentAlertConfirm('Confirm Subscription', `Are you sure you want to proceed to subscribe this plan?`, 
+    
+      () =>{
+
+        this.utilService.presentLoading('Funding your wallet.')
+        .then(() =>{
+          this.bundleService.buyBundle(Number(this.renewOrRequest), this.chosenBundle.products_id)
+            .then((resp) =>{
+              this.loadingCtrl.dismiss();
+              if(resp.code === 100){
+                this.walletService.getBalance()
+                .then((balance) =>{
+                  this.utilService.showToast(`You have sucessfully purchased the ${this.chosenBundle.products_name} bundle`, 3000, 'secondary');
+                  this.closeModal(balance);
+                  this.bundleForm.reset();
+                });
+              }
+              else if(resp.code === 418){
+                this.utilService.showToast(`${resp.message}`, 3000, 'danger');
+                this.closeModal();
+                this.bundleForm.reset();
+              }
+              else{
+                this.utilService.showToast(`Your purchase could not be completed at this time`, 2000, 'danger');
+              }
+            })
+            .catch((error: HttpErrorResponse) =>{
+              if(error.status === 0){
+                this.utilService.showToast('Cannot connect to server, check network...', 3000, 'danger');
+                setTimeout(()=>{
+                  this.loadingCtrl.dismiss();
+                },2000);
+              }
+              else{
+                this.utilService.showToast(`Transaction not successful.`, 2000, 'danger');
+                this.bundleForm.resetForm();
+                setTimeout(()=>{
+                  this.loadingCtrl.dismiss();
+                },2000);
+              } 
+            });
+        });
+
+      });
+    }
   }
 
   public async openBundleTypesModal(){
@@ -89,12 +124,13 @@ export class BuyBundlePage implements OnInit {
     });
     await modal.present();
     const {data} = await modal.onDidDismiss();
-    
     this.chosenBundle = data.bundle;
+    this.renewOrRequest = data.renew;
+    console.log(this.chosenBundle, data.renew);
   }
 
-  public closeModal(){
-    this.modalCtrl.dismiss();
+  public closeModal(balance?: any){
+    this.modalCtrl.dismiss({balance});
   }
 
 }

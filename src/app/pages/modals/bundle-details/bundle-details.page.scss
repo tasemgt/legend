@@ -1,0 +1,35 @@
+.product-details{
+    position: relative;
+    padding: 0.5rem;
+    height: 14rem;
+    width: 100%;
+    background: var(--ion-color-secondary);
+    border-radius: 8px;
+
+    p{
+        text-align: center;
+        margin: 0.8rem;
+        span:first-child{
+            font-size: 0.8rem;
+            font-weight: bolder;
+            color: var(--ion-color-primary);
+        }
+        span:last-child{
+            font-size: 1.5rem;
+        }
+    }
+
+    p:first-child{
+        text-align: left;
+    }
+    
+    p:last-child{
+        text-align: right;
+    }
+}
+
+ion-col:last-child{
+    p{
+        font-weight: bolder;
+    }
+}
