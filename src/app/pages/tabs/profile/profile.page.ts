@@ -52,7 +52,7 @@ export class ProfilePage implements OnInit, OnDestroy{
     });
     await modal.present();
     const {data} = await modal.onDidDismiss();
-    if(data && data.profile){
+    if(data){
       this.profile = data.profile;
     }
   }

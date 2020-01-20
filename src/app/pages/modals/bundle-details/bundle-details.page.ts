@@ -31,7 +31,7 @@ export class BundleDetailsPage implements OnInit {
     });
     await modal.present();
     const {data} = await modal.onDidDismiss();
-    if(data && data.balance){
+    if(data){
       this.currentBundle = data.balance;
     }
   }
@@ -43,7 +43,7 @@ export class BundleDetailsPage implements OnInit {
     });
     await modal.present();
     const {data} = await modal.onDidDismiss();
-    if(data.balance){
+    if(data){
       this.currentBundle = data.balance;
     }
   }

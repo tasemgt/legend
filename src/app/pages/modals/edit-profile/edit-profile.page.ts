@@ -69,7 +69,7 @@ export class EditProfilePage implements OnInit {
       })
   }
 
-  public closeModal(profile: Profile){
+  public closeModal(profile?: Profile){
     this.modalCtrl.dismiss({profile});
   }
 }

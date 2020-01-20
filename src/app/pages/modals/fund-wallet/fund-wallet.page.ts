@@ -53,18 +53,19 @@ export class FundWalletPage implements OnInit, OnDestroy {
         this.paymentService.makePayment(amount)// Calls the payment service
         this.responseSubscription = this.paymentService.getResponseSubject()
           .subscribe((response) =>{
+            console.log("RESP ", response);
             if(!response){
               this.loadingCtrl.dismiss(); //Happens when inapp browser closes without payment
               return;
             }
             setTimeout(() =>{  // Just to create some load effect before completing
               this.loadingCtrl.dismiss();
-              if(JSON.parse(response).code === 100){
+              if(response === 'Transaction Successful'){ //if(JSON.parse(response).code === 100){
                   this.utilService.showToast(`\u20A6${amount}, has been successfully added to your wallet`, 3000, 'secondary');
                   this.walletService.balanceState.next(true); // Inform home page that balance needs to be updated..
               }
               else{
-                this.utilService.showToast(`Your wallet could not be funded at this time`, 3000, 'danger');
+                this.utilService.showToast(`Sorry, your wallet could not be funded at this time`, 3000, 'danger');
               }
               this.closeModal();
               this.fundWalletForm.resetForm();

@@ -60,7 +60,7 @@ export class RegisterPage implements OnInit {
     this.authService.register(userAccount)
       .then((resp) =>{
         this.loadingCtrl.dismiss();
-        this.utilService.showToast('Wallet created successfully..', 3000, 'success');
+        this.utilService.showToast('Wallet created successfully..', 4000, 'secondary');
         this.router.navigateByUrl('/login');
       })
       .catch((error:HttpErrorResponse) => {

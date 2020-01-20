@@ -54,13 +54,13 @@ export class PaymentService implements OnDestroy {
     this.loadStopSub = browser.on('loadstop')
       .subscribe((event: InAppBrowserEvent) => {
         browser.executeScript({code:`
-        if(window.location.pathname.includes('/api/legendpay/verify')){
+        if(window.location.pathname.includes('/api/legendpay/verify') || window.location.pathname.includes('/api/saved/verify')){
           console.log("Exect script gave a true for this");
-          document.getElementsByTagName('pre')[0].innerHTML
+          document.getElementsByTagName('h1')[0].innerHTML
         }
         else if(window.location.pathname.includes('/api/legendpay/failed')){
           console.log("Exect script gave a true for this");
-          document.getElementsByTagName('pre')[0].innerHTML
+          document.getElementsByTagName('h1')[0].innerHTML
         }
         else{
           console.log("Exect script gave a false for this");
@@ -68,7 +68,10 @@ export class PaymentService implements OnDestroy {
         `}).then((resp) =>{ // Traps the innerHTML value of the Pre tag. This contains the json response
           if(resp[0]){
             this.paymentResponse = resp[0];
-            browser.close();
+            console.log(this.paymentResponse);
+            setTimeout(() => {
+              browser.close();
+            }, 3000);
           }
         });
     });

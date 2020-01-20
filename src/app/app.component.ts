@@ -60,7 +60,7 @@ export class AppComponent implements  OnDestroy, AfterViewInit{
 
   // Handles back button to close app
   ngAfterViewInit() {
-    this.backButtonSubscription = this.platform.backButton.subscribe(async () => {
+    this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(0, async () => {
       console.log("Pressed...");
       const isModalOpened = await this.modalCtrl.getTop();
       const url = this.router.url.toString();

@@ -124,9 +124,11 @@ export class BuyBundlePage implements OnInit {
     });
     await modal.present();
     const {data} = await modal.onDidDismiss();
-    this.chosenBundle = data.bundle;
-    this.renewOrRequest = data.renew;
-    console.log(this.chosenBundle, data.renew);
+    if(data){
+      this.chosenBundle = data.bundle;
+      this.renewOrRequest = data.renew;
+      console.log(this.chosenBundle, data.renew);
+    }
   }
 
   public closeModal(balance?: any){
