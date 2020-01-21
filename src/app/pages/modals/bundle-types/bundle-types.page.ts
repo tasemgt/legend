@@ -29,7 +29,7 @@ export class BundleTypesPage implements OnInit {
   }
 
   public closeModal(bundle?: Bundle){
-    this.modalCtrl.dismiss({ bundle,  renew: this.bundleList.renew});
+    bundle? this.modalCtrl.dismiss({ bundle,  renew: this.bundleList.renew}): this.modalCtrl.dismiss();
   }
 
   public getBundleImagePath(bundleName: string): string{

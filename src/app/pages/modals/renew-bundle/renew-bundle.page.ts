@@ -65,6 +65,6 @@ export class RenewBundlePage implements OnInit {
 
 
   public closeModal(balance?: any){
-    this.modalCtrl.dismiss({balance});
+    balance? this.modalCtrl.dismiss({balance}): this.modalCtrl.dismiss();
   }
 }
