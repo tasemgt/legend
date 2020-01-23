@@ -29,8 +29,10 @@
         <div class="btn-wrapper" *ngIf="currentBundle?.bundle_id !== 22">
           <ion-button class="legend-btn ion-text-capitalize" color="primary" type="button" (click)="openRenewBundleModal()">Renew Bundle</ion-button>
         </div>
-        <p><a [routerLink]="" (click)="openBuyBundleModal()" *ngIf="currentBundle.bundle_id !== 22">Switch Plans</a></p>
-        <p><a [routerLink]="" (click)="openBuyBundleModal()" *ngIf="currentBundle.bundle_id === 22">New Subscription</a></p>
+        <div *ngIf="currentBundle.renew === '1' ">
+          <p><a [routerLink]="" (click)="openBuyBundleModal()" *ngIf="currentBundle.bundle_id !== 22">Switch Plans</a></p>
+          <p><a [routerLink]="" (click)="openBuyBundleModal()" *ngIf="currentBundle.bundle_id === 22">New Subscription</a></p>
+        </div>
       </ion-col>
 
     </ion-row>

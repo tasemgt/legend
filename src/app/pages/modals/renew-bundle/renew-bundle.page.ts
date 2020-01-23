@@ -51,13 +51,23 @@ export class RenewBundlePage implements OnInit {
         return this.bundleService.renewBundle({amount, pid});
       })
       .then((resp) =>{
-        return this.walletService.getBalance();
+        if(resp.code === 418){
+          this.utilService.showToast(resp.message, 2000, 'danger');
+          this.loadingCtrl.dismiss();
+          return;
+        } 
+        else if (resp.code === 100){
+          this.walletService.getBalance()
+            .then((balance) =>{
+              this.loadingCtrl.dismiss();
+              this.utilService.showToast('Renewal completed successfully', 2000, 'secondary');
+              this.closeModal(balance);
+              this.router.navigateByUrl('/tabs/home');
+            });
+        }
       })
-      .then((balance) =>{
-        this.loadingCtrl.dismiss();
-        this.utilService.showToast('Renewal completed successfully', 2000, 'secondary');
-        this.closeModal(balance);
-        this.router.navigateByUrl('/tabs/home');
+      .catch((error) =>{
+        this.utilService.showToast('There\'s an issue with your renewal, Please try again later', 2000, 'danger');
       })
     });
 

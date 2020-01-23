@@ -10,6 +10,7 @@ export interface FundWalletObject{
 
 export class Balance{
     code: number;
+    renew: string;
     balance: string;
     prod_balance: string;
     bundle: string;
