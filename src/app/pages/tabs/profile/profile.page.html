@@ -12,11 +12,11 @@
             <h1 class="animated zoomIn">{{user?.firstName.charAt(0) +'.'+ user?.lastName.charAt(0)}} <span *ngIf="!user">{{'---'}}</span></h1>
           </div>
           <div class="profile-details-content">
-            <p><span>Username:</span><span>{{profile?.username}}</span></p>
-            <p><span>First Name:</span><span>{{user?.firstName}}</span></p>
-            <p><span>Last Name:</span><span>{{user?.lastName}}</span></p>
-            <p><span>Mobile:</span><span>+{{profile?.phone}}</span></p>
-            <p><span>Email:</span><span>{{profile?.email}}</span></p> 
+            <p><span>Username:</span><span>{{profile?.username}}</span><span *ngIf="!profile">{{'---'}}</span></p>
+            <p><span>First Name:</span><span>{{user?.firstName}}</span><span *ngIf="!user">{{'---'}}</span></p>
+            <p><span>Last Name:</span><span>{{user?.lastName}}</span><span *ngIf="!user">{{'---'}}</span></p>
+            <p><span>Mobile:</span><span>+{{profile?.phone}}</span><span *ngIf="!profile">{{'---'}}</span></p>
+            <p><span>Email:</span><span>{{profile?.email}}</span><span *ngIf="!profile">{{'---'}}</span></p> 
           </div>
         </div>
       </ion-col>

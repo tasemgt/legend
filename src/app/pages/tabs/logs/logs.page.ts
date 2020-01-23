@@ -4,6 +4,7 @@ import { Data } from 'src/app/models/constants';
 import { LogService } from 'src/app/services/log.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-logs',
@@ -20,6 +21,8 @@ export class LogsPage implements OnInit {
   
   public category: string;
 
+  public authSubscription: Subscription;
+
   constructor(
     private logService: LogService,
     private authService: AuthService) {
@@ -28,12 +31,21 @@ export class LogsPage implements OnInit {
 
 
   ngOnInit(){
-    this.authService.getUser()
-      .then((user: User) =>{
-        this.getTransactionRecords(user);
-        this.getUsageLogs(user);
-        this.getFinancialLogs(user);
-      });
+
+    this.authSubscription = this.authService.getAuthStateSubject().subscribe((state) =>{
+      if(state){
+        this.authService.getUser()
+          .then((user: User) =>{
+            this.getTransactionRecords(user);
+            this.getUsageLogs(user);
+            this.getFinancialLogs(user);
+          });
+      }
+      else{
+        this.records = []; this.usageLogs = []; this.financialLogs = []; this.category = 'payment';
+      }
+    });
+    
   }
 
 

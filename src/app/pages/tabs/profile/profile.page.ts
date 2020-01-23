@@ -38,6 +38,10 @@ export class ProfilePage implements OnInit, OnDestroy{
         })
         .catch((err) => console.log(err));
       }
+      else{
+        this.profile = null;
+        this.user = null;
+      }
     });
   }
 

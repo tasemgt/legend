@@ -31,7 +31,10 @@ export class WalletService {
       .then(resp => {
         return Promise.resolve(resp);
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        console.log(err)
+        return Promise.reject(err);
+      });
   }
 
   // public fundWallet(fundWalletObject: {amount:string}): Promise<any>{

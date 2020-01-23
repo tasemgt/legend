@@ -14,6 +14,7 @@ import { BundleService } from 'src/app/services/bundle.service';
 import { Flip } from 'number-flip';
 import { BundleDetailsPage } from '../../modals/bundle-details/bundle-details.page';
 import { UserService } from 'src/app/services/user.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -50,19 +51,6 @@ export class HomePage implements OnInit, OnDestroy{
     }
 
   ngOnInit(){
-
-    // // watch network for a connection
-    // this.connectSubscription = this.network.onConnect().subscribe(() => {
-    //   console.log('network connected!');
-    //   this.getBalance('network');
-    // });
-
-    // // watch network for a disconnection
-    // this.disconnectSubscription = this.network.onDisconnect().subscribe(() => {
-    //   console.log('network was disconnected :-(');
-    //   this.utilService.showToast('Your network is disconnected, please check..', 3000, 'danger');
-    //   this.getBalance('storage');
-    // });
     
     this.authSubscription = this.authService.getAuthStateSubject().subscribe((state) =>{
       //Do one time stuff on login here. i.e when state changes from false to true;
@@ -71,11 +59,9 @@ export class HomePage implements OnInit, OnDestroy{
         this.authService.getUser().then(user => {
           this.user = user;
           this.getBalance();
-          return this.userService.getUserProfile(user);
+          this.getProfile(user);
         })
-        .then((profile) =>{
-          this.profile = profile;
-        });
+        
       }
       else{
         this.profile.username = '';
@@ -115,40 +101,41 @@ export class HomePage implements OnInit, OnDestroy{
     this.walletService.getBalance().then((balance: Balance) =>{
       this.balance = balance;
       //this.bundleService.setBundleBalanceToStorage(this.balance);
-      if(balance.expiry === '---'){
-        return this.daysLeft = '---';
+      if(balance){
+        if(balance.expiry === '---'){
+          return this.daysLeft = '---';
+        }
+        this.daysLeft = this.getDaysLeft(balance.expiry).toString(); // Computes remaining days of bundle..
+        console.log(this.daysLeft);
       }
-      this.daysLeft = this.getDaysLeft(balance.expiry).toString(); // Computes remaining days of bundle..
-      console.log(this.daysLeft);
       
       const daysChopped = 30 - Number(this.daysLeft);
       this.rotateCirclePos = daysChopped * 360 / 30;
-    }).catch(err => {
-      this.balance.balance = '0.00';
-      console.log(err);
+    }).catch((err: HttpErrorResponse) => {
+      console.log("could not get balance", err);
+      if(err.status === 0){
+        setTimeout(() =>{
+          this.utilService.showToast('Check network connectivity..', 2000, 'danger');
+          this.getBalance(); // Call get balance again after 10secs;
+        }, 10000);
+        
+      }
     });
-    // if(from === 'storage'){
-    //   console.log("from storage")
-    //   this.bundleService.getBundleBalanceFromStorage()
-    //     .then((balance) =>{
-    //       this.balance = balance;
-    //       this.daysLeft = this.getDaysLeft(balance.expiry); // Computes remaining days of bundle..
-    //     }).catch(err => {
-    //       this.balance.balance = '0.00';
-    //       console.log(err);
-    //     });
-    // }
-    // else if(from === 'network'){
-    //   console.log("from network")
-    //   this.walletService.getBalance().then((balance) =>{
-    //     this.balance = balance;
-    //     this.bundleService.setBundleBalanceToStorage(this.balance);
-    //     this.daysLeft = this.getDaysLeft(balance.expiry); // Computes remaining days of bundle..
-    //   }).catch(err => {
-    //     this.balance.balance = '0.00';
-    //     console.log(err);
-    //   });
-    // }
+  }
+
+
+  private getProfile(user: User){
+    this.userService.getUserProfile(user)
+    .then((profile) =>{
+      this.profile = profile;
+    })
+    .catch((err: HttpErrorResponse) =>{
+      if(err.status === 0){
+        setTimeout(() =>{
+          this.getProfile(user); // Call get balance again after 10secs;
+        }, 10000);
+      }
+    })
   }
 
   public openManageDevices(): void{

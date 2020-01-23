@@ -54,19 +54,25 @@ export class EditProfilePage implements OnInit {
       .then((resp) =>{
         this.loadingCtrl.dismiss();
         if(resp.code === 100){
-          return this.userService.getUserProfile(this.user);
+          this.userService.getUserProfile(this.user)
+            .then((profile) =>{
+              this.utilService.showToast(`Profile updated successfully`, 3000, 'secondary');
+              this.closeModal(profile);
+            });
         }
         else if(resp.code === 418){
           this.utilService.showToast(`${resp.message}`, 3000, 'danger');
+          return;
         }
         else{
           this.utilService.showToast(`Profile update failed`, 2000, 'danger');
+          return;
         }
       })
-      .then((profile) =>{
-        this.utilService.showToast(`Profile updated successfully`, 3000, 'secondary');
-        this.closeModal(profile);
+      .catch((error) =>{
+        this.utilService.showToast(`Profile update failed`, 2000, 'danger');
       })
+      
   }
 
   public closeModal(profile?: Profile){
