@@ -21,7 +21,7 @@
           <!-- </ion-toolbar> -->
         <div [ngSwitch]="category">
           <div *ngSwitchCase="'usage'">
-            <ion-content id="scroll-content">
+            <div id="scroll-content" scrolly="true">
               <ion-list *ngFor="let log of usageLogs let i = index;">
                 <log-view [log]="log" [logCategory]="'usage'" tappable (click)="toggleItem('usage', i)"></log-view> 
                 <div *ngIf="log.total_bytes && log.open" class="log-content">
@@ -34,11 +34,11 @@
               <div class="spinner-wrapper" *ngIf="!usageLogs">
                 <ion-spinner name="dots"></ion-spinner>
               </div>
-              <p *ngIf="usageLogs && usageLogs?.length <= 0" class="no-data-message">You have no usage logs history.</p>
-            </ion-content>
+              <p *ngIf="usageLogs && usageLogs?.length <= 0" class="no-data-message">You have no usage log history.</p>
+            </div>
           </div>
           <div *ngSwitchCase="'payment'">
-            <ion-content id="scroll-content" scrollX="true">
+            <div id="scroll-content" scrolly="true">
               <ion-list *ngFor="let log of records let i = index;">
                 <log-view [log]="log" [logCategory]="'records'" tappable (click)="toggleItem('records', i)"></log-view> 
                 <div *ngIf="log.amount && log.open" class="log-content">
@@ -52,10 +52,11 @@
                 <ion-spinner name="dots"></ion-spinner>
               </div>
               <p *ngIf="records && records?.length <= 0" class="no-data-message">You have no payment records history.</p>
-            </ion-content>
+            </div>
+            <ion-footer></ion-footer>
           </div>
           <div *ngSwitchCase="'financial'">
-            <ion-content id="scroll-content">
+            <div id="scroll-content" scrolly="true">
               <ion-list *ngFor="let log of financialLogs let i = index;">
                 <log-view [log]="log" [logCategory]="'financial'" tappable (click)="toggleItem('financial', i)"></log-view>
                 <div *ngIf="log.username && log.open" class="log-content">
@@ -68,8 +69,8 @@
               <div class="spinner-wrapper" *ngIf="!financialLogs">
                 <ion-spinner name="dots"></ion-spinner>
               </div>
-              <p *ngIf="financialLogs && financialLogs?.length <= 0" class="no-data-message">You have no financial logs history.</p>
-            </ion-content>
+              <p *ngIf="financialLogs && financialLogs?.length <= 0" class="no-data-message">You have no financial log history.</p>
+            </div>
           </div>
         </div>   
         </ion-col>

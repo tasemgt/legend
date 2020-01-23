@@ -54,7 +54,7 @@ ion-list{
 
 #scroll-content{
     z-index: 10000;
-    height: 40rem;
+    height: 69.5vh;
 }
 
 .spinner-wrapper{
@@ -75,6 +75,19 @@ ion-list{
     font-size: 0.8rem;
     top: 30%;
 }
+
+div[scrollx=true],div[scrolly=true] {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  div[scrollx=true] {
+    overflow-x: auto;
+  }
+  
+  div[scrolly=true] {
+    overflow-y: auto;
+  }
 
 // div.scrollable{
 //     overflow: scroll;
