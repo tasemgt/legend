@@ -70,8 +70,7 @@ export class FundWalletPage implements OnInit, OnDestroy {
               this.closeModal();
               this.fundWalletForm.resetForm();
               //this.router.navigateByUrl('/tabs/home');
-            }, 1000);
-          }
+            }, 1000);}
         );
       });
   }

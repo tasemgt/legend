@@ -117,7 +117,7 @@ export class HomePage implements OnInit, OnDestroy{
         setTimeout(() =>{
           this.utilService.showToast('Check network connectivity..', 2000, 'danger');
           this.getBalance(); // Call get balance again after 10secs;
-        }, 10000);
+        }, 15000);
         
       }
     });
@@ -133,7 +133,7 @@ export class HomePage implements OnInit, OnDestroy{
       if(err.status === 0){
         setTimeout(() =>{
           this.getProfile(user); // Call get balance again after 10secs;
-        }, 10000);
+        }, 15000);
       }
     })
   }

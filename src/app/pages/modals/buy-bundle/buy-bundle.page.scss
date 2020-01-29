@@ -7,18 +7,11 @@
     }
 }
 
-.legend-btn-inverse-small{
-    font-weight: bolder;
-    width: 40%;
-    height: 40px;
-    --background: transparent;
-    --color: var(--ion-color-primary);
-    --background-activated: transparent;
-    --background-focused: transparent;
-    --background-hover: transparent;
-    --border-color: var(--ion-color-primary);
-    --border-style: solid;
-    --border-width: 1px;
+ion-button.legend-btn.legend-btn-inverse{
+    --background: var(--ion-color-secondary);
+    --background-activated: var(--ion-color-secondary);
+    --background-focused: var(--ion-color-secondary);
+    --background-hover: var(--ion-color-secondary);
 }
 
 .legend-btn-inverse.select-btn{
