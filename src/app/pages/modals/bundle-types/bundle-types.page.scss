@@ -10,6 +10,7 @@
 ion-card{
     --background: var(--ion-color-secondary);
     --color: var(--ion-color-secondary-contrast);
+    border: 1.2px solid var(--ion-color-primary);
 }
 
 ion-card-header{

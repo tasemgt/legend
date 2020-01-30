@@ -27,12 +27,15 @@ export class PaymentService implements OnDestroy {
   public async makePayment(amount: string){
     const user = await this.authService.getUser();
     const headers = { Authorization: `Bearer ${user.token}`, Accept: 'application/json'};
-    this.http.post(`${this.baseUrl}/webpay`, {amount}, {headers}).toPromise()
+    return this.http.post(`${this.baseUrl}/webpay`, {amount}, {headers}).toPromise()
       .then((resp) =>{
         console.log(resp);
       })
       .catch((err) =>{
         console.log(err); // Ask why it is giving me response on error sha..
+        if(err.status === 0){
+          return Promise.resolve({message: 'Connection unsuccessful, check network and try again'});
+        }
         if(err.error.code === 100){
           console.log(err.error.url);
           const url = `${err.error.url}`;
@@ -40,6 +43,9 @@ export class PaymentService implements OnDestroy {
           .subscribe((event) => {
               this.responseSubject.next(this.paymentResponse);
           });
+        }
+        else{
+          return Promise.resolve({message: 'An error occured, payment unsuccessful'});
         }
       });
   }

@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth.service';
 import { User, Profile } from 'src/app/models/user';
 import { UtilService } from 'src/app/services/util.service';
@@ -7,6 +8,7 @@ import { UserService } from 'src/app/services/user.service';
 
 import { EditProfilePage } from '../../modals/edit-profile/edit-profile.page';
 import { ModalController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-profile',
@@ -46,7 +48,16 @@ export class ProfilePage implements OnInit, OnDestroy{
   }
 
   private async getUserProfile(user: User){
-    this.profile = await this.userService.getUserProfile(user);
+    try{
+      this.profile = await this.userService.getUserProfile(user);
+    }
+    catch(err){
+      if(err.status === 0){
+        setTimeout(() => {
+          this.getUserProfile(user);
+        }, 15000);
+      }
+    }
   }
 
   public async openEditProfileModal(){

@@ -15,6 +15,7 @@ import { Flip } from 'number-flip';
 import { BundleDetailsPage } from '../../modals/bundle-details/bundle-details.page';
 import { UserService } from 'src/app/services/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -35,6 +36,7 @@ export class HomePage implements OnInit, OnDestroy{
   disconnectSubscription: Subscription;
 
   rotateCircle: boolean;
+  subscribeNow: boolean;
   rotateCirclePos: number;
 
   @ViewChild('numberFlip', {static:false}) private numberFlip: ElementRef;
@@ -47,7 +49,9 @@ export class HomePage implements OnInit, OnDestroy{
     private modalCtrl: ModalController,
     private walletService: WalletService,
     private bundleService: BundleService,
+    private router: Router,
     private utilService: UtilService) {
+      this.subscribeNow = false;
     }
 
   ngOnInit(){
@@ -83,9 +87,14 @@ export class HomePage implements OnInit, OnDestroy{
     this.greetMsg = this.utilService.greetMessage();
     this.rotateCircle = false;
     //this.flip();
+
+    this.displaySubNow();
   }
 
   public async openBundleDetailsModal(){
+    if(!this.balance){
+      return;
+    }
     const modal = await this.modalCtrl.create({
       component: BundleDetailsPage,
       componentProps: {'balance': this.balance, 'profile': this.profile}
@@ -100,6 +109,8 @@ export class HomePage implements OnInit, OnDestroy{
   private getBalance(from?: string){
     this.walletService.getBalance().then((balance: Balance) =>{
       this.balance = balance;
+      this.displaySubNow(balance);
+      console.log("Show me here ", balance);
       //this.bundleService.setBundleBalanceToStorage(this.balance);
       if(balance){
         if(balance.expiry === '---'){
@@ -117,7 +128,7 @@ export class HomePage implements OnInit, OnDestroy{
         setTimeout(() =>{
           this.utilService.showToast('Check network connectivity..', 2000, 'danger');
           this.getBalance(); // Call get balance again after 10secs;
-        }, 10000);
+        }, 15000);
         
       }
     });
@@ -133,7 +144,7 @@ export class HomePage implements OnInit, OnDestroy{
       if(err.status === 0){
         setTimeout(() =>{
           this.getProfile(user); // Call get balance again after 10secs;
-        }, 10000);
+        }, 15000);
       }
     })
   }
@@ -150,7 +161,19 @@ export class HomePage implements OnInit, OnDestroy{
     return this.utilService.getDateDifference(eD, now);
   }
 
-  public onRotateCircle(){
+  private displaySubNow(balance?){
+    if(this.balance){
+      if(((Number(this.balance.raw_prod_balance)/100) < this.balance.price) && this.balance.expiry_days <= 1){
+        this.subscribeNow = true;
+        console.log(this.subscribeNow);
+        return;
+      }
+      this.subscribeNow = false;
+      console.log(this.subscribeNow);
+    }
+  }
+
+  public onRotateCircle() {
     this.rotateCircle = true;
   }
 
@@ -166,6 +189,10 @@ export class HomePage implements OnInit, OnDestroy{
     // this.flipAnim.flipTo({
     //   to: '10'
     // });
+  }
+
+  goToTab(tabName: string){
+    this.router.navigateByUrl(`/tabs/${tabName}`);
   }
 
   ionViewWillLeave(){
