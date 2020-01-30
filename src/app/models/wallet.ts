@@ -13,6 +13,8 @@ export class Balance{
     renew: string;
     balance: string;
     prod_balance: string;
+    raw_prod_balance: string;
+    price: number;
     bundle: string;
     bundle_id: number;
     expiry: string;

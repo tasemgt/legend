@@ -26,11 +26,15 @@
           <ion-icon src="assets/imgs/profile.svg"></ion-icon>
           <p>Username <br/><span>{{profile?.username || "..."}}</span></p>
         </div>
-        <div>
+        <div (click)="goToTab('payment')">
           <ion-icon src="assets/imgs/balance.svg"></ion-icon>
           <p>My Wallet <br/><span *ngIf="balance">&#x20a6; {{balance?.balance}}</span><span *ngIf="!balance">......</span></p>
         </div>
-        <div>
+        <div (click)="openBundleDetailsModal()" *ngIf="subscribeNow" class="alt">
+          <ion-icon src="assets/imgs/status-alt.svg"></ion-icon>
+          <p>Renew Subscr...<br/><span *ngIf="balance">&#x20a6; {{balance?.prod_balance}}</span><span *ngIf="!balance">......</span></p>
+        </div>
+        <div (click)="openBundleDetailsModal()" *ngIf="!subscribeNow">
           <ion-icon src="assets/imgs/status.svg"></ion-icon>
           <p>My Subscription <br/><span *ngIf="balance">&#x20a6; {{balance?.prod_balance}}</span><span *ngIf="!balance">......</span></p>
         </div>

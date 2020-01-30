@@ -51,6 +51,11 @@ export class FundWalletPage implements OnInit, OnDestroy {
     this.utilService.presentLoading('Funding your wallet.')
       .then(() =>{
         this.paymentService.makePayment(amount)// Calls the payment service
+          .then((err:any) =>{
+            this.utilService.showToast(`${err.message}`, 3000, 'danger');
+            this.loadingCtrl.dismiss();
+          });
+
         this.responseSubscription = this.paymentService.getResponseSubject()
           .subscribe((response) =>{
             console.log("RESP ", response);
