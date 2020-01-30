@@ -89,6 +89,41 @@ div[scrollx=true],div[scrolly=true] {
     overflow-y: auto;
   }
 
+  @media (max-height: 1366px) {
+    //For ipad size...
+    #scroll-content{
+        height: 80vh;
+    }
+}
+
+@media (max-height: 896px) {
+    //For iphone 11 size...
+    #scroll-content{
+        height: 67.5vh;
+    }
+}
+
+@media (max-height: 812px) {
+    //For iphone X size...
+    #scroll-content{
+        height: 65vh;
+    }
+}
+
+@media (max-height: 667px) {
+    //For iphone 6/7/8 size...
+    #scroll-content{
+        height: 65.5vh;
+    }
+}
+
+@media (max-height: 568px) {
+    //For iphone 5 size...
+    #scroll-content{
+        height: 63.5vh;
+    }
+}
+
 // div.scrollable{
 //     overflow: scroll;
 // }

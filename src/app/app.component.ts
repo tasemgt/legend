@@ -45,6 +45,12 @@ export class AppComponent implements  OnDestroy, AfterViewInit{
         this.statusBar.backgroundColorByHexString('#000000');
       }
 
+      if (this.platform.is('ios')) {
+        this.statusBar.overlaysWebView(false);
+        this.statusBar.styleLightContent();
+        this.statusBar.backgroundColorByHexString('#333333');
+      }
+
       this.authService.authState.subscribe(state => {
         if (state === true) {
           console.log('Go to tabs, you\'re logged in');
