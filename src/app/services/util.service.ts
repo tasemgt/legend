@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ToastController, LoadingController, AlertController } from '@ionic/angular';
+import { ToastController, LoadingController, AlertController, Platform } from '@ionic/angular';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
@@ -9,11 +9,18 @@ export class UtilService {
 
   constructor(
     private toastCtrl: ToastController,
+    private platform: Platform,
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController
     ) { }
 
   public async showToast(message: string, duration: number, color: string) {
+
+    if(this.platform.is('ios')){
+      this.presentAlert(message);
+      return;
+    }
+
     const toast = await this.toastCtrl.create({
       message,
       position: 'top',
@@ -34,6 +41,16 @@ export class UtilService {
 
   public async dismissLoading(id?: string){
     return await this.loadingCtrl.dismiss(null, null, id);
+  }
+
+  public async presentAlert(message: string) {
+    const alert = await this.alertCtrl.create({
+      // header: 'Alert',
+      // subHeader: 'Subtitle',
+      message: message,
+      buttons: ['Ok']
+    });
+    await alert.present();
   }
 
   public async presentAlertConfirm(header:string, message: string, okayCallBack: Function) {

@@ -4,7 +4,7 @@ import { User, Profile } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { Subscription } from 'rxjs';
 import { UtilService } from 'src/app/services/util.service';
-import { ModalController } from '@ionic/angular';
+import { ModalController, Platform } from '@ionic/angular';
 
 import { Balance } from 'src/app/models/wallet';
 import { BuyBundlePage } from '../../modals/buy-bundle/buy-bundle.page';
@@ -36,6 +36,7 @@ export class HomePage implements OnInit, OnDestroy{
   disconnectSubscription: Subscription;
 
   rotateCircle: boolean;
+  showIosOnce: boolean;
   subscribeNow: boolean;
   rotateCirclePos: number;
 
@@ -49,9 +50,12 @@ export class HomePage implements OnInit, OnDestroy{
     private modalCtrl: ModalController,
     private walletService: WalletService,
     private bundleService: BundleService,
+    private platform: Platform,
     private router: Router,
     private utilService: UtilService) {
+
       this.subscribeNow = false;
+      this.showIosOnce = true;
     }
 
   ngOnInit(){
@@ -126,7 +130,10 @@ export class HomePage implements OnInit, OnDestroy{
       console.log("could not get balance", err);
       if(err.status === 0){
         setTimeout(() =>{
-          this.utilService.showToast('Check network connectivity..', 2000, 'danger');
+          if(this.platform.is('android') || (this.platform.is('ios') && this.showIosOnce)){
+            this.utilService.showToast('Check network connectivity..', 1000, 'danger');
+            this.showIosOnce = false; 
+          }
           this.getBalance(); // Call get balance again after 10secs;
         }, 15000);
         

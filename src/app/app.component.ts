@@ -48,7 +48,7 @@ export class AppComponent implements  OnDestroy, AfterViewInit{
       if (this.platform.is('ios')) {
         this.statusBar.overlaysWebView(false);
         this.statusBar.styleLightContent();
-        this.statusBar.backgroundColorByHexString('#333333');
+        this.statusBar.backgroundColorByHexString('#000000');
       }
 
       this.authService.authState.subscribe(state => {
