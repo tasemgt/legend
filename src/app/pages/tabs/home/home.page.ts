@@ -72,11 +72,13 @@ export class HomePage implements OnInit, OnDestroy{
         
       }
       else{
+        console.log("cleared..")
         this.profile.username = '';
         this.daysLeft = '';
         this.balance.balance = '';
         this.balance.bundle = '';
         this.rotateCirclePos = 0;
+        this.subscribeNow = false;
       }
     });
 
