@@ -22,4 +22,8 @@ export class Balance{
     condition: string;
     checkout_mode: string;
     duration?: number;
+
+    public resetBalance(): void{
+        this.balance = ''; this.prod_balance = ''; this.bundle = '';
+    }
 }

@@ -64,19 +64,22 @@ export class HomePage implements OnInit, OnDestroy{
       //Do one time stuff on login here. i.e when state changes from false to true;
       if(state){
         console.log("Login occured..")
+        console.log(this.daysLeft);
         this.authService.getUser().then(user => {
           this.user = user;
           this.getBalance();
           this.getProfile(user);
-        })
+        });
         
       }
       else{
-        console.log("cleared..")
+        //this.balance.resetBalance();
         this.profile.username = '';
         this.daysLeft = '';
-        this.balance.balance = '';
-        this.balance.bundle = '';
+        this.balance = null;
+        // this.balance.balance = '';
+        // this.balance.prod_balance = '';
+        // this.balance.bundle = '';
         this.rotateCirclePos = 0;
         this.subscribeNow = false;
       }
@@ -115,10 +118,10 @@ export class HomePage implements OnInit, OnDestroy{
   private getBalance(from?: string){
     this.walletService.getBalance().then((balance: Balance) =>{
       this.balance = balance;
-      this.displaySubNow(balance);
       console.log("Show me here ", balance);
       //this.bundleService.setBundleBalanceToStorage(this.balance);
       if(balance){
+        this.displaySubNow(balance);
         if(balance.expiry === '---'){
           return this.daysLeft = '---';
         }

@@ -7,6 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Constants } from '../models/constants';
 import { User, UserCred } from '../models/user';
 import { HTTP } from '@ionic-native/http/ngx';
+import { UtilService } from './util.service';
 
 
 @Injectable({
@@ -30,7 +31,8 @@ export class AuthService {
     private platform: Platform, 
     private storage: Storage,
     private http2: HTTP,
-    private http: HttpClient) {
+    private http: HttpClient,
+    private util: UtilService) {
     this.platform.ready().then(() =>{
       this.checkToken(); // Check auth state on every app instantiation
     });
@@ -40,6 +42,19 @@ export class AuthService {
     this.storage.get(this.authUser).then(res =>{
       res ? this.authState.next(true): this.authState.next(false);
     });
+  }
+
+  public checkTokenExpiry(user: User): boolean{
+    const currentDate = new Date();
+    const expDate = new Date("2020-01-31T15:46:00.000000Z");
+
+    if(currentDate >= expDate){
+      // Log user out
+      this.logout();
+      this.util.presentAlert('Session Expired. Login to continue');
+      return true;
+    }
+    return false;
   }
 
   public register(userCred: UserCred) : Promise<any>{
