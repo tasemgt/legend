@@ -15,6 +15,9 @@ import { LoadingController } from '@ionic/angular';
 export class LoginPage implements OnInit {
 
   @ViewChild('loginForm', null) loginForm: NgForm;
+  
+  passwordType: string = 'password';
+  passwordIcon: string = 'eye-off';
 
   constructor(
     private loadingCtrl: LoadingController,
@@ -57,7 +60,7 @@ export class LoginPage implements OnInit {
           setTimeout(()=>{ // To give a little time for loadingCtrl to be available before dismissal
             this.loadingCtrl.dismiss();
             console.log('No network')
-            this.utilService.showToast('Cannot connect to server, check network...', 3000, 'danger');
+            this.utilService.showToast('Ooops! something went wrong, please check your connection and try again.', 3000, 'danger');
           },2000);
         }   
         else{
@@ -68,12 +71,17 @@ export class LoginPage implements OnInit {
               break;
             case(500):
               this.loadingCtrl.dismiss();
-              this.utilService.showToast('Server connection error', 3000, 'danger');
+              this.utilService.showToast('Cannot connect to server at the moment, please try again later', 3000, 'danger');
               break;
           }
         }
       });
 
+  }
+
+  public hideShowPassword() {
+    this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
+    this.passwordIcon = this.passwordIcon === 'eye-off' ? 'eye' : 'eye-off';
   }
 
 }

@@ -60,7 +60,7 @@ export class RegisterPage implements OnInit {
     this.authService.register(userAccount)
       .then((resp) =>{
         this.loadingCtrl.dismiss();
-        this.utilService.showToast('Wallet created successfully..', 4000, 'secondary');
+        this.utilService.showToast(`Hi, ${userAccount.firstName}, your Legend wallet has successfully been created`, 4000, 'success');
         this.router.navigateByUrl('/login');
       })
       .catch((error:HttpErrorResponse) => {
@@ -69,14 +69,14 @@ export class RegisterPage implements OnInit {
           setTimeout(()=>{
             this.loadingCtrl.dismiss();
             console.log('No network')
-            this.utilService.showToast('Cannot connect to server, check network...', 3000, 'danger');
+            this.utilService.showToast('Ooops! something went wrong, please check your connection and try again.', 3000, 'danger');
           },2000);
         }   
         else{
           switch(error.status){
             case(401):
               this.loadingCtrl.dismiss();
-              this.utilService.showToast('Could not Create wallet', 3000, 'danger');
+              this.utilService.showToast('Cannot create your legend wallet at the moment, please try again later', 3000, 'danger');
               break;
             case(422):
               this.loadingCtrl.dismiss();
@@ -85,7 +85,7 @@ export class RegisterPage implements OnInit {
               break;
             case(500):
               this.loadingCtrl.dismiss();
-              this.utilService.showToast('Server connection error', 3000, 'danger');
+              this.utilService.showToast('Cannot connect to server at the moment, please try again later', 3000, 'danger');
               break;
           }
         }

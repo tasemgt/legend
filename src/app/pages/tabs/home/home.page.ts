@@ -59,7 +59,6 @@ export class HomePage implements OnInit, OnDestroy{
     }
 
   ngOnInit(){
-    
     this.authSubscription = this.authService.getAuthStateSubject().subscribe((state) =>{
       //Do one time stuff on login here. i.e when state changes from false to true;
       if(state){
@@ -132,7 +131,6 @@ export class HomePage implements OnInit, OnDestroy{
       const daysChopped = 30 - Number(this.daysLeft);
       this.rotateCirclePos = daysChopped * 360 / 30;
     }).catch((err: HttpErrorResponse) => {
-      console.log("could not get balance", err);
       if(err.status === 0){
         setTimeout(() =>{
           if(this.platform.is('android') || (this.platform.is('ios') && this.showIosOnce)){

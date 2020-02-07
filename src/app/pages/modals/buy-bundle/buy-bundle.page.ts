@@ -46,7 +46,7 @@ export class BuyBundlePage implements OnInit {
       // send a request for subscription..
       this.utilService.presentAlertConfirm('Send Subscription Request', `To activate plan, a request has to be made. <br/> Proceed?`, 
       () =>{
-        this.utilService.presentLoading('Funding your wallet.')
+        this.utilService.presentLoading('')
           .then(() =>{
             // Make the request here...
             return this.bundleService.buyBundle(Number(this.renewOrRequest), this.chosenBundle.products_id);
@@ -54,7 +54,7 @@ export class BuyBundlePage implements OnInit {
           .then((resp) =>{
             this.loadingCtrl.dismiss();
             if(resp.code === 100){
-              this.utilService.showToast(`A subscription request has been made, and a confirmation email sent to you`, 3000, 'secondary');
+              this.utilService.showToast(`A subscription request has been made, and a confirmation email sent to you`, 3000, 'success');
               this.closeModal();
             }
             else if(resp.code === 418){
@@ -83,7 +83,7 @@ export class BuyBundlePage implements OnInit {
               if(resp.code === 100){
                 this.walletService.getBalance()
                 .then((balance) =>{
-                  this.utilService.showToast(`You have sucessfully purchased the ${this.chosenBundle.products_name} bundle`, 3000, 'secondary');
+                  this.utilService.showToast(`Your payment of ${this.chosenBundle.checkout_amount} to your Legend subscription was successful`, 3000, 'success');
                   this.closeModal(balance);
                   this.bundleForm.reset();
                 });
@@ -99,7 +99,7 @@ export class BuyBundlePage implements OnInit {
             })
             .catch((error: HttpErrorResponse) =>{
               if(error.status === 0){
-                this.utilService.showToast('Cannot connect to server, check network...', 3000, 'danger');
+                this.utilService.showToast('Cannot connect to server at the moment, please try again later', 3000, 'danger');
                 setTimeout(()=>{
                   this.loadingCtrl.dismiss();
                 },2000);

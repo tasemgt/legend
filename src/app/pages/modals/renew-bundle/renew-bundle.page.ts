@@ -60,7 +60,7 @@ export class RenewBundlePage implements OnInit {
           this.walletService.getBalance()
             .then((balance) =>{
               this.loadingCtrl.dismiss();
-              this.utilService.showToast('Renewal completed successfully', 2000, 'secondary');
+              this.utilService.showToast('Product renewal successful.', 3000, 'success');
               this.closeModal(balance);
               this.router.navigateByUrl('/tabs/home');
             });

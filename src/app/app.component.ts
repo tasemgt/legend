@@ -64,7 +64,7 @@ export class AppComponent implements  OnDestroy, AfterViewInit{
     });
   }
 
-  // Handles back button to close app
+  // Handles back button to close app on android
   ngAfterViewInit() {
     this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(0, async () => {
       console.log("Pressed...");
@@ -73,6 +73,11 @@ export class AppComponent implements  OnDestroy, AfterViewInit{
       if((url === '/tabs/home' || url === '/tabs/payment' || url === '/tabs/profile') && isModalOpened){
         this.modalCtrl.dismiss();
       }
+
+      else if(url === '/tabs/payment' || url === '/tabs/profile' || url === '/tabs/logs'){
+        this.router.navigateByUrl('/tabs/home');
+      }
+
       else{
         this.appMinimize.minimize();
         // navigator['app'].exitApp();

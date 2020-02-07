@@ -14,7 +14,8 @@
         </ion-col>
         <ion-col size="12" class="legend-input">
           <ion-item>
-            <ion-input placeholder="Password" type="password" name="password" ngModel #password="ngModel" required></ion-input>
+            <ion-input placeholder="Password" [type]="passwordType" name="password" ngModel #password="ngModel" required></ion-input>
+            <ion-icon slot="end" [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
           </ion-item>
           <!-- <p class="ion-text-right"><a>Forgot Password?</a></p> -->
         </ion-col>

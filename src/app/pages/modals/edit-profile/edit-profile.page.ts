@@ -56,7 +56,7 @@ export class EditProfilePage implements OnInit {
         if(resp.code === 100){
           this.userService.getUserProfile(this.user)
             .then((profile) =>{
-              this.utilService.showToast(`Profile updated successfully`, 3000, 'secondary');
+              this.utilService.showToast(`Profile updated successfully`, 3000, 'success');
               this.closeModal(profile);
             });
         }

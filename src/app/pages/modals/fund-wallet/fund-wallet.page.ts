@@ -68,11 +68,11 @@ export class FundWalletPage implements OnInit, OnDestroy {
             setTimeout(() =>{  // Just to create some load effect before completing
               this.loadingCtrl.dismiss();
               if(response === 'Transaction Successful'){ //if(JSON.parse(response).code === 100){
-                  this.utilService.showToast(`\u20A6${amount}, has been successfully added to your wallet`, 3000, 'secondary');
+                  this.utilService.showToast(`Success! Your payment of \u20A6${amount} is confirmed.`, 3000, 'success');
                   this.walletService.balanceState.next(true); // Inform home page that balance needs to be updated..
               }
               else{
-                this.utilService.showToast(`Sorry, your wallet could not be funded at this time`, 3000, 'danger');
+                this.utilService.showToast(`Your payment could not be processed. Please try again.`, 3000, 'danger');
               }
               this.closeModal();
               this.fundWalletForm.resetForm();

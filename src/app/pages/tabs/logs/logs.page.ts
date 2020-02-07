@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Data } from 'src/app/models/constants';
 
 import { LogService } from 'src/app/services/log.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -12,8 +11,6 @@ import { Subscription } from 'rxjs';
   styleUrls: ['logs.page.scss']
 })
 export class LogsPage implements OnInit {
-
-  public data: any = Data;
 
   public records: any
   public usageLogs: any
