@@ -6,6 +6,7 @@ import { WalletService } from 'src/app/services/wallet.service';
 import { PaymentService } from 'src/app/services/payment.service';
 import { Router } from '@angular/router';
 import { Subscription, BehaviorSubject } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -23,10 +24,10 @@ export class FundWalletPage implements OnInit, OnDestroy {
   public responseSubscription: Subscription;
 
   constructor(
-    private router: Router,
     private navParams: NavParams,
     private loadingCtrl: LoadingController,
     private modalCtrl: ModalController,
+    private auth: AuthService,
     private paymentService: PaymentService,
     private walletService: WalletService,
     private utilService: UtilService) {
@@ -37,6 +38,13 @@ export class FundWalletPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.fundWalletForm.resetForm(); //Reset form when modal loads
+  }
+
+  ionViewDidEnter(){
+    setTimeout(async () =>{
+      const user = await this.auth.getUser();
+      this.auth.checkTokenExpiry(user);
+    }, 200);
   }
 
   // Function to make calls to pop up payment on InAPp browser

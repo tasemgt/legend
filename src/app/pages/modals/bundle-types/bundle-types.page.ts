@@ -4,6 +4,7 @@ import { BundleService } from 'src/app/services/bundle.service';
 
 import { Bundle } from 'src/app/models/bundle';
 import { BundleImage } from 'src/app/models/constants';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-bundle-types',
@@ -16,10 +17,18 @@ export class BundleTypesPage implements OnInit {
 
   constructor(
     private modalCtrl: ModalController,
+    private auth: AuthService,
     private bundleService: BundleService) { }
 
   ngOnInit() {
     this.getBundleTypes();
+  }
+
+  ionViewDidEnter(){
+    setTimeout(async () =>{
+      const user = await this.auth.getUser();
+      this.auth.checkTokenExpiry(user);
+    }, 200);
   }
 
   private getBundleTypes(){

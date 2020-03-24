@@ -51,12 +51,26 @@ export class AppComponent implements  OnDestroy, AfterViewInit{
         this.statusBar.backgroundColorByHexString('#000000');
       }
 
-      this.authService.authState.subscribe(state => {
+      this.authService.authState.subscribe(async (state) => {
         if (state === true) {
           console.log('Go to tabs, you\'re logged in');
           this.router.navigateByUrl('/tabs');
         } else if (state === false) {
-          console.log('You\'re logged out')
+          console.log('You\'re logged out');
+          let isModalOpened = await this.modalCtrl.getTop();
+          if(isModalOpened){
+            this.modalCtrl.dismiss().then(async() =>{
+              isModalOpened = await this.modalCtrl.getTop();
+              if(isModalOpened){
+                this.modalCtrl.dismiss().then(async() =>{
+                  isModalOpened = await this.modalCtrl.getTop();
+                  if(isModalOpened){
+                    this.modalCtrl.dismiss();
+                  }
+                });
+              }
+            });
+          }
           this.router.navigateByUrl('/login');
         }
       });

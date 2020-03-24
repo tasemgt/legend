@@ -47,6 +47,13 @@ export class ProfilePage implements OnInit, OnDestroy{
     });
   }
 
+  // ionViewDidEnter(){
+  //   setTimeout(async () =>{
+  //     const user = await this.authService.getUser();
+  //     this.authService.checkTokenExpiry(user);
+  //   }, 200);
+  // }
+
   private async getUserProfile(user: User){
     try{
       this.profile = await this.userService.getUserProfile(user);

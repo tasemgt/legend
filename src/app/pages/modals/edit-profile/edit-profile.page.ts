@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { UtilService } from 'src/app/services/util.service';
 import { Profile, User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -19,6 +20,7 @@ export class EditProfilePage implements OnInit {
     private modalCtrl: ModalController,
     private loadingCtrl: LoadingController,
     private navParams: NavParams,
+    private auth: AuthService,
     private utilService: UtilService,
     private userService: UserService) {
 
@@ -28,6 +30,13 @@ export class EditProfilePage implements OnInit {
     }
 
   ngOnInit() {
+  }
+
+   ionViewDidEnter(){
+    setTimeout(async () =>{
+      const user = await this.auth.getUser();
+      this.auth.checkTokenExpiry(user);
+    }, 200);
   }
 
   public updateProfile(form: NgForm){ 

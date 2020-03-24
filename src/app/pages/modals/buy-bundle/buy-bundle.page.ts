@@ -8,6 +8,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { BundleTypesPage } from '../bundle-types/bundle-types.page';
 import { Bundle } from 'src/app/models/bundle';
 import { WalletService } from 'src/app/services/wallet.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class BuyBundlePage implements OnInit {
   constructor(
     private modalCtrl: ModalController, 
     private loadingCtrl: LoadingController,
+    private auth: AuthService,
     private utilService: UtilService,
     private bundleService: BundleService,
     private walletService: WalletService) { 

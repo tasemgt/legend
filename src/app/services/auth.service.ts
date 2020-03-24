@@ -44,9 +44,12 @@ export class AuthService {
     });
   }
 
+  // NB Authomatic logout happens in
+  // bundle-types, renew bundle, edit profile, fund wallet, 
+
   public checkTokenExpiry(user: User): boolean{
     const currentDate = new Date();
-    const expDate = new Date("2020-01-31T15:46:00.000000Z");
+    const expDate =  new Date(user.expiry); // new Date("2020-03-05T15:27:00.000000Z");
 
     if(currentDate >= expDate){
       // Log user out

@@ -125,7 +125,7 @@ export class HomePage implements OnInit, OnDestroy{
           return this.daysLeft = '---';
         }
         this.daysLeft = this.getDaysLeft(balance.expiry).toString(); // Computes remaining days of bundle..
-        console.log(this.daysLeft);
+        console.log("Days Left>>>> ",this.daysLeft);
       }
       
       const daysChopped = 30 - Number(this.daysLeft);

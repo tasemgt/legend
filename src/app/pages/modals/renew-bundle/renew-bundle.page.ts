@@ -7,6 +7,7 @@ import { Bundle } from 'src/app/models/bundle';
 import { BundleService } from 'src/app/services/bundle.service';
 import { Profile } from 'src/app/models/user';
 import { WalletService } from 'src/app/services/wallet.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -14,7 +15,7 @@ import { WalletService } from 'src/app/services/wallet.service';
   templateUrl: './renew-bundle.page.html',
   styleUrls: ['./renew-bundle.page.scss'],
 })
-export class RenewBundlePage implements OnInit {
+export class RenewBundlePage{
 
   public amount;
   public currentBundle;
@@ -24,6 +25,7 @@ export class RenewBundlePage implements OnInit {
     private navParams: NavParams,
     private router: Router,
     private modalCtrl: ModalController,
+    private auth: AuthService,
     private loadingCtrl: LoadingController,
     private bundleService: BundleService,
     private walletService: WalletService,
@@ -33,7 +35,12 @@ export class RenewBundlePage implements OnInit {
       this.profile = this.navParams.get('profile');
     }
 
-  ngOnInit() {
+
+  ionViewDidEnter(){
+    setTimeout(async () =>{
+      const user = await this.auth.getUser();
+      this.auth.checkTokenExpiry(user);
+    }, 200);
   }
 
   public renewBundle(form: NgForm){
