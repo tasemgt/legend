@@ -68,6 +68,7 @@ export class ProfilePage implements OnInit, OnDestroy{
   }
 
   public async openEditProfileModal(){
+    // this.router.navigateByUrl('/edit-profile');
     const modal = await this.modalCtrl.create({
       component: EditProfilePage,
       componentProps: {'profile': this.profile, 'user': this.user}

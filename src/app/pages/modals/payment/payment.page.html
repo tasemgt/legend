@@ -1,0 +1,71 @@
+<ion-content class="ion-padding legend-modal">
+  <div>
+    <ion-icon name="arrow-back" color="primary" (click)="closeModal()"></ion-icon>
+  </div>
+
+  <ion-grid>
+
+    <ion-row>
+      <ion-col size="12" class="name-heading ion-text-center">
+        <p>Select Merchant</p>
+        <p></p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="search-row">
+      <ion-col size="12" class="legend-input">
+        <ion-item>
+          <ion-input placeholder="Search Merchant" type="text" name="merchant" ngModel #merchant="ngModel"></ion-input>
+          <ion-icon slot="end" color="white" name="search" class="passwordIcon"></ion-icon>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="merchants-row">
+      <ion-col size="12">
+        <div class="merchant">
+          <ion-row>
+            <ion-col size="3">
+              <div></div>
+              <!-- <img src=""> -->
+            </ion-col>
+            <ion-col size="9">
+              <h4>Dunes Center</h4>
+              <p>Location: Abuja</p>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-col>
+      <ion-col size="12">
+        <div class="merchant">
+          <ion-row>
+            <ion-col size="3">
+              <div></div>
+              <!-- <img src=""> -->
+            </ion-col>
+            <ion-col size="9">
+              <h4>A & K</h4>
+              <p>Location: Abuja</p>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-col>
+      <ion-col size="12">
+        <div class="merchant">
+          <ion-row>
+            <ion-col size="3">
+              <div></div>
+              <!-- <img src=""> -->
+            </ion-col>
+            <ion-col size="9">
+              <h4>Shoprite</h4>
+              <p>Location: Abuja</p>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+</ion-content>

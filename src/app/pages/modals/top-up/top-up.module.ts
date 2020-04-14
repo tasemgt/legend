@@ -3,18 +3,18 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PaymentPage } from './payment.page';
-import { FundWalletPage } from '../../modals/fund-wallet/fund-wallet.page';
+import { TopUpPage } from './top-up.page';
+import { FundWalletPage } from '../fund-wallet/fund-wallet.page';
+
 
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
-    FormsModule,
-    RouterModule.forChild([{ path: '', component: PaymentPage }])
+    FormsModule
   ],
-  declarations: [PaymentPage, FundWalletPage],
+  declarations: [TopUpPage, FundWalletPage],
   entryComponents: [FundWalletPage]
 })
-export class PaymentPageModule {}
+export class TopUpPageModule {}

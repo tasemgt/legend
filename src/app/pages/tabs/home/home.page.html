@@ -27,7 +27,7 @@
           <p>Username <br/><span>{{profile?.username || "..."}}</span></p>
         </div>
         <div (click)="goToTab('payment')">
-          <ion-icon src="assets/imgs/balance.svg"></ion-icon>
+          <ion-icon src="assets/imgs/wallet_fixed.svg"></ion-icon>
           <p>My Wallet <br/><span *ngIf="balance">&#x20a6; {{balance?.balance}}</span><span *ngIf="!balance">......</span></p>
         </div>
         <div (click)="openBundleDetailsModal()" *ngIf="subscribeNow" class="alt">

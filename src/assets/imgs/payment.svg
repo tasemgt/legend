@@ -1,12 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 19.2.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 20 16" style="enable-background:new 0 0 20 16;" xml:space="preserve">
-<!-- <style type="text/css">
-	.st0{fill:none;}
-</style> -->
-<path class="st0" d="M18,0H2C0.9,0,0,0.9,0,2l0,12c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V2C20,0.9,19.1,0,18,0z M18,14H2V8h16V14z
-	 M18,4H2V2h16V4z"/>
-<g id="_x3C_Image_x3E_">
+<svg width="61" height="61" viewBox="0 0 61 61" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_d)">
+<rect x="10.3387" y="6" width="40.6452" height="40.6452" rx="5" fill="#E53F27"/>
 </g>
+<path opacity="0.3" d="M32.4032 33.871C31.1258 33.871 30.0806 32.8259 30.0806 31.5484V24.5807C30.0806 23.3033 31.1258 22.2581 32.4032 22.2581H39.371V19.9355H23.1129V36.1936H39.371V33.871H32.4032Z" fill="black"/>
+<path d="M41.6935 22.5831V19.9354C41.6935 18.658 40.6484 17.6128 39.371 17.6128H23.1129C22.4969 17.6128 21.9062 17.8575 21.4706 18.2931C21.035 18.7286 20.7903 19.3194 20.7903 19.9354V36.1934C20.7903 36.8094 21.035 37.4002 21.4706 37.8357C21.9062 38.2713 22.4969 38.516 23.1129 38.516H39.371C40.6484 38.516 41.6935 37.4709 41.6935 36.1934V33.5457C42.0446 33.343 42.3365 33.052 42.5402 32.7016C42.7439 32.3512 42.8524 31.9536 42.8548 31.5483V24.5805C42.8548 23.7212 42.3787 22.978 41.6935 22.5831ZM40.5323 24.5805V31.5483H32.4032V24.5805H40.5323ZM23.1129 36.1934V19.9354H39.371V22.258H32.4032C31.1258 22.258 30.0806 23.3031 30.0806 24.5805V31.5483C30.0806 32.8257 31.1258 33.8709 32.4032 33.8709H39.371V36.1934H23.1129Z" fill="black"/>
+<path d="M35.8871 30.3872C36.8491 30.3872 37.629 29.6073 37.629 28.6453C37.629 27.6832 36.8491 26.9033 35.8871 26.9033C34.9251 26.9033 34.1452 27.6832 34.1452 28.6453C34.1452 29.6073 34.9251 30.3872 35.8871 30.3872Z" fill="black"/>
+<circle cx="23.6936" cy="19.355" r="5.22581" fill="black"/>
+<path d="M23.2903 16.4517H25.7903V18.9517H25.4778V16.9863L21.0174 21.4443L20.7976 21.2246L25.2557 16.7642H23.2903V16.4517Z" fill="white"/>
+<defs>
+<filter id="filter0_d" x="0.338715" y="0" width="60.6452" height="60.6452" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+<feOffset dy="4"/>
+<feGaussianBlur stdDeviation="5"/>
+<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 0.313726 0 0 0 0 0 0 0 0 0.2 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+</filter>
+</defs>
 </svg>

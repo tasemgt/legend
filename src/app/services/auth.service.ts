@@ -44,7 +44,7 @@ export class AuthService {
     });
   }
 
-  // NB Authomatic logout happens in
+  // NB Automatic logout happens in
   // bundle-types, renew bundle, edit profile, fund wallet, 
 
   public checkTokenExpiry(user: User): boolean{

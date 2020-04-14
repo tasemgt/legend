@@ -24,6 +24,7 @@ export class EditProfilePage implements OnInit {
     private utilService: UtilService,
     private userService: UserService) {
 
+      //this.profile = this.router.getCurrentNavigation().extras.state.profile;
       this.profile = this.navParams.get('profile');
       this.user = this.navParams.get('user');
 
@@ -32,6 +33,7 @@ export class EditProfilePage implements OnInit {
   ngOnInit() {
   }
 
+  // Checks for token expiration...
    ionViewDidEnter(){
     setTimeout(async () =>{
       const user = await this.auth.getUser();

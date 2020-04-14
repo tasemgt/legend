@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
-import { EditProfilePage } from './edit-profile.page';
 
+
+import { PaymentPage } from './payment.page';
 
 @NgModule({
   imports: [
@@ -12,7 +13,7 @@ import { EditProfilePage } from './edit-profile.page';
     FormsModule,
     IonicModule
   ],
-  declarations: [EditProfilePage],
-  entryComponents: [EditProfilePage]
+  declarations: [PaymentPage],
+  entryComponents: [PaymentPage]
 })
-export class EditProfilePageModule {}
+export class PaymentPageModule {}

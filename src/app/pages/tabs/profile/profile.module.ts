@@ -4,16 +4,17 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProfilePage } from './profile.page';
-import { EditProfilePage } from '../../modals/edit-profile/edit-profile.page';
+
+import { EditProfilePageModule } from '../../modals/edit-profile/edit-profile.module';
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
-    RouterModule.forChild([{ path: '', component: ProfilePage }])
+    RouterModule.forChild([{ path: '', component: ProfilePage }]),
+    EditProfilePageModule
   ],
-  declarations: [ProfilePage, EditProfilePage],
-  entryComponents: [EditProfilePage]
+  declarations: [ProfilePage],
 })
 export class ProfilePageModule {}

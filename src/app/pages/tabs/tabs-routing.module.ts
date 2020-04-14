@@ -17,11 +17,11 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'payment',
+        path: 'wallet',
         children: [
           {
             path: '',
-            loadChildren: './payment/payment.module#PaymentPageModule'
+            loadChildren: './wallet/wallet.module#WalletPageModule'
           }
         ]
       },
@@ -45,14 +45,14 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/tabs/home',
+        redirectTo: '/tabs/wallet',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/home',
+    redirectTo: '/tabs/wallet',
     pathMatch: 'full'
   }
 ];

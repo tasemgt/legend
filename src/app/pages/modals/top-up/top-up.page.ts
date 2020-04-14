@@ -2,17 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
 import { PaymentMethod } from 'src/app/models/payment';
-import { FundWalletPage } from '../../modals/fund-wallet/fund-wallet.page';
+import { FundWalletPage } from '../fund-wallet/fund-wallet.page';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
-  selector: 'app-payment',
-  templateUrl: 'payment.page.html',
-  styleUrls: ['payment.page.scss']
+  selector: 'app-top-up',
+  templateUrl: 'top-up.page.html',
+  styleUrls: ['top-up.page.scss']
 })
-export class PaymentPage implements OnInit {
+export class TopUpPage implements OnInit {
 
   public user: User;
   public paymentType: string;
