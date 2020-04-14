@@ -6,8 +6,9 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { WalletPage } from './wallet.page';
 
+import { SelectMerchantPageModule } from '../../modals/select-merchant/select-merchant.module';
 
-import { PaymentPageModule } from '../../modals/payment/payment.module';
+
 
 
 @NgModule({
@@ -15,7 +16,7 @@ import { PaymentPageModule } from '../../modals/payment/payment.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    PaymentPageModule,
+    SelectMerchantPageModule,
     RouterModule.forChild([{ path: '', component: WalletPage }]),
   ],
   declarations: [WalletPage]

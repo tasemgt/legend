@@ -4,8 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-
-import { PaymentPage } from './payment.page';
+import { PayMerchantPage } from './pay-merchant.page';
 
 @NgModule({
   imports: [
@@ -13,7 +12,7 @@ import { PaymentPage } from './payment.page';
     FormsModule,
     IonicModule
   ],
-  declarations: [PaymentPage],
-  entryComponents: [PaymentPage]
+  declarations: [PayMerchantPage],
+  entryComponents: [PayMerchantPage]
 })
-export class PaymentPageModule {}
+export class PayMerchantPageModule {}

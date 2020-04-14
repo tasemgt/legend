@@ -1,15 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { SelectMerchantPage } from '../../modals/select-merchant/select-merchant.page';
-
-
+import { PayMerchantPage } from '../pay-merchant/pay-merchant.page';
 
 @Component({
-  selector: 'app-wallet',
-  templateUrl: './wallet.page.html',
-  styleUrls: ['./wallet.page.scss'],
+  selector: 'app-select-merchant',
+  templateUrl: './select-merchant.page.html',
+  styleUrls: ['./select-merchant.page.scss'],
 })
-export class WalletPage implements OnInit {
+export class SelectMerchantPage implements OnInit {
 
   constructor(private modalCtrl: ModalController) { }
 
@@ -17,13 +15,17 @@ export class WalletPage implements OnInit {
   }
 
 
-  public async openSearchMerchantModal(){
+  public async openPayMerchantModal(){
     // this.router.navigateByUrl('/edit-profile');
     const modal = await this.modalCtrl.create({
-      component: SelectMerchantPage,
+      component: PayMerchantPage,
       // componentProps: {'profile': this.profile, 'user': this.user}
     });
     await modal.present();
   }
 
+
+  public closeModal(){
+    this.modalCtrl.dismiss();
+  }
 }
