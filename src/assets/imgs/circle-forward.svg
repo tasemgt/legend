@@ -3,7 +3,7 @@
 <circle cx="19" cy="19" r="19" transform="rotate(-90 19 19)" fill="#333333"/>
 </g>
 <circle cx="19" cy="19" r="18.5" transform="rotate(-90 19 19)" stroke="#E53F27"/>
-<path d="M23 11H35V23H33.5V13.5664L12.0898 34.9648L11.0352 33.9102L32.4336 12.5H23V11Z" fill="#E53F27"/>
+<path d="M23.9023 11.9727L34.9297 23L23.9023 34.0273L22.8477 32.9727L32.0703 23.75H11V22.25H32.0703L22.8477 13.0273L23.9023 11.9727Z" fill="#E53F27"/>
 <defs>
 <filter id="filter0_i" x="0" y="0" width="38" height="42" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>

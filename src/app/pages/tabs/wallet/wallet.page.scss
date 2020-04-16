@@ -1,9 +1,10 @@
 .balance-wrapper{
   width: 100%;
   height: 6rem;
-  border: 2px solid var(--ion-color-primary);
+  background-color: var(--ion-color-primary);
+  // border: 2px solid var(--ion-color-primary);
   border-radius: 10px;
-  padding-top: 0.5rem;
+  padding-top: 1rem;
 
   ion-icon{
     font-size: 32px;
@@ -16,7 +17,6 @@
 
   p{
     font-size: 0.7rem;
-    color: var(--ion-color-primary);
   }
 
   h1{
@@ -26,23 +26,31 @@
 }
 
 .wallet-action-row{
-  margin-top: 1rem;
+  margin: 0.1rem -1.5rem;
+
+  div:last-child{
+    p{
+      font-size: 0.8rem;
+      letter-spacing: 0.00005rem;
+      margin-left: -1rem;
+    }
+  }
 
   .wallet-action{
     display: inline-block;
     text-align: center;
-    width: 33%;
+    width: 25%;
 
     ion-icon{
-      font-size: 70px;
+      font-size: 50px;
     }
 
     p{
       margin: 0px;
-      margin-top: -1rem;
       font-size: 0.9rem;
-      font-weight: 100;
+      font-weight: lighter;
     }
+
   }
 }
 
@@ -99,8 +107,8 @@
         font-size: 2.5rem;
       }
 
-      
-    
+    }:last-child{
+      border-bottom: none;
     }
 
   }

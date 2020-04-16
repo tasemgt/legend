@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProfilePage } from './profile.page';
 
-import { EditProfilePageModule } from '../../modals/edit-profile/edit-profile.module';
+import { EditProfilePageModule } from '../../modals/profile/edit-profile/edit-profile.module';
 
 @NgModule({
   imports: [

@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { SelectMerchantPage } from './select-merchant.page';
-import { PayMerchantPageModule } from '../pay-merchant/pay-merchant.module';
+import { SelectProductPageModule } from '../select-product/select-product.module';
 
 
 @NgModule({
@@ -13,7 +13,7 @@ import { PayMerchantPageModule } from '../pay-merchant/pay-merchant.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    PayMerchantPageModule,
+    SelectProductPageModule
   ],
   declarations: [SelectMerchantPage],
   entryComponents: [SelectMerchantPage]

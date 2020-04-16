@@ -1,0 +1,60 @@
+.merchants-row{
+  margin-top: 3rem;
+}
+
+.button-row{
+  ion-col[size="12"]:last-child{
+    h4{
+      font-size: 1rem;
+      font-weight: bolder;
+
+      span{
+        font-size: 1.2rem;
+      }
+    }
+  }
+}
+
+.top-products-row{
+
+  letter-spacing: 0.05rem;
+
+  p{
+    margin-bottom: 2vh;
+    font-size: 0.92rem;
+    font-weight: bolder;
+    span:last-child{
+      float: right;
+      color: var(--ion-color-primary);;
+    }
+  }
+
+  .products-list{
+    background-color: var(--ion-color-tertiary);
+    border-radius: 10px;
+    padding: 0.5rem 0px 0.5rem 0px;
+
+    ion-col{padding: 0px; margin: 0px;}
+
+    .product{
+      height: 3rem;
+      border-bottom: 0.0008rem solid var(--ion-color-tertiary-tint);
+      padding: 0.5rem;
+
+      p{
+        margin: 0px;
+        padding: 0.3rem;
+      }
+
+      ion-icon{
+        font-size: 0.8rem;
+      }
+
+
+    }:last-child{
+      border-bottom: none;
+    }
+
+  }
+
+}

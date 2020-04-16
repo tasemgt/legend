@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { PayMerchantPage } from '../pay-merchant/pay-merchant.page';
+import { SelectProductPage } from '../select-product/select-product.page';
 
 @Component({
   selector: 'app-select-merchant',
@@ -15,10 +15,10 @@ export class SelectMerchantPage implements OnInit {
   }
 
 
-  public async openPayMerchantModal(){
+  public async openSelectProductModal(){
     // this.router.navigateByUrl('/edit-profile');
     const modal = await this.modalCtrl.create({
-      component: PayMerchantPage,
+      component: SelectProductPage,
       // componentProps: {'profile': this.profile, 'user': this.user}
     });
     await modal.present();

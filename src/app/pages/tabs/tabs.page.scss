@@ -1,6 +1,7 @@
 ion-tab-bar{
-    --background: var(--ion-color-tertiary);
-    height: 4.5rem;
+    --background: var(--ion-color-secondary);
+    --border: 3px solid var(--ion-color-tertiary);
+    height: 5rem;
 }
 
 ion-tab-button{

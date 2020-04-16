@@ -7,12 +7,12 @@ import { UtilService } from 'src/app/services/util.service';
 import { ModalController, Platform } from '@ionic/angular';
 
 import { Balance } from 'src/app/models/wallet';
-import { BuyBundlePage } from '../../modals/buy-bundle/buy-bundle.page';
+import { BuyBundlePage } from '../../modals/bundles/buy-bundle/buy-bundle.page';
 import { Network } from '@ionic-native/network/ngx';
 import { BundleService } from 'src/app/services/bundle.service';
 
 import { Flip } from 'number-flip';
-import { BundleDetailsPage } from '../../modals/bundle-details/bundle-details.page';
+import { BundleDetailsPage } from '../../modals/bundles/bundle-details/bundle-details.page';
 import { UserService } from 'src/app/services/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';

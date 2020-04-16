@@ -5,10 +5,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 
-import { BuyBundlePage } from '../../modals/buy-bundle/buy-bundle.page';
-import { BundleTypesPage } from '../../modals/bundle-types/bundle-types.page';
-import { BundleDetailsPage } from '../../modals/bundle-details/bundle-details.page';
-import { RenewBundlePage } from '../../modals/renew-bundle/renew-bundle.page';
+import { BuyBundlePage } from '../../modals/bundles/buy-bundle/buy-bundle.page';
+import { BundleTypesPage } from '../../modals/bundles/bundle-types/bundle-types.page';
+import { BundleDetailsPage } from '../../modals/bundles/bundle-details/bundle-details.page';
+import { RenewBundlePage } from '../../modals/bundles/renew-bundle/renew-bundle.page';
 
 
 @NgModule({

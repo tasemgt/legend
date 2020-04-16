@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { SelectMerchantPage } from '../../modals/select-merchant/select-merchant.page';
+import { SelectMerchantPage } from '../../modals/payments/select-merchant/select-merchant.page';
 
 
 

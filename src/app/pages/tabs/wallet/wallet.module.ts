@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { WalletPage } from './wallet.page';
 
-import { SelectMerchantPageModule } from '../../modals/select-merchant/select-merchant.module';
+import { SelectMerchantPageModule } from '../../modals/payments/select-merchant/select-merchant.module';
 
 
 

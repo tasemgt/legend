@@ -6,7 +6,7 @@ import { UtilService } from 'src/app/services/util.service';
 import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
 
-import { EditProfilePage } from '../../modals/edit-profile/edit-profile.page';
+import { EditProfilePage } from '../../modals/profile/edit-profile/edit-profile.page';
 import { ModalController } from '@ionic/angular';
 
 
