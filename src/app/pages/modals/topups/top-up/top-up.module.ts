@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { TopUpPage } from './top-up.page';
 
 import { FundWalletPageModule } from '../fund-wallet/fund-wallet.module';
+import { VoucherFundPageModule } from '../voucher-fund/voucher-fund.module';
 
 
 
@@ -13,7 +14,8 @@ import { FundWalletPageModule } from '../fund-wallet/fund-wallet.module';
     IonicModule,
     CommonModule,
     FormsModule,
-    FundWalletPageModule
+    FundWalletPageModule,
+    VoucherFundPageModule
   ],
   declarations: [TopUpPage],
   entryComponents: [TopUpPage]

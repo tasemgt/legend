@@ -33,7 +33,7 @@ export class FundWalletPage implements OnInit, OnDestroy {
     private utilService: UtilService) {
 
       this.email = this.navParams.get('email');
-      this.paymentType = this.navParams.get('paymentType');
+      this.paymentType = this.navParams.get('paymentType').toLowerCase();
   }
 
   ngOnInit() {

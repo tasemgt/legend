@@ -7,6 +7,7 @@ import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { myEnterAnimation } from 'src/app/animations/enter';
 import { myLeaveAnimation } from 'src/app/animations/leave';
+import { VoucherFundPage } from '../voucher-fund/voucher-fund.page';
 
 
 @Component({
@@ -42,6 +43,11 @@ export class TopUpPage implements OnInit {
   }
 
 
+  public onFundWallet(){
+    console.log(this.paymentType);
+    this.paymentType === 'voucher'? this.openVoucherFundModal() : this.openFundWalletModal();
+  }
+
 
   public async openFundWalletModal(){
     const modal = await this.modalCtrl.create({
@@ -53,17 +59,39 @@ export class TopUpPage implements OnInit {
         'paymentType': this.paymentType
       }
     });
-    return await modal.present();
+    await modal.present();
+    modal.onDidDismiss().then(() =>{
+      this.updatePaymentType();
+    });
   }
 
+  public async openVoucherFundModal(){
+    const modal = await this.modalCtrl.create({
+      component: VoucherFundPage,
+      enterAnimation: myEnterAnimation,
+      leaveAnimation: myLeaveAnimation,
+    });
+    await modal.present();
+    modal.onDidDismiss().then(() =>{
+      this.updatePaymentType();
+    });
+  }
 
   public onClickItem(_paymentMethod : PaymentMethod){
     _paymentMethod.isActive = true;
-    this.paymentType = _paymentMethod.name;
+    this.paymentType = _paymentMethod.name.toLowerCase();
     console.log(this.paymentType);
     for(const paymentMethod of this.paymentMethods){
       if(paymentMethod.value !== _paymentMethod.value){
         paymentMethod.isActive = false;
+      }
+    }
+  }
+
+  private updatePaymentType(){
+    for(const paymentMethod of this.paymentMethods){
+      if(paymentMethod.isActive){
+        this.paymentType = paymentMethod.name.toLowerCase();
       }
     }
   }
