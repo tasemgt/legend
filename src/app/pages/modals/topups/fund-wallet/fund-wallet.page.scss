@@ -1,8 +1,16 @@
 .legend-input{
-    span{
-        margin-right: 10px;
-        ion-icon{
-            font-size: 14px;
-        }
+    // span{
+    //     margin-right: 10px;
+    //     ion-icon{
+    //         font-size: 14px;
+    //     }
+    // }
+
+    ion-icon{
+        font-size: 14px;
+    }
+
+    ion-input{
+        font-size: 1.2rem;
     }
 }

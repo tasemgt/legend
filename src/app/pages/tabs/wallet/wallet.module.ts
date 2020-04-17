@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { WalletPage } from './wallet.page';
 
 import { SelectMerchantPageModule } from '../../modals/payments/select-merchant/select-merchant.module';
+import { TopUpPageModule } from '../../modals/topups/top-up/top-up.module';
 
 
 
@@ -17,6 +18,7 @@ import { SelectMerchantPageModule } from '../../modals/payments/select-merchant/
     FormsModule,
     IonicModule,
     SelectMerchantPageModule,
+    TopUpPageModule,
     RouterModule.forChild([{ path: '', component: WalletPage }]),
   ],
   declarations: [WalletPage]

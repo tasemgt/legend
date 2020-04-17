@@ -5,6 +5,8 @@ import { PaymentMethod } from 'src/app/models/payment';
 import { FundWalletPage } from '../fund-wallet/fund-wallet.page';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
+import { myEnterAnimation } from 'src/app/animations/enter';
+import { myLeaveAnimation } from 'src/app/animations/leave';
 
 
 @Component({
@@ -19,7 +21,8 @@ export class TopUpPage implements OnInit {
 
 
   public paymentMethods: PaymentMethod[] = [
-    { name: 'LegendPay', isActive: true, value: 1}
+    { name: 'Voucher', isActive: true, value: 1},
+    { name: 'LegendPay', isActive: false, value: 2}
     // { name: 'Paystack', isActive: false, value: 2},
     // { name: 'NetPlus', isActive: false, value: 3}
   ];
@@ -43,6 +46,8 @@ export class TopUpPage implements OnInit {
   public async openFundWalletModal(){
     const modal = await this.modalCtrl.create({
       component: FundWalletPage,
+      enterAnimation: myEnterAnimation,
+      leaveAnimation: myLeaveAnimation,
       componentProps: {
         'email': this.user.email,
         'paymentType': this.paymentType
@@ -55,6 +60,7 @@ export class TopUpPage implements OnInit {
   public onClickItem(_paymentMethod : PaymentMethod){
     _paymentMethod.isActive = true;
     this.paymentType = _paymentMethod.name;
+    console.log(this.paymentType);
     for(const paymentMethod of this.paymentMethods){
       if(paymentMethod.value !== _paymentMethod.value){
         paymentMethod.isActive = false;
@@ -62,4 +68,7 @@ export class TopUpPage implements OnInit {
     }
   }
 
+  public closeModal(){
+    this.modalCtrl.dismiss();
+  }
 }

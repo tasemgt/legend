@@ -1,10 +1,10 @@
 import { IonicModule } from '@ionic/angular';
-import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TopUpPage } from './top-up.page';
-import { FundWalletPage } from '../fund-wallet/fund-wallet.page';
+
+import { FundWalletPageModule } from '../fund-wallet/fund-wallet.module';
 
 
 
@@ -12,9 +12,10 @@ import { FundWalletPage } from '../fund-wallet/fund-wallet.page';
   imports: [
     IonicModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    FundWalletPageModule
   ],
-  declarations: [TopUpPage, FundWalletPage],
-  entryComponents: [FundWalletPage]
+  declarations: [TopUpPage],
+  entryComponents: [TopUpPage]
 })
 export class TopUpPageModule {}
