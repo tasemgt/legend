@@ -4,10 +4,10 @@
   </div>
   <ion-grid>
     <ion-row>
-      <ion-col size="12" class="name-heading ion-text-center">
-        <p>Select New Plan</p>
-        <p></p>
+      <ion-col size="7" class="name-heading-alt ion-text-left">
+        <p>Select new plan</p>
       </ion-col>
+      <ion-col></ion-col>
     </ion-row>
     <form class="auth-form" (ngSubmit)="buyBundle(bundleForm)" #bundleForm="ngForm">
       <ion-row>
@@ -16,27 +16,7 @@
             <span class="bundle-type">Select Product:</span>
             <span class="bundle-type-text">{{chosenBundle?.products_name.substring(0, 22) | uppercase}}</span>
           </ion-button>
-          <!-- <ion-item>
-            <span><ion-icon name="desktop"></ion-icon></span>
-            <ion-label>Bundle Type</ion-label>
-            <ion-select okText="Okay" name="bundle" cancelText="Dismiss" ngModel
-            #bundle="ngModel" interface="popover" required>
-              <ion-select-option [value]="bundle" *ngFor="let bundle of bundles">{{bundle.name}} - ({{bundle.amount}}) 
-                <span style="display: block;">
-                {{bundle.description.package}} - {{bundle.description.duration}} days
-              </span>
-           
-            </ion-select-option>
-            </ion-select>
-          </ion-item> -->
         </ion-col>
-        <!-- <ion-col size="12" class="legend-input">
-          <ion-item>
-            <span><ion-icon name="keypad"></ion-icon></span>
-            <ion-label>Pin:</ion-label>
-            <ion-input maxlength="4" type="password" name="pin" ngModel required></ion-input>
-          </ion-item>
-        </ion-col> -->
         <ion-col size="12" class="ion-text-center">
           <div class="btn-wrapper">
             <ion-button class="legend-btn ion-text-capitalize" color="primary" type="submit">Subscribe</ion-button>

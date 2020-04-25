@@ -16,6 +16,8 @@ import { BundleDetailsPage } from '../../modals/bundles/bundle-details/bundle-de
 import { UserService } from 'src/app/services/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { myEnterAnimation } from 'src/app/animations/enter';
+import { myLeaveAnimation } from 'src/app/animations/leave';
 
 @Component({
   selector: 'app-home',
@@ -76,9 +78,6 @@ export class HomePage implements OnInit, OnDestroy{
         this.profile.username = '';
         this.daysLeft = '';
         this.balance = null;
-        // this.balance.balance = '';
-        // this.balance.prod_balance = '';
-        // this.balance.bundle = '';
         this.rotateCirclePos = 0;
         this.subscribeNow = false;
       }
@@ -105,6 +104,8 @@ export class HomePage implements OnInit, OnDestroy{
     }
     const modal = await this.modalCtrl.create({
       component: BundleDetailsPage,
+      enterAnimation: myEnterAnimation,
+      leaveAnimation: myLeaveAnimation,
       componentProps: {'balance': this.balance, 'profile': this.profile}
     });
     return await modal.present();

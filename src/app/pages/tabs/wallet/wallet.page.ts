@@ -1,10 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ModalController, Platform } from '@ionic/angular';
 import { SelectMerchantPage } from '../../modals/payments/select-merchant/select-merchant.page';
+import { SearchUserTransferPage } from '../../modals/transfer/search-user-transfer/search-user-transfer.page';
 import { TopUpPage } from '../../modals/topups/top-up/top-up.page';
 
 import { myEnterAnimation } from 'src/app/animations/enter';
 import { myLeaveAnimation } from 'src/app/animations/leave';
+import { AuthService } from 'src/app/services/auth.service';
+import { Subscription } from 'rxjs';
+import { WalletService } from 'src/app/services/wallet.service';
+import { FundTransferService } from 'src/app/services/fund-transfer.service';
+import { Balance } from 'src/app/models/wallet';
+import { UtilService } from 'src/app/services/util.service';
+
+
 
 
 
@@ -14,11 +23,61 @@ import { myLeaveAnimation } from 'src/app/animations/leave';
   templateUrl: './wallet.page.html',
   styleUrls: ['./wallet.page.scss'],
 })
-export class WalletPage implements OnInit {
+export class WalletPage implements OnInit, OnDestroy {
 
-  constructor(private modalCtrl: ModalController) { }
+  private authSubscription: Subscription;
+  private balanceSubscription: Subscription;
+
+  public balance: Balance;
+  public showIosOnce: boolean;
+
+  constructor(
+    private modalCtrl: ModalController,
+    private authService: AuthService,
+    private walletService: WalletService,
+    private platform: Platform,
+    private utilService: UtilService) { 
+
+      this.showIosOnce = true;
+    }
 
   ngOnInit() {
+
+    this.authSubscription = this.authService.getAuthStateSubject().subscribe((state) =>{
+      if(state){
+        this.getBalance();
+      }
+      else{
+        this.balance = null;
+      }
+    });
+
+    // Subscribe to balance changes
+    this.balanceSubscription = this.walletService.balanceState.subscribe((fetchBalance) =>{
+      if(fetchBalance){
+        this.getBalance();
+      }
+    });
+  }
+
+
+
+  private async getBalance(){
+    try{
+      this.balance = await this.walletService.getBalance();
+    }
+    catch(err){
+      if(err.status === 0){
+        console.log("calling again")
+        setTimeout(() =>{
+          if(this.platform.is('android') || (this.platform.is('ios') && this.showIosOnce)){
+            this.utilService.showToast('Check network connectivity', 1000, 'danger');
+            this.showIosOnce = false; 
+          }
+          this.getBalance(); // Call get balance again after 15secs;
+        }, 15000);
+      }
+    }
   }
 
 
@@ -34,6 +93,17 @@ export class WalletPage implements OnInit {
     await modal.present();
   }
 
+
+  //Modals for transfer
+  public async openSearchUserForTransferModal(){
+    const modal = await this.modalCtrl.create({
+      component: SearchUserTransferPage,
+      enterAnimation: myEnterAnimation,
+      leaveAnimation: myLeaveAnimation
+    });
+    await modal.present();
+  }
+
   //Modals for TopUp / Account funding
   public async openTopUpModal(){
     const modal = await this.modalCtrl.create({
@@ -42,6 +112,10 @@ export class WalletPage implements OnInit {
       leaveAnimation: myLeaveAnimation
     });
     await modal.present();
+  }
+
+  ngOnDestroy(){
+
   }
 
 }

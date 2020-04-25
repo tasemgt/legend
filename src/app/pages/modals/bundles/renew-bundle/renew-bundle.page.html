@@ -6,10 +6,12 @@
   
   <ion-grid>
     <ion-row>
-      <ion-col size="12" class="name-heading ion-text-center">
+      <ion-col size="8" class="name-heading-alt ion-text-left">
         <p>Product Renewals</p>
-        <p></p>
       </ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+    <ion-row>
       <ion-col size="12" >
         <ion-text color="primary" class="renew-content">
           <h6>Username</h6>
@@ -34,7 +36,7 @@
             <ion-item class="amount">
               <ion-label>Amount:</ion-label>
               &nbsp;&nbsp;
-              <span>&#x20a6;</span>
+              <ion-icon src="assets/imgs/naira.svg"></ion-icon>
               <ion-input  type="text" name="amount" [(ngModel)]="amount"  required></ion-input>
             </ion-item>
           </ion-col>

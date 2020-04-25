@@ -8,6 +8,8 @@ import { UserService } from 'src/app/services/user.service';
 
 import { EditProfilePage } from '../../modals/profile/edit-profile/edit-profile.page';
 import { ModalController } from '@ionic/angular';
+import { myEnterAnimation } from 'src/app/animations/enter';
+import { myLeaveAnimation } from 'src/app/animations/leave';
 
 
 @Component({
@@ -71,6 +73,8 @@ export class ProfilePage implements OnInit, OnDestroy{
     // this.router.navigateByUrl('/edit-profile');
     const modal = await this.modalCtrl.create({
       component: EditProfilePage,
+      enterAnimation: myEnterAnimation,
+      leaveAnimation: myLeaveAnimation,
       componentProps: {'profile': this.profile, 'user': this.user}
     });
     await modal.present();

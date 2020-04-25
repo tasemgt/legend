@@ -109,6 +109,9 @@ ion-col{
       margin: 8px;
       font-size: 20px;
       color: var(--ion-color-primary);
+    }.naira{
+      margin: 0px !important;
+      font-size: 0.6rem !important;
     }
 
     p{
@@ -164,4 +167,9 @@ ion-col{
   div:nth-of-type(2){
     margin-right: 4%;
   }
+
+  // ion-spinner{
+  //   height: 2px;
+  //   width: 2px;
+  // }
 }

@@ -6,11 +6,12 @@ import { InAppBrowser, InAppBrowserEvent } from '@ionic-native/in-app-browser/ng
 import { Constants } from '../models/constants';
 import { AuthService } from './auth.service';
 import { Subscription, Subject } from 'rxjs';
+import { WalletService } from './wallet.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PaymentService implements OnDestroy {
+export class TopUpService implements OnDestroy {
 
   private baseUrl = Constants.baseUrl;
   private paymentResponse; noResponse;
@@ -21,7 +22,8 @@ export class PaymentService implements OnDestroy {
   constructor(
     private iab: InAppBrowser,
     private http: HttpClient,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private walletService: WalletService) { }
 
   // Function to Handle requests for pay url and response for fund wallet modal
   public async makePayment(amount: string){
@@ -89,6 +91,23 @@ export class PaymentService implements OnDestroy {
 
   public getResponseSubject(){
     return this.responseSubject;
+  }
+
+
+  public fundWithVoucher(payload: {serial:string, pin:string}){
+    const baseUrl = 'http://41.73.8.123/horizonaccess/legend/public/api';
+    return this.authService.getUser()
+      .then((user) =>{
+        const headers = {Authorization: `Bearer ${user.token}`, Accept: 'application/json', 'Content-Type': 'application/json'};
+        return this.http.post(`${baseUrl}/voucher`, payload, {headers} ).toPromise();
+      })
+      .then((resp:any) => {
+        if (resp.code === 100){
+          this.walletService.balanceState.next(true);
+        }
+        return Promise.resolve(resp);
+      })
+      .catch(err => console.log(err) );
   }
 
   ngOnDestroy(){

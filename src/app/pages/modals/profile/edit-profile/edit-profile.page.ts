@@ -82,7 +82,7 @@ export class EditProfilePage implements OnInit {
       })
       .catch((error) =>{
         this.utilService.showToast(`Profile update failed`, 2000, 'danger');
-      })
+      });
       
   }
 

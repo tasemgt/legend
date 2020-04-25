@@ -4,11 +4,15 @@
   </div>
 
   <ion-grid>
+    
     <ion-row>
-      <ion-col size="12" class="name-heading ion-text-center">
+      <ion-col size="7" class="name-heading-alt ion-text-left">
         <p>Product Information</p>
-        <p></p>
       </ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+
+    <ion-row>
       <ion-col size="12">
         <div class="product-details">
           <p>
@@ -20,7 +24,7 @@
           </p> -->
           <p>
             <span>Product Balance</span><br>
-            <span>&#x20a6; {{currentBundle.prod_balance || '---'}}</span>
+            <span><ion-icon src="assets/imgs/naira.svg"></ion-icon> {{currentBundle.prod_balance || '---'}}</span>
           </p>
         </div>
       </ion-col>

@@ -4,16 +4,18 @@
     </div>
   <ion-grid>
     <ion-row>
-      <ion-col size="12" class="name-heading ion-text-center">
-        <p>Select a Product Bundle</p>
-        <p></p>
+      <ion-col size="7" class="name-heading-alt ion-text-left">
+        <p>Select a product bundle</p>
       </ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+    <ion-row>
       <ion-col size="12" class="no-margin" *ngFor="let bundle of bundleList?.data">
         <ion-card (click)="closeModal(bundle)">
           <!-- <img [src]="getBundleImagePath(bundle)" /> -->
           <ion-card-header>
             <ion-card-title color="primary">{{bundle?.products_name}}</ion-card-title>
-            <ion-card-subtitle color="tertiary-tint">&#x20a6; {{bundle?.checkout_amount}}</ion-card-subtitle>
+            <ion-card-subtitle color="tertiary-tint"><ion-icon src="assets/imgs/naira.svg"></ion-icon> {{bundle?.checkout_amount}}</ion-card-subtitle>
           </ion-card-header>
           <ion-card-content>
             {{bundle?.checkout_cycle | uppercase}}

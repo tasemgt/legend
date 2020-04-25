@@ -53,21 +53,21 @@ export class UtilService {
     await alert.present();
   }
 
-  public async presentAlertConfirm(header:string, message: string, okayCallBack: Function) {
+  public async presentAlertConfirm(header:string, message: string, okayCallBack: Function, noBut?:string, yesBut?:string) {
     console.log('Alert called');
     const alert = await this.alertCtrl.create({
         header,
         message,
         buttons: [
           {
-            text: 'No',
+            text: noBut || 'No',
             role: 'cancel',
             cssClass: 'primary',
             handler: (blah) => {
               console.log('Confirm Cancel: blah');
             }
           }, {
-            text: 'Yes',
+            text: yesBut || 'Yes',
             handler: () => {
               okayCallBack();
             }

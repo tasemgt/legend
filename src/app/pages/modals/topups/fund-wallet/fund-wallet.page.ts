@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ModalController, NavParams, LoadingController } from '@ionic/angular';
 import { UtilService } from 'src/app/services/util.service';
 import { WalletService } from 'src/app/services/wallet.service';
-import { PaymentService } from 'src/app/services/payment.service';
+import { TopUpService } from 'src/app/services/top-up.service';
 import { Router } from '@angular/router';
 import { Subscription, BehaviorSubject } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
@@ -28,7 +28,7 @@ export class FundWalletPage implements OnInit, OnDestroy {
     private loadingCtrl: LoadingController,
     private modalCtrl: ModalController,
     private auth: AuthService,
-    private paymentService: PaymentService,
+    private paymentService: TopUpService,
     private walletService: WalletService,
     private utilService: UtilService) {
 
@@ -77,7 +77,7 @@ export class FundWalletPage implements OnInit, OnDestroy {
               this.loadingCtrl.dismiss();
               if(response === 'Transaction Successful'){ //if(JSON.parse(response).code === 100){
                   this.utilService.showToast(`Success! Your payment of \u20A6${amount} is confirmed.`, 3000, 'success');
-                  this.walletService.balanceState.next(true); // Inform home page that balance needs to be updated..
+                  this.walletService.balanceState.next(true); // Inform subscribed pages that balance needs to be updated..
               }
               else{
                 this.utilService.showToast(`Your payment could not be processed. Please try again.`, 3000, 'danger');

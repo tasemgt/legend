@@ -28,15 +28,15 @@
         </div>
         <div (click)="goToTab('payment')">
           <ion-icon src="assets/imgs/wallet_fixed.svg"></ion-icon>
-          <p>My Wallet <br/><span *ngIf="balance">&#x20a6; {{balance?.balance}}</span><span *ngIf="!balance">......</span></p>
+          <p>My Wallet <br/><span *ngIf="balance"><ion-icon class="naira" src="assets/imgs/naira.svg"></ion-icon> {{balance?.balance}}</span><span *ngIf="!balance">......</span></p>
         </div>
         <div (click)="openBundleDetailsModal()" *ngIf="subscribeNow" class="alt">
           <ion-icon src="assets/imgs/status-alt.svg"></ion-icon>
-          <p>Renew Subscr...<br/><span *ngIf="balance">&#x20a6; {{balance?.prod_balance}}</span><span *ngIf="!balance">......</span></p>
+          <p>Renew Subscr...<br/><span *ngIf="balance"><ion-icon class="naira" src="assets/imgs/naira.svg"></ion-icon> {{balance?.prod_balance}}</span><span *ngIf="!balance">......</span></p>
         </div>
         <div (click)="openBundleDetailsModal()" *ngIf="!subscribeNow">
           <ion-icon src="assets/imgs/status.svg"></ion-icon>
-          <p>My Subscription <br/><span *ngIf="balance">&#x20a6; {{balance?.prod_balance}}</span><span *ngIf="!balance">......</span></p>
+          <p>My Subscription <br/><span *ngIf="balance"><ion-icon class="naira" src="assets/imgs/naira.svg"></ion-icon> {{balance?.prod_balance}}</span><span *ngIf="!balance">......</span></p>
         </div>
       </ion-col>
       <!-- <ion-col size="12">

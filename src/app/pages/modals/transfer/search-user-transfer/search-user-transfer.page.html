@@ -1,0 +1,46 @@
+<ion-content class="ion-padding legend-modal">
+  <div>
+    <ion-icon name="arrow-back" color="primary" (click)="closeModal()"></ion-icon>
+  </div>
+
+  <form #searchUserForm="ngForm" (ngSubmit)="transferFunds(searchUserForm)">
+    <ion-grid>
+
+      <ion-row>
+        <ion-col size="7" class="name-heading-alt ion-text-left">
+          <p>Transfer to another wallet</p>
+        </ion-col>
+        <ion-col></ion-col>
+      </ion-row>
+
+      
+      <ion-row class="user-row">
+        <ion-col size="12" class="legend-input">
+          <ion-item>
+            <ion-input placeholder="Username of recipient" type="text" name="username" ngModel #username="ngModel" required></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="amount-row">
+        <ion-col size="12" class="legend-input">
+          <p>Amount</p>
+          <ion-item>
+            <ion-icon src="assets/imgs/naira.svg"></ion-icon> &nbsp;
+            <ion-input type="text" name="amount" ngModel #amount="ngModel" required></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="button-row">
+        <ion-col size="12" class="ion-text-center">
+          <div class="btn-wrapper">
+            <ion-button class="legend-btn ion-text-capitalize" color="primary" type="submit">Transfer Funds</ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+  </form>
+
+</ion-content>
