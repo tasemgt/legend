@@ -12,6 +12,7 @@ import { WalletService } from 'src/app/services/wallet.service';
 import { FundTransferService } from 'src/app/services/fund-transfer.service';
 import { Balance } from 'src/app/models/wallet';
 import { UtilService } from 'src/app/services/util.service';
+import { SearchUserPage } from '../../modals/friend/search-user/search-user.page';
 
 
 
@@ -108,6 +109,16 @@ export class WalletPage implements OnInit, OnDestroy {
   public async openTopUpModal(){
     const modal = await this.modalCtrl.create({
       component: TopUpPage,
+      enterAnimation: myEnterAnimation,
+      leaveAnimation: myLeaveAnimation
+    });
+    await modal.present();
+  }
+
+  //Modals for Pay for a friend
+  public async openSearchForFriendModal(){
+    const modal = await this.modalCtrl.create({
+      component: SearchUserPage,
       enterAnimation: myEnterAnimation,
       leaveAnimation: myLeaveAnimation
     });

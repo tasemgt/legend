@@ -14,6 +14,8 @@ import { AuthService } from 'src/app/services/auth.service';
 export class EditProfilePage implements OnInit {
 
   public profile: Profile;
+
+  public tempProfile: Profile;
   public user: User;
 
   constructor(
@@ -27,6 +29,8 @@ export class EditProfilePage implements OnInit {
       //this.profile = this.router.getCurrentNavigation().extras.state.profile;
       this.profile = this.navParams.get('profile');
       this.user = this.navParams.get('user');
+
+      this.tempProfile = {...this.profile}; // To compare to previous profile value...
 
     }
 
@@ -44,10 +48,19 @@ export class EditProfilePage implements OnInit {
   public updateProfile(form: NgForm){ 
 
     console.log(form.value.email, form.value.phone);
-    if(form.invalid){
-      this.utilService.showToast('Form cannot contain empty fields.', 2000, 'danger');
-      return;
-    }
+    console.log(this.tempProfile.email);
+
+    if(
+      !(this.tempProfile.email !== form.value.email ||
+      this.tempProfile.phone !== form.value.phone ||
+      this.tempProfile.street !== form.value.street ||
+      this.tempProfile.streetname !== form.value.streetname ||
+      this.tempProfile.city !== form.value.city))
+      {
+        this.utilService.showToast('You have to edit first', 2000, 'danger');
+        return;
+      }
+    
     if(!this.utilService.validateEmail(form.value.email)){
       this.utilService.showToast('Please enter a valid email.', 2000, 'danger');
       return;
@@ -57,9 +70,13 @@ export class EditProfilePage implements OnInit {
       return;
     }
 
-    this.utilService.presentLoading('Funding your wallet.')
+    this.utilService.presentLoading('Updating profile.')
       .then(() =>{
         console.log(this.user, form.value.email, form.value.phone);
+
+
+        
+
         return this.userService.updateUserProfile(this.user, {email:form.value.email, phone:form.value.phone});
       })
       .then((resp) =>{

@@ -17,7 +17,6 @@ export class FundTransferService {
     private http: HttpClient) { }
 
   public doTransferFunds(payload: any): Promise<any>{
-    console.log("called");
     return this.auth.getUser()
       .then((user) =>{
         const headers = {Authorization: `Bearer ${user.token}`, Accept: 'application/json', 'Content-Type': 'application/json'};

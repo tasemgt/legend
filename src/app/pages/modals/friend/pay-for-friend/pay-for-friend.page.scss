@@ -1,0 +1,42 @@
+.product-details{
+  position: relative;
+  padding: 0.5rem;
+  height: 12rem;
+  width: 100%;
+  background: var(--ion-color-secondary);
+  border: 1.2px solid var(--ion-color-primary);
+  border-radius: 8px;
+
+  p{
+      text-align: center;
+      margin: 0.8rem;
+
+      ion-icon{
+          font-size: 1.1rem;
+      }
+
+      span:first-child{
+          font-size: 1.1rem;
+          font-weight: bolder;
+          color: var(--ion-color-primary);
+      }
+      span:last-child{
+          font-size: 1.5rem;
+      }
+  }
+
+  p:first-child{
+      text-align: left;
+  }
+  
+  p:last-child{
+      text-align: right;
+  }
+}
+
+.legend-input{
+    p{ 
+        color: var(--ion-color-primary);
+        font-weight: bolder;
+    }
+}

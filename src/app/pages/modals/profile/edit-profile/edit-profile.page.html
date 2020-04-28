@@ -14,7 +14,7 @@
 
   <form class="auth-form" (ngSubmit)="updateProfile(editForm)" #editForm="ngForm">
     <ion-row>
-      <ion-col size="12" class="legend-input">
+      <!-- <ion-col size="12" class="legend-input">
         <ion-item>
           <ion-label>Username:</ion-label>
           <ion-input type="text" name="username" [(ngModel)]="profile.username" [disabled]=true></ion-input>
@@ -31,7 +31,7 @@
           <ion-label>Last Name:</ion-label>
           <ion-input type="text" name="lastName" [(ngModel)]="profile.lastname" [disabled]=true></ion-input>
         </ion-item>
-      </ion-col>
+      </ion-col> -->
       <ion-col size="12" class="legend-input">
         <ion-item>
           <ion-label>Email:</ion-label>
@@ -42,6 +42,27 @@
         <ion-item>
           <ion-label>Phone Number:</ion-label>
           <ion-input type="text" name="phone" maxlength="13"  [(ngModel)]="profile.phone" required></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12">
+        <p class="address-title">Address Info</p>
+      </ion-col>
+      <ion-col size="12" class="legend-input">
+        <ion-item>
+          <ion-label>Street:</ion-label>
+          <ion-input type="text" name="street" [(ngModel)]="profile.street"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12" class="legend-input">
+        <ion-item>
+          <ion-label>Street Name:</ion-label>
+          <ion-input type="text" name="streetname" [(ngModel)]="profile.streetname"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12" class="legend-input">
+        <ion-item>
+          <ion-label>City:</ion-label>
+          <ion-input type="text" name="city" [(ngModel)]="profile.city"></ion-input>
         </ion-item>
       </ion-col>
       <ion-col size="12" class="ion-text-center">

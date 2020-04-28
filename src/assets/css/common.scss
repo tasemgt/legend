@@ -140,6 +140,30 @@ ion-grid.tabs-area{
     color: var(--ion-color-tertiary);
 }
 
+
+/** 
+    Action Sheet
+**/
+.action-sheet-group{
+    --background: #FFFFFF;
+    --button-background: #FFFFFF;
+    --color: var(--ion-color-tertiary);
+
+    .action-sheet-cancel.sc-ion-action-sheet-ios{
+        background: #FFFFFF;
+    }
+
+    .action-sheet-selected.sc-ion-action-sheet-ios,
+    .action-sheet-selected.sc-ion-action-sheet-md{
+        color: var(--ion-color-primary);
+    }
+}
+
+
+
+
+
+
 /** 
     Modals Styles
 **/

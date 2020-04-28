@@ -9,6 +9,7 @@ import { WalletPage } from './wallet.page';
 import { SelectMerchantPageModule } from '../../modals/payments/select-merchant/select-merchant.module';
 import { SearchUserTransferPageModule } from '../../modals/transfer/search-user-transfer/search-user-transfer.module';
 import { TopUpPageModule } from '../../modals/topups/top-up/top-up.module';
+import { SearchUserPageModule } from '../../modals/friend/search-user/search-user.module';
 
 
 
@@ -22,6 +23,7 @@ import { TopUpPageModule } from '../../modals/topups/top-up/top-up.module';
     SelectMerchantPageModule,
     SearchUserTransferPageModule,
     TopUpPageModule,
+    SearchUserPageModule, //Search user to pay for a friend
     RouterModule.forChild([{ path: '', component: WalletPage }]),
   ],
   declarations: [WalletPage]

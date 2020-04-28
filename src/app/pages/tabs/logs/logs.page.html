@@ -42,7 +42,7 @@
               <ion-list *ngFor="let log of records let i = index;">
                 <log-view [log]="log" [logCategory]="'records'" tappable (click)="toggleItem('records', i)"></log-view> 
                 <div *ngIf="log.amount && log.open" class="log-content">
-                  <p><span>Pay Amount:</span><span>&#x20a6; {{log.amount}}</span></p>
+                  <p><span>Pay Amount:</span><span><ion-icon style="font-size: 0.65rem;" src="assets/imgs/naira.svg"></ion-icon> {{log.amount}}</span></p>
                   <p><span>Pay Type:</span><span>LegendPay</span></p>
                   <p><span>Pay Date:</span><span>{{log.dateraw | date}}</span></p>
                   <p><span>Pay Time:</span><span>{{ log.date }}</span></p>

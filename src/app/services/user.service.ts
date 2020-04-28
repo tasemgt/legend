@@ -37,4 +37,15 @@ export class UserService {
       return Promise.reject(error);
     }
   }
+
+  public async updateUserAddress(user:User, payload: any): Promise<any>{
+    const headers = {Authorization: `Bearer ${user.token}`, Accept: 'application/json', 'Content-Type': 'application/json'};
+    try{
+      const response:any = await this.http.post(`${this.baseUrl}/updatereg`, payload, {headers}).toPromise();
+      return Promise.resolve(response);
+    }
+    catch(error){
+      return Promise.reject(error);
+    }
+  }
 }

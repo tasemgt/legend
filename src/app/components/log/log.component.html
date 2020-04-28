@@ -8,8 +8,8 @@
     <p>Product: {{log.name}}</p>
   </div>
   <div class="text-area" *ngIf="logCategory === 'financial'">
-    <p style="font-size: x-small;">Product Name: {{log.name}}</p>
-    <p>Amount: {{log.amount}}</p>
+    <p>{{log.name}}</p>
+    <p>Amount: <ion-icon style="font-size: 0.65rem;" src="assets/imgs/naira.svg"></ion-icon>{{log.amount}}</p>
   </div>
   <span class="icon">
     <ion-icon src="assets/imgs/arrow-down.svg" class="down-arrow"  *ngIf="!log.open"></ion-icon>
