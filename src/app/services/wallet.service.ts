@@ -37,6 +37,24 @@ export class WalletService {
       });
   }
 
+
+  public getTransactions(): Promise<any>{
+    const baseUrl = 'http://41.73.8.123/horizonaccess/legend/public/api'
+    return this.authService.getUser()
+      .then(user => {
+        this.user = user;
+        const headers = {Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json'};
+        return this.http.get(`${baseUrl}/wallet-transactions`, {headers}).toPromise()
+      })
+      .then(resp => {
+        return Promise.resolve(resp);
+      })
+      .catch(err => {
+        console.log(err)
+        return Promise.reject(err);
+      });
+  }
+
   // public fundWallet(fundWalletObject: {amount:string}): Promise<any>{
   //   return this.authService.getUser()
   //     .then(user => {

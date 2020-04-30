@@ -11,7 +11,7 @@ ion-col:nth-of-type(4){
 .profile-details{
     margin-top: 40px;
     position: relative;
-    height: 17.5rem;
+    height: 18rem;
     width: 100%;
     background: var(--ion-color-secondary);
     border: 1.2px solid var(--ion-color-primary);
@@ -52,7 +52,15 @@ ion-col:nth-of-type(4){
 }
 
 .profile-details-content{
-    padding: 3rem 0.7rem 0.7rem 1rem;
+    padding: 3rem 0.7rem 1rem 0.7rem;
+
+    hr{
+        width: 20%;
+        height: 2px;
+        margin: 0px;
+        background: var(--ion-color-primary);
+        opacity: 0.4;
+    }
 
     p{
         font-size: 0.85rem;

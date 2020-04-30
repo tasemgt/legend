@@ -32,6 +32,11 @@ ion-col{
     --highlight-color-focused: transparent;
     --highlight-color-invalid: transparent;
     --highlight-color-valid: transparent;
+    
+        ion-label{
+            opacity: 0.5;
+        }
+
     }
 
     ion-input {
@@ -64,12 +69,13 @@ ion-button.legend-btn{
     --box-shadow: none;
 
     &.legend-btn-inverse{
+        font-weight: bolder;
         --background: var(--ion-color-tertiary);
         --color: var(--ion-color-primary);
         --background-activated: var(--ion-color-tertiary);
         --background-focused: var(--ion-color-tertiary);
         --background-hover: var(--ion-color-tertiary);
-        --border-color: var(--ion-color-primary);
+        --border-color: var(--ion-color-tertiary);
         --border-style: solid;
         --border-width: 1.5px;
     }

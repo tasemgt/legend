@@ -1,0 +1,16 @@
+ion-item{
+  margin-bottom: 0.7rem;
+  --background: var(--ion-color-tertiary);
+  --border-radius: 7px;
+
+  .sc-ion-label-md-s > p,
+  .sc-ion-label-ios-s > p{
+    color: #FFFFFF;
+    opacity: 0.7;
+  }
+}
+
+ion-fab{
+  margin-bottom: 2rem;
+  margin-right: 0.5rem;
+}

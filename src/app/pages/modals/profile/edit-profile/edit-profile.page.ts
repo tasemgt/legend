@@ -72,12 +72,9 @@ export class EditProfilePage implements OnInit {
 
     this.utilService.presentLoading('Updating profile.')
       .then(() =>{
-        console.log(this.user, form.value.email, form.value.phone);
-
-
-        
-
-        return this.userService.updateUserProfile(this.user, {email:form.value.email, phone:form.value.phone});
+        return this.userService.updateUserProfile(this.user, 
+          {email:form.value.email, phone:form.value.phone, street:form.value.street, streetname:form.value.streetname, city:form.value.city}
+          );
       })
       .then((resp) =>{
         this.loadingCtrl.dismiss();
@@ -98,6 +95,7 @@ export class EditProfilePage implements OnInit {
         }
       })
       .catch((error) =>{
+        this.loadingCtrl.dismiss();
         this.utilService.showToast(`Profile update failed`, 2000, 'danger');
       });
       
