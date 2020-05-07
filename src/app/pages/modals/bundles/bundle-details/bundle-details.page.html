@@ -19,10 +19,16 @@
             <span>Product Name</span><br>
             <span>{{currentBundle.bundle || '---'}}</span>
           </p>
-          <p>
-            <span>Product Balance</span><br>
-            <span><ion-icon src="assets/imgs/naira.svg"></ion-icon> {{currentBundle.prod_balance || '---'}}</span>
-          </p>
+          <div class="prices">
+            <p>
+              <span>Product Amount</span><br>
+              <span><ion-icon src="assets/imgs/naira.svg"></ion-icon> {{currentBundle.price || '---'}}</span>
+            </p>
+            <p>
+              <span>Product Balance</span><br>
+              <span><ion-icon src="assets/imgs/naira.svg"></ion-icon> {{currentBundle.prod_balance || '---'}}</span>
+            </p>
+          </div>
         </div>
       </ion-col>
 

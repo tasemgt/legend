@@ -29,8 +29,13 @@
         text-align: left;
     }
     
-    p:last-child{
-        text-align: right;
+    .prices{
+        p{
+            display: inline-block;
+        }
+        p:last-child{
+            float: right;
+        }
     }
 }
 

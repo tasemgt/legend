@@ -49,7 +49,7 @@ export class RenewBundlePage{
       return;
     }
 
-    this.utilService.presentAlertConfirm('Confirm Renewal', 'Are you sure you wan\'t to renew plan?', () =>{
+    this.utilService.presentAlertConfirm('Confirm Renewal', 'Are you sure you wan\'t to renew this plan?', () =>{
       const amount = form.value.amount;
       const pid = this.currentBundle.bundle_id;
 

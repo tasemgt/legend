@@ -6,6 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { SelectMerchantPage } from './select-merchant.page';
 import { SelectProductPageModule } from '../select-product/select-product.module';
+import { AllMerchantsPageModule } from './all-merchants/all-merchants.module';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { SelectProductPageModule } from '../select-product/select-product.module
     CommonModule,
     FormsModule,
     IonicModule,
+    AllMerchantsPageModule,
     SelectProductPageModule
   ],
   declarations: [SelectMerchantPage],

@@ -1,5 +1,63 @@
+.name-heading-alt{
+  margin-top: 1rem;
+}
+
 .search-row{
   ion-input{
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
+
+  ion-icon{
+    font-size: 24px;
+  }
+
+  .icon-wrapper{
+    position: relative; //For ripple effect
+    overflow: hidden; //For ripple effect
+    padding: 0.5rem 0.5rem;
+    background-color: var(--ion-color-primary);//#ffffffe0;
+    border-radius: 6px;
+    box-sizing: border-box;
+    margin-top: 0.15rem;
+    text-align: center;
+
+    ion-icon{
+      color: #FFF;//var(--ion-color-primary);
+      font-size: 24px;
+    }
+  }
+
+
+  margin-bottom: 0.5rem;
+}
+
+.merchants-row-heading{
+  padding: 0px 0.5rem;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  font-weight: bolder;
+
+  span{
+    float: right;
+    color: var(--ion-color-primary);
+  }
+}
+
+ion-fab{
+  margin-bottom: 1.5rem;
+  margin-right: 0.7rem;
+
+  ion-fab-button{
+    height: 4rem;
+    width: 4rem;
+    box-shadow: 4px 11px 18px -14px rgba(229,63,39,0.81);
+    border-radius: 100px;
+  }
+}
+
+.spinner{
+  position: absolute;
+  top: 50%;
+  left: 45%;
 }

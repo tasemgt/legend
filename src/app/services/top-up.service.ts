@@ -7,6 +7,7 @@ import { Constants } from '../models/constants';
 import { AuthService } from './auth.service';
 import { Subscription, Subject } from 'rxjs';
 import { WalletService } from './wallet.service';
+import { LoadingController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,7 @@ export class TopUpService implements OnDestroy {
   constructor(
     private iab: InAppBrowser,
     private http: HttpClient,
+    private loadingCtrl: LoadingController,
     private authService: AuthService,
     private walletService: WalletService) { }
 
@@ -61,6 +63,7 @@ export class TopUpService implements OnDestroy {
     // Listens for browser fully load and excutes scripts for completion url on Pay
     this.loadStopSub = browser.on('loadstop')
       .subscribe((event: InAppBrowserEvent) => {
+        this.loadingCtrl.dismiss();
         browser.executeScript({code:`
         if(window.location.pathname.includes('/api/legendpay/verify') || window.location.pathname.includes('/api/saved/verify')){
           console.log("Exect script gave a true for this");

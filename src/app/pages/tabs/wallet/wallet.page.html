@@ -17,17 +17,17 @@
 
     <ion-row class="wallet-action-row">
       <ion-col size="12" class="ion-text-center">
-        <!-- <div tappable (click)="openSearchMerchantModal()" class="wallet-action">
+        <div tappable (click)="openSearchMerchantModal()" class="wallet-action">
           <ion-icon src="assets/imgs/payment.svg"></ion-icon>
           <p>Payment</p>
-        </div> -->
+        </div>
         <div tappable (click)="openSearchUserForTransferModal()" class="wallet-action">
           <ion-icon src="assets/imgs/transfer.svg"></ion-icon>
           <p>Transfer</p>
         </div>
         <div tappable (click)="openTopUpModal()" class="wallet-action">
           <ion-icon src="assets/imgs/fund.svg"></ion-icon>
-          <p>Top Up</p>
+          <p>Fund</p>
         </div>
         <div tappable (click)="openSearchForFriendModal()" class="wallet-action">
           <ion-icon src="assets/imgs/payment-friend.svg"></ion-icon>
@@ -38,79 +38,29 @@
 
     <ion-row class="recent-trans-row">
       <ion-col size="12">
-        <p><span>Recent Transactions</span> <span tappable (click)="openSeeAllTransactionsModal()">See all</span></p>
+        <p><span>Recent Transactions</span> <span class="see-all" tappable (click)="openSeeAllTransactionsModal()">See all</span></p>
         <div class="transactions-list" *ngIf="transactions?.length > 0">
           <div 
           class="transaction" 
-          *ngFor="let transaction of transactions | slice:0:4" 
-          [ngStyle]="{'border-right':transaction.status === 'Success' ? '1px solid green' : '1px solid red'}">
+          *ngFor="let transaction of transactions | slice:0:4" >
             <ion-row>
               <ion-col size="2">
                 <ion-icon class="circle" src="assets/imgs/circle-add.svg"></ion-icon>
               </ion-col>
               <ion-col class="trans-name">
                 <h6>{{transaction.type}}</h6>
-                <p>{{transaction.product}}</p>
+                <p>{{transaction.product.substring(0,30)}}<span *ngIf="transaction.product.length >= 31">...</span></p>
               </ion-col>
-              <ion-col size="5" class="ion-text-right">
+              <ion-col size="5" class="ion-text-right amount-date">
                 <h4>
-                  <ion-icon src="assets/imgs/naira.svg"></ion-icon>{{transaction.amount}}
+                  <span [ngStyle]="{'background-color':transaction.status === 'Success' ? '#054e1c' : '#a20a0a'}">
+                    <ion-icon src="assets/imgs/naira.svg"></ion-icon>{{transaction.amount}}
+                  </span>
                 </h4>
                 <p>{{transaction.date}}</p>
               </ion-col>
             </ion-row>
           </div>
-          <!-- <div class="transaction">
-            <ion-row>
-              <ion-col size="2">
-                <ion-icon class="circle" src="assets/imgs/circle-forward.svg"></ion-icon>
-              </ion-col>
-              <ion-col class="trans-name">
-                <h6>Transfer</h6>
-                <p>Wallet</p>
-              </ion-col>
-              <ion-col size="5" class="ion-text-right">
-                <h4>
-                  <ion-icon src="assets/imgs/naira.svg"></ion-icon>7,000
-                </h4>
-                <p>Mar 23, 2020</p>
-              </ion-col>
-            </ion-row>
-          </div>
-          <div class="transaction">
-            <ion-row>
-              <ion-col size="2">
-                <ion-icon class="circle" src="assets/imgs/circle-go.svg"></ion-icon>
-              </ion-col>
-              <ion-col class="trans-name">
-                <h6>Payment</h6>
-                <p>Dunes Center</p>
-              </ion-col>
-              <ion-col size="5" class="ion-text-right">
-                <h4>
-                  <ion-icon src="assets/imgs/naira.svg"></ion-icon>7,000,000
-                </h4>
-                <p>Mar 23, 2020</p>
-              </ion-col>
-            </ion-row>
-          </div>
-          <div class="transaction">
-            <ion-row>
-              <ion-col size="2">
-                <ion-icon class="circle" src="assets/imgs/circle-add.svg"></ion-icon>
-              </ion-col>
-              <ion-col class="trans-name">
-                <h6>Top Up</h6>
-                <p>##</p>
-              </ion-col>
-              <ion-col size="5" class="ion-text-right">
-                <h4>
-                  <ion-icon src="assets/imgs/naira.svg"></ion-icon>7,000,000
-                </h4>
-                <p>Mar 23, 2020</p>
-              </ion-col>
-            </ion-row>
-          </div> -->
         </div>
         
       </ion-col>

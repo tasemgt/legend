@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavParams } from '@ionic/angular';
+import { Transaction } from 'src/app/models/transaction';
 
 @Component({
   selector: 'app-see-all',
@@ -8,7 +9,15 @@ import { ModalController } from '@ionic/angular';
 })
 export class SeeAllPage implements OnInit {
 
-  constructor(private modalCtrl: ModalController) { }
+  public transactions: Transaction[];
+
+  constructor(
+    private modalCtrl: ModalController,
+    private navParams: NavParams) {
+
+      this.transactions = this.navParams.get('transactions');
+
+  }
 
   ngOnInit() {
   }

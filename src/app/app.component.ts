@@ -84,11 +84,11 @@ export class AppComponent implements  OnDestroy, AfterViewInit{
       console.log("Pressed...");
       const isModalOpened = await this.modalCtrl.getTop();
       const url = this.router.url.toString();
-      if((url === '/tabs/home' || url === '/tabs/payment' || url === '/tabs/profile') && isModalOpened){
+      if((url === '/tabs/home' || url === '/tabs/wallet' || url === '/tabs/profile') && isModalOpened){
         this.modalCtrl.dismiss();
       }
 
-      else if(url === '/tabs/payment' || url === '/tabs/profile' || url === '/tabs/logs'){
+      else if(url === '/tabs/wallet' || url === '/tabs/profile' || url === '/tabs/logs'){
         this.router.navigateByUrl('/tabs/home');
       }
 

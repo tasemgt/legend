@@ -4,8 +4,8 @@ import { SelectMerchantPage } from '../../modals/payments/select-merchant/select
 import { SearchUserTransferPage } from '../../modals/transfer/search-user-transfer/search-user-transfer.page';
 import { TopUpPage } from '../../modals/topups/top-up/top-up.page';
 
-import { myEnterAnimation } from 'src/app/animations/enter';
-import { myLeaveAnimation } from 'src/app/animations/leave';
+import { myEnterAnimation, myEnterAnimation2 } from 'src/app/animations/enter';
+import { myLeaveAnimation, myLeaveAnimation2 } from 'src/app/animations/leave';
 import { AuthService } from 'src/app/services/auth.service';
 import { Subscription } from 'rxjs';
 import { WalletService } from 'src/app/services/wallet.service';
@@ -85,34 +85,25 @@ export class WalletPage implements OnInit, OnDestroy {
     }
   }
 
-  private async getTransactions(){
 
-    let transactions: Transaction[] = [];
+  private async getTransactions(){
+    //let transactions: Transaction[] = [];
 
     this.walletService.getTransactions().then((trans) =>{
-      Object.values(trans).map(function(value: Transaction) {
-        transactions.push(value)
-      });
+      // Object.values(trans).map(function(value: Transaction) {
+      //   transactions.push(value)
+      // });
        
-      this.transactions = transactions.reverse();
-      
+      this.transactions = trans;
+    })
+    .catch((err) =>{
+      if(err.status === 0){
+        console.log("calling trans again")
+        setTimeout(() =>{
+          this.getTransactions(); // Call get balance again after 15secs;
+        }, 10000);
+      }
     });
-
-    // try{
-    //   let transactions: Transaction[] = await this.walletService.getTransactions();
-    //   //console.log(transactions);
-    //   //this.transactions = transactions.reverse();
-    //   console.log(this.transactions.length);
-    // }
-    // catch(err){
-    //   if(err.status === 0){
-    //     console.log("calling trans again")
-    //     setTimeout(() =>{
-    //       this.utilService.showToast('Check network connectivity', 1000, 'danger'); 
-    //       this.getTransactions(); // Call get balance again after 15secs;
-    //     }, 10000);
-    //   }
-    // }
   }
 
 
@@ -163,7 +154,9 @@ export class WalletPage implements OnInit, OnDestroy {
   public async openSeeAllTransactionsModal(){
     const modal = await this.modalCtrl.create({
       component: SeeAllPage,
-      // componentProps: {'profile': this.profile, 'user': this.user}
+      enterAnimation: myEnterAnimation2,
+      // leaveAnimation: myLeaveAnimation2,
+      componentProps: {transactions:this.transactions}
     });
     await modal.present();
   }

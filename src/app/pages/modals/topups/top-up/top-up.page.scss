@@ -8,7 +8,7 @@ ion-item{
   height: 65px;
   width: 100%;
   font-size: 0.9rem;
-  border-radius: 5px;
+  border-radius: 6px;
   border: 1.2px solid var(--ion-color-primary);
   margin-bottom: 1.3rem;
   padding: 0px 25px;
@@ -22,7 +22,7 @@ ion-item{
     img{
       position: absolute;
       top: 0.3rem; //0.35
-      left: 0.12rem; //0.18
+      left: 0.15rem; //0.18
     }
   }
   span:last-child{
@@ -30,7 +30,7 @@ ion-item{
     margin-top: 10px;
     height: 45px;
     width: 45px;
-    background: var(--ion-color-tertiary);
+    background: var(--ion-color-secondary);
     border-radius: 50%;
     border: 1.5px solid var(--ion-color-primary);
   }

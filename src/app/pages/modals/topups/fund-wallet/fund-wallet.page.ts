@@ -62,7 +62,7 @@ export class FundWalletPage implements OnInit, OnDestroy {
           .then((err:any) =>{
             if(err){
               this.utilService.showToast(`${err.message}`, 3000, 'danger');
-              this.loadingCtrl.dismiss();
+              //this.loadingCtrl.dismiss();
             }
           });
 
@@ -70,11 +70,11 @@ export class FundWalletPage implements OnInit, OnDestroy {
           .subscribe((response) =>{
             console.log("RESP ", response);
             if(!response){
-              this.loadingCtrl.dismiss(); //Happens when inapp browser closes without payment
+              //this.loadingCtrl.dismiss(); //Happens when inapp browser closes without payment
               return;
             }
             setTimeout(() =>{  // Just to create some load effect before completing
-              this.loadingCtrl.dismiss();
+              //this.loadingCtrl.dismiss();
               if(response === 'Transaction Successful'){ //if(JSON.parse(response).code === 100){
                   this.utilService.showToast(`Success! Your payment of \u20A6${amount} is confirmed.`, 3000, 'success');
                   this.walletService.balanceState.next(true); // Inform subscribed pages that balance needs to be updated..

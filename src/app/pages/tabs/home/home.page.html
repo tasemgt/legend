@@ -8,8 +8,8 @@
       <ion-col size="12">
         <div class="parent-circle"></div>
         <div class="circle-wrapper" [ngStyle]="{'transform': rotateCircle ? 'rotate(' + (rotateCirclePos+12) + 'deg)' : 'rotate('+ rotateCirclePos +'deg)' }">
-          <div class="small-circle" ></div>
-          <div class="swoosh"></div>
+          <!-- <div class="small-circle" ></div>
+          <div class="swoosh"></div> -->
         </div>
         <div class="circle animated pulse">
           <p>{{balance?.bundle.substring(0,38) || "......"}}</p>
@@ -26,7 +26,7 @@
           <ion-icon src="assets/imgs/profile.svg"></ion-icon>
           <p>Username <br/><span>{{profile?.username || "..."}}</span></p>
         </div>
-        <div (click)="goToTab('payment')">
+        <div (click)="goToTab('wallet')">
           <ion-icon src="assets/imgs/wallet_fixed.svg"></ion-icon>
           <p>My Wallet <br/><span *ngIf="balance"><ion-icon class="naira" src="assets/imgs/naira.svg"></ion-icon> {{balance?.balance}}</span><span *ngIf="!balance">......</span></p>
         </div>
