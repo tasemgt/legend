@@ -15,32 +15,32 @@
     <ion-row class="search-row">
       <ion-col size="10" class="legend-input">
         <ion-item>
-          <ion-input placeholder="Search Merchant" type="text" name="merchant" ngModel #merchant="ngModel"></ion-input>
+          <ion-input placeholder="Search Merchant" type="text" name="merchant" [(ngModel)]="merchant"></ion-input>
           <ion-icon slot="end" color="white" name="search"></ion-icon>
         </ion-item>
       </ion-col>
       <ion-col size="2">
-        <div class="icon-wrapper ion-activatable ripple-parent">
-          <ion-icon src="assets/imgs/send.svg"></ion-icon>
+        <div tappable (click)="searchMerchant()" class="icon-wrapper ion-activatable ripple-parent">
+          <ion-icon color="primary" src="assets/imgs/send.svg"></ion-icon>
           <ion-ripple-effect type="unbounded"></ion-ripple-effect>
         </div>
       </ion-col>
     </ion-row>
 
-    <p class="merchants-row-heading">Commonly used merchants <span tappable (click)="openAllMerchantsModal()">See all</span></p>
+    <p class="merchants-row-heading">Top Merchants <span tappable (click)="openAllMerchantsModal()">See all</span></p>
 
     <ion-row class="merchants-row">
       <ion-col size="12" *ngFor="let merchant of merchants | slice:0:4" >
-        <div tappable (click)="openSelectProductModal()" class="merchant">
+        <div tappable (click)="openSelectProductModal(merchant)" class="merchant">
           <ion-row>
             <ion-col size="3">
               <div></div>
               <!-- <img src=""> -->
             </ion-col>
             <ion-col size="9">
-              <h4>{{merchant.name}}</h4>
+              <h4>{{merchant?.name}}</h4>
               <!-- location: Abuja -->
-              <p>Status: {{merchant.status}}</p> 
+              <p>Status: {{merchant?.status}}</p> 
             </ion-col>
           </ion-row>
         </div>

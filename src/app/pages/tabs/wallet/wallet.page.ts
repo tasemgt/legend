@@ -61,6 +61,7 @@ export class WalletPage implements OnInit, OnDestroy {
     this.balanceSubscription = this.walletService.balanceState.subscribe((fetchBalance) =>{
       if(fetchBalance){
         this.getBalance();
+        this.getTransactions();
       }
     });
   }
@@ -113,8 +114,8 @@ export class WalletPage implements OnInit, OnDestroy {
     const modal = await this.modalCtrl.create({
       component: SelectMerchantPage,
       enterAnimation: myEnterAnimation,
-      leaveAnimation: myLeaveAnimation
-      // componentProps: {'profile': this.profile, 'user': this.user}
+      leaveAnimation: myLeaveAnimation,
+      componentProps: {'balance': this.balance}
     });
     await modal.present();
   }

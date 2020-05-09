@@ -3,6 +3,7 @@
 }
 
 .search-row{
+
   ion-input{
     font-size: 0.9rem;
   }
@@ -15,15 +16,14 @@
     position: relative; //For ripple effect
     overflow: hidden; //For ripple effect
     padding: 0.5rem 0.5rem;
-    background-color: var(--ion-color-primary);//#ffffffe0;
-    border-radius: 6px;
-    box-sizing: border-box;
-    margin-top: 0.15rem;
+    //background-color: var(--ion-color-primary);//#ffffffe0;
+    //border-radius: 6px;
+    height: 3.2rem;
     text-align: center;
 
     ion-icon{
-      color: #FFF;//var(--ion-color-primary);
-      font-size: 24px;
+      font-weight: bolder;
+      font-size: 30px;
     }
   }
 

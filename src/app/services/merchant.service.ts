@@ -13,12 +13,82 @@ export class MerchantService {
 
 
 
-  public getMerchants(fromModal:boolean, url?: string): Promise<any>{
+  public getMerchants(aRefresher:boolean, url?: string): Promise<any>{
     const baseUrl = 'http://41.73.8.123/horizonaccess/legend/public/api'
+
     return this.authService.getUser()
       .then(user => {
         const headers = {Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json'};
-        return url && fromModal? this.http.get(url, {headers}).toPromise(): this.http.get(`${baseUrl}/merchants`, {headers}).toPromise();
+        return url && aRefresher? this.http.get(url, {headers}).toPromise(): this.http.get(`${baseUrl}/merchants`, {headers}).toPromise();
+      })
+      .then(resp => {
+        return Promise.resolve(resp);
+      })
+      .catch(err => {
+        console.log(err)
+        return Promise.reject(err);
+      });
+  }
+
+
+  public getSearchedMerchants(aRefresher:boolean, url?: string, payload?: {name:string}){
+    const baseUrl = 'http://41.73.8.123/horizonaccess/legend/public/api'
+
+    return this.authService.getUser()
+      .then(user => {
+        const headers = {Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json'};
+        return url && aRefresher? this.http.post(url, payload, {headers}).toPromise(): this.http.post(`${baseUrl}/merchant/search`, payload, {headers}).toPromise();
+      })
+      .then(resp => {
+        return Promise.resolve(resp);
+      })
+      .catch(err => {
+        console.log(err)
+        return Promise.reject(err);
+      });
+  }
+
+  public getProducts(merchantID: number): Promise<any>{
+    const baseUrl = 'http://41.73.8.123/horizonaccess/legend/public/api'
+
+    return this.authService.getUser()
+      .then(user => {
+        const headers = {Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json'};
+        return this.http.get(`${baseUrl}/products/${merchantID}`, {headers}).toPromise();
+      })
+      .then(resp => {
+        return Promise.resolve(resp);
+      })
+      .catch(err => {
+        console.log(err)
+        return Promise.reject(err);
+      });
+  }
+
+  public directPayMerchant(merchantID: string, amount:string): Promise<any>{
+    const baseUrl = 'http://41.73.8.123/horizonaccess/legend/public/api'
+
+    return this.authService.getUser()
+      .then(user => {
+        const headers = {Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json'};
+        return this.http.post(`${baseUrl}/pay-merchant`, {id:merchantID, amount}, {headers}).toPromise();
+      })
+      .then(resp => {
+        return Promise.resolve(resp);
+      })
+      .catch(err => {
+        console.log(err)
+        return Promise.reject(err);
+      });
+  }
+
+  public buyProduct(productID: string): Promise<any>{
+    const baseUrl = 'http://41.73.8.123/horizonaccess/legend/public/api'
+
+    return this.authService.getUser()
+      .then(user => {
+        const headers = {Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json'};
+        return this.http.post(`${baseUrl}/buy-product`, {id:productID}, {headers}).toPromise();
       })
       .then(resp => {
         return Promise.resolve(resp);

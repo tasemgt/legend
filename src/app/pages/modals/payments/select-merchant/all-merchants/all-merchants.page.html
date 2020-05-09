@@ -6,7 +6,7 @@
 
   <ion-row class="merchants-row">
     <ion-col size="12" *ngFor="let merchant of displayedMerchants">
-      <div tappable class="merchant">
+      <div tappable class="merchant" (click)="closeModal(merchant)">
         <ion-row>
           <ion-col size="3">
             <div></div>
@@ -26,5 +26,9 @@
       <ion-icon src="assets/imgs/close.svg"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+
+  <ion-spinner class="spinner" *ngIf="displayedMerchants.length <= 0 && showLoading" name="dots"></ion-spinner>
+
+  <div class="no-merchants" *ngIf="displayedMerchants.length <= 0 && !showLoading">No merchants with entered name available</div>
 
 </ion-content>

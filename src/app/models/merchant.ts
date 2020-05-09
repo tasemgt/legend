@@ -23,3 +23,14 @@ export interface MerchantWrapper{
   total: number;
   data: Merchant[];
 }
+
+export interface MerchantProduct{
+  id: number;
+  branches_id: number;
+  name: string;
+  description: string;
+  price: string;
+  cf: string;
+  created_at: string;
+  updated_at: string;
+}

@@ -1,0 +1,22 @@
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item lines="full" *ngFor="let product of products" tappable (click)="closeModal(product)">
+      <ion-label class="ion-text-wrap">
+        <ion-text color="primary">
+          <h3>{{product.name}} <span><ion-icon src="assets/imgs/naira.svg"></ion-icon> <span>{{product.price}}</span></span></h3>
+        </ion-text>
+        <ion-text color="white">
+          <p>{{product.description}}</p>
+        </ion-text>
+      </ion-label>
+    </ion-item>
+    <br>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="closeModal()">
+      <ion-icon src="assets/imgs/close.svg"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

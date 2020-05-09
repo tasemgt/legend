@@ -8,20 +8,26 @@
 
       <ion-row>
         <ion-col size="7" class="name-heading-alt ion-text-left">
-          <p>How much are you paying?</p>
+          <p *ngIf="isDirectPayment">How much are you paying?</p>
+          <p *ngIf="!isDirectPayment">You are paying for..</p>
         </ion-col>
         <ion-col></ion-col>
       </ion-row>
 
       <ion-row class="amount-row">
-        <ion-col size="12" class="legend-input">
+        <ion-col *ngIf="isDirectPayment" size="12" class="legend-input">
           <ion-item>
             <ion-icon src="assets/imgs/naira.svg"></ion-icon> &nbsp;
-            <ion-input type="text" name="amount" ngModel #amount="ngModel"></ion-input>
+            <ion-input type="text" name="amount" ngModel #amount="ngModel" required></ion-input>
           </ion-item>
         </ion-col>
+        <ion-col *ngIf="!isDirectPayment" size="12" >
+          <ion-text color="primary" class="product-price">
+            <p>{{product?.name}} <span style="float: right;"><ion-icon src="assets/imgs/naira.svg"></ion-icon> {{product?.price}}</span></p>
+          </ion-text>
+        </ion-col>
         <ion-col size="12" class="ion-text-center">
-          <h4>Wallet Balance: <ion-icon src="assets/imgs/naira.svg"></ion-icon> 87,000</h4>
+          <h4>Wallet Balance: <ion-icon src="assets/imgs/naira.svg"></ion-icon> {{balance.balance}}</h4>
         </ion-col>
       </ion-row>
 
@@ -35,8 +41,8 @@
                 <!-- <img src=""> -->
               </ion-col>
               <ion-col size="9">
-                <h4>Dunes Center</h4>
-                <p>Location: Abuja</p>
+                <h4>{{merchant?.name}}</h4>
+                <p>Status: {{merchant?.status}}</p>
               </ion-col>
             </ion-row>
           </div>

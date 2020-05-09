@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavParams, Platform } from '@ionic/angular';
 import { PayMerchantPage } from '../pay-merchant/pay-merchant.page';
-import { myEnterAnimation } from 'src/app/animations/enter';
+import { myEnterAnimation, myEnterAnimation2 } from 'src/app/animations/enter';
 import { myLeaveAnimation } from 'src/app/animations/leave';
+import { Merchant, MerchantProduct } from 'src/app/models/merchant';
+import { MerchantService } from 'src/app/services/merchant.service';
+import { UtilService } from 'src/app/services/util.service';
+import { AllProductsPage } from './all-products/all-products.page';
+import { Balance } from 'src/app/models/wallet';
 
 @Component({
   selector: 'app-select-product',
@@ -11,17 +16,42 @@ import { myLeaveAnimation } from 'src/app/animations/leave';
 })
 export class SelectProductPage implements OnInit {
 
-  constructor(private modalCtrl: ModalController) { }
+  public merchant: Merchant;
+  public products: MerchantProduct[];
 
-  ngOnInit() {
+  public balance: Balance;
+
+  public chosenProduct: MerchantProduct;
+  public showLoading: boolean;
+
+  public showIosOnce = true;
+
+  constructor(
+    private platform: Platform,
+    private modalCtrl: ModalController,
+    private navParams: NavParams,
+    private merchantService: MerchantService,
+    private utilService: UtilService) { 
+    
+      this.merchant = this.navParams.get('merchant');
+      this.balance = this.navParams.get('balance');
   }
 
-  public async openPayMerchantModal(){
-    // this.router.navigateByUrl('/edit-profile');
+  ngOnInit() {
+    this.getMerchantProducts();
+  }
+
+  public async openPayMerchantModal(directPayment:boolean, product?: MerchantProduct){
     const modal = await this.modalCtrl.create({
       component: PayMerchantPage,
       enterAnimation: myEnterAnimation,
-      leaveAnimation: myLeaveAnimation
+      leaveAnimation: myLeaveAnimation,
+      componentProps: {
+        'merchant':this.merchant, 
+        'directPayment':directPayment, 
+        'product':product,
+        'balance': this.balance
+      }
     });
     await modal.present();
 
@@ -32,6 +62,43 @@ export class SelectProductPage implements OnInit {
         data.closeParent? this.closeModal(): '';
       },0);
     }
+  }
+
+  public async openAllProductsModal(){
+    const modal = await this.modalCtrl.create({
+      component: AllProductsPage,
+      enterAnimation: myEnterAnimation2,
+      componentProps: {'products':this.products}
+    });
+    await modal.present();
+
+    const {data} = await modal.onDidDismiss();
+    if(data){
+     this.chosenProduct = data.product;
+
+     this.openPayMerchantModal(false, this.chosenProduct);
+    }
+  }
+
+  public getMerchantProducts(): void{
+    this.showLoading = true;
+    this.merchantService.getProducts(this.merchant.id)
+      .then((products) =>{
+        this.products = [...products]; //Not necessary, just for clean code;
+        this.showLoading = false;
+      })
+      .catch((err) =>{
+        if(err.status === 0){
+          console.log("calling again")
+          setTimeout(() =>{
+            if(this.platform.is('android') || (this.platform.is('ios') && this.showIosOnce)){
+              this.utilService.showToast('Check network connectivity', 1000, 'danger');
+              this.showIosOnce = false; 
+            }
+            this.getMerchantProducts();
+          }, 15000);
+        }
+      })
   }
 
   public closeModal(){

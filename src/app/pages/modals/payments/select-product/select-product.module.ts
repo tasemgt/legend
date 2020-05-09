@@ -6,12 +6,14 @@ import { IonicModule } from '@ionic/angular';
 
 import { SelectProductPage } from './select-product.page';
 import { PayMerchantPageModule } from '../pay-merchant/pay-merchant.module';
+import { AllProductsPageModule } from './all-products/all-products.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    AllProductsPageModule,
     PayMerchantPageModule
   ],
   declarations: [SelectProductPage],
