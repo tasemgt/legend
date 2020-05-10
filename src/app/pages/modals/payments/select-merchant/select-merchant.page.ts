@@ -17,6 +17,7 @@ import { Balance } from 'src/app/models/wallet';
 export class SelectMerchantPage implements OnInit {
 
   public merchants: Merchant[];
+  public topMerchants: Merchant[];
   public merchantWraper: any;
 
   public merchant: string; //Merchant ngModel
@@ -48,6 +49,8 @@ export class SelectMerchantPage implements OnInit {
     try{
       this.merchantWraper = await this.merchantService.getMerchants(false);
       this.merchants = this.merchantWraper.data;
+      this.topMerchants = this.merchants.slice(0,4);
+      console.log(this.topMerchants);
     }
     catch(err){
       if(err.status === 0){
@@ -77,11 +80,11 @@ export class SelectMerchantPage implements OnInit {
 
 
   public openAllMerchantsModal(){
-    this.openMerchantsModal(this.merchantWraper);
+    this.openMerchantsModal(this.merchantWraper); //Opens the list modal from see all link passing in initial data
   }
 
   public openSearchMerchantsModal(){
-    this.openMerchantsModal(null);
+    this.openMerchantsModal(null); //Opens the list modal from search box
   }
 
   // Merchant's list modal

@@ -30,7 +30,7 @@
     <p class="merchants-row-heading">Top Merchants <span tappable (click)="openAllMerchantsModal()">See all</span></p>
 
     <ion-row class="merchants-row">
-      <ion-col size="12" *ngFor="let merchant of merchants | slice:0:4" >
+      <ion-col size="12" *ngFor="let merchant of topMerchants" >
         <div tappable (click)="openSelectProductModal(merchant)" class="merchant">
           <ion-row>
             <ion-col size="3">

@@ -31,13 +31,13 @@ export class MerchantService {
   }
 
 
-  public getSearchedMerchants(aRefresher:boolean, url?: string, payload?: {name:string}){
+  public getSearchedMerchants(aRefresher:boolean, searchWord:string, url?: string){
     const baseUrl = 'http://41.73.8.123/horizonaccess/legend/public/api'
 
     return this.authService.getUser()
       .then(user => {
         const headers = {Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json'};
-        return url && aRefresher? this.http.post(url, payload, {headers}).toPromise(): this.http.post(`${baseUrl}/merchant/search`, payload, {headers}).toPromise();
+        return url && aRefresher? this.http.get(url, {headers}).toPromise(): this.http.get(`${baseUrl}/merchant/search/${searchWord}`, {headers}).toPromise();
       })
       .then(resp => {
         return Promise.resolve(resp);

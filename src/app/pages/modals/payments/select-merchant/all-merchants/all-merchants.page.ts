@@ -49,7 +49,7 @@ export class AllMerchantsPage implements OnInit {
 
   public getSearchedMerchants(){ // Search using keywords to filter merchants
     this.showLoading = true;
-    this.merchantService.getSearchedMerchants(false, '', {name: this.searchWord})
+    this.merchantService.getSearchedMerchants(false, this.searchWord)
       .then((merchantWrapper: MerchantWrapper) =>{
 
         this.showLoading = false;
@@ -65,11 +65,11 @@ export class AllMerchantsPage implements OnInit {
 
 
   public doRefresh(event): void{ //Perform data refresh by calling apis with urls provided by previous calls
-    if(!this.merchantWrapper){
+    if(!this.merchantWrapper){ //No initial data, refresher not needed....
       event.target.complete();
       return;
     }
-    else if(!this.merchantWrapper.next_page_url){
+    else if(!this.merchantWrapper.next_page_url){ //No next page url, so all data has been loaded
       setTimeout(()=>{
         event.target.complete();
         this.utilService.showToast('All Merchants loaded...', 2000, 'success');
@@ -77,27 +77,37 @@ export class AllMerchantsPage implements OnInit {
       return;
     }
 
-    if(this.searchMode){
-      event.target.complete();
-      return;
+    if(this.searchMode){ // Calls search API and updates as required
+      this.merchantService.getSearchedMerchants(true, this.merchantWrapper.next_page_url)
+        .then((merchantWrapper: MerchantWrapper) =>{
+          this.handleMergingMerchantsList(merchantWrapper);
+          event.target.complete(); //Complete refreshing..
+        })
+        .catch((err) =>{
+          console.log(err);
+        })
     }
     else{
       this.merchantService.getMerchants(true, this.merchantWrapper.next_page_url)
       .then((merchantWrapper: MerchantWrapper) =>{
-        if(merchantWrapper.data.length > 0){
-          console.log("theres merchant data");
-          this.merchantWrapper = merchantWrapper;
-          console.log(this.merchantWrapper);
-          this.totalMerchants = this.totalMerchants.reverse().concat(merchantWrapper.data);
-          this.displayedMerchants = [...this.totalMerchants].reverse();
-          event.target.complete(); //Complete refreshing..
-        }
+        this.handleMergingMerchantsList(merchantWrapper);
+        event.target.complete(); //Complete refreshing..
       })
       .catch((err) =>{
         console.log(err);
       });
     }
     
+  }
+
+  //Handles the updating of total merchants and concatinating with newly gotten list
+  private handleMergingMerchantsList(merchantWrapper: MerchantWrapper): void{
+    if(merchantWrapper.data.length > 0){
+      this.merchantWrapper = merchantWrapper;
+      console.log(this.merchantWrapper);
+      this.totalMerchants = this.totalMerchants.reverse().concat(merchantWrapper.data);
+      this.displayedMerchants = [...this.totalMerchants].reverse();
+    }
   }
 
   public closeModal(merchant?: Merchant){
