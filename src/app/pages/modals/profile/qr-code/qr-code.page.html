@@ -1,0 +1,21 @@
+<ion-content class="ion-padding legend-modal">
+  <div class="close">
+    <ion-icon src="assets/imgs/close.svg" color="primary" (click)="closeModal()"></ion-icon>
+  </div>
+
+  <ion-card *ngIf="profile">
+    <!-- <ion-card-header>
+      <ion-card-title class="ion-text-cente" color="primary">Your QR Code</ion-card-title>
+    </ion-card-header> -->
+    <ion-card-content>
+      <div>
+        <ngx-qrcode 
+          [qrc-value] = "profile.username">
+        </ngx-qrcode>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-spinner class="trans-spinner" *ngIf="!profile" name="dots"></ion-spinner>
+
+</ion-content>

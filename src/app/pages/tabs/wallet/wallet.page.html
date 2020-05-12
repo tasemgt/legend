@@ -38,7 +38,7 @@
 
     <ion-row class="recent-trans-row">
       <ion-col size="12">
-        <p><span>Recent Transactions</span> <span class="see-all" tappable (click)="openSeeAllTransactionsModal()">See all</span></p>
+        <p *ngIf="!(transactions?.length <= 0 && !showLoading)"><span>Recent Transactions</span> <span class="see-all" tappable (click)="openSeeAllTransactionsModal()">See all</span></p>
         <div class="transactions-list" *ngIf="transactions?.length > 0">
           <div 
           class="transaction" 
@@ -67,5 +67,7 @@
     </ion-row>
 
   </ion-grid>
-  <ion-spinner class="trans-spinner" *ngIf="transactions?.length <= 0" name="dots"></ion-spinner>
+  <ion-spinner class="trans-spinner" *ngIf="transactions?.length <= 0 && showLoading" name="dots"></ion-spinner>
+
+  <div class="no-transactions" *ngIf="transactions?.length <= 0 && !showLoading">No recent wallet transactions!</div>
 </ion-content>

@@ -105,8 +105,8 @@ export class AllMerchantsPage implements OnInit {
     if(merchantWrapper.data.length > 0){
       this.merchantWrapper = merchantWrapper;
       console.log(this.merchantWrapper);
-      this.totalMerchants = this.totalMerchants.reverse().concat(merchantWrapper.data);
-      this.displayedMerchants = [...this.totalMerchants].reverse();
+      this.totalMerchants = merchantWrapper.data.concat(this.totalMerchants);
+      this.displayedMerchants = [...this.totalMerchants];
     }
   }
 

@@ -5,7 +5,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProfilePage } from './profile.page';
 
+import {NgxQRCodeModule} from 'ngx-qrcode2';
+
 import { EditProfilePageModule } from '../../modals/profile/edit-profile/edit-profile.module';
+import { QrCodePage } from '../../modals/profile/qr-code/qr-code.page';
 
 @NgModule({
   imports: [
@@ -13,8 +16,10 @@ import { EditProfilePageModule } from '../../modals/profile/edit-profile/edit-pr
     CommonModule,
     FormsModule,
     RouterModule.forChild([{ path: '', component: ProfilePage }]),
-    EditProfilePageModule
+    EditProfilePageModule,
+    NgxQRCodeModule
   ],
-  declarations: [ProfilePage],
+  declarations: [ProfilePage, QrCodePage],
+  entryComponents: [QrCodePage]
 })
 export class ProfilePageModule {}

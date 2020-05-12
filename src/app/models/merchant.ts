@@ -4,6 +4,7 @@ export interface Merchant{
   su_username: string;
   image: string;
   status: string;
+  location: string;
   created_at: string;
   updated_at: string;
 }

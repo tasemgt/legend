@@ -1,0 +1,26 @@
+.close{
+  text-align: right;
+  padding: 1rem;
+
+  ion-icon{
+    font-size: 40px;
+  }
+}
+
+ion-card{
+  margin-top: 8rem;
+
+  ion-card-title{
+    font-weight: bolder;
+  }
+}
+
+.sc-ion-card-md-s img{
+  width: 80% !important;
+}
+
+ion-spinner{
+  position: absolute;
+  top: 45%;
+  left: 45%;
+}

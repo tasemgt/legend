@@ -8,8 +8,9 @@ import { UserService } from 'src/app/services/user.service';
 
 import { EditProfilePage } from '../../modals/profile/edit-profile/edit-profile.page';
 import { ModalController } from '@ionic/angular';
-import { myEnterAnimation } from 'src/app/animations/enter';
+import { myEnterAnimation, myEnterAnimation2 } from 'src/app/animations/enter';
 import { myLeaveAnimation } from 'src/app/animations/leave';
+import { QrCodePage } from '../../modals/profile/qr-code/qr-code.page';
 
 
 @Component({
@@ -43,8 +44,10 @@ export class ProfilePage implements OnInit, OnDestroy{
         .catch((err) => console.log(err));
       }
       else{
-        this.profile = null;
-        this.user = null;
+        setTimeout(() =>{ //Fixes null display bug before page redirects to login
+          this.profile = null;
+          this.user = null;
+        },100)
       }
     });
   }
@@ -84,8 +87,18 @@ export class ProfilePage implements OnInit, OnDestroy{
     }
   }
 
+  public async openQRCodeModal(){
+    const modal = await this.modalCtrl.create({
+      component: QrCodePage,
+      enterAnimation: myEnterAnimation2,
+      componentProps: {'profile': this.profile}
+    });
+    await modal.present();
+  }
+
   public logout(){
-    this.utilService.presentAlertConfirm('Leaving soon?', 'Are you sure you want to log out?', () =>{
+    this.utilService.presentAlertConfirm('Exiting Legend Pay!', 
+    `This action will log you out of Legend Pay App. <br><br> <strong>Proceed</strong>?`, () =>{
       this.authService.logout();
     });
   }

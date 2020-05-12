@@ -34,6 +34,7 @@ export class WalletPage implements OnInit, OnDestroy {
   public balance: Balance;
   public transactions: Transaction[];
   public showIosOnce: boolean;
+  public showLoading: boolean;
 
   constructor(
     private modalCtrl: ModalController,
@@ -54,6 +55,7 @@ export class WalletPage implements OnInit, OnDestroy {
       }
       else{
         this.balance = null;
+        this.transactions = [];
       }
     });
 
@@ -88,13 +90,14 @@ export class WalletPage implements OnInit, OnDestroy {
 
 
   private async getTransactions(){
+    this.showLoading = true;
     //let transactions: Transaction[] = [];
 
     this.walletService.getTransactions().then((trans) =>{
       // Object.values(trans).map(function(value: Transaction) {
       //   transactions.push(value)
       // });
-       
+      this.showLoading = false;
       this.transactions = trans;
     })
     .catch((err) =>{

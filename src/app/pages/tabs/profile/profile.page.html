@@ -17,10 +17,16 @@
             <p><span>Last Name:</span><span>{{user?.lastName}}</span><span *ngIf="!user || !user.lastName">{{'-----'}}</span></p>
             <p><span>Mobile:</span><span>+{{profile?.phone}}</span><span *ngIf="!profile || !profile.phone">{{'-----'}}</span></p>
             <p><span>Email:</span><span>{{profile?.email}}</span><span *ngIf="!profile || !profile.email">{{'-----'}}</span></p>
-            <hr>
+            <hr/>
             <p><span>Street Number:</span><span>{{profile?.street}}</span><span *ngIf="!profile || !profile.street">{{'-----'}}</span></p> 
             <p><span>Street Name:</span><span>{{profile?.streetname}}</span><span *ngIf="!profile || !profile.streetname">{{'-----'}}</span></p> 
             <p><span>City:</span><span>{{profile?.city}}</span><span *ngIf="!profile || !profile.city">{{'-----'}}</span></p> 
+            <hr/>
+            <p><span>QR Code:</span>
+              <span tappable (click)="openQRCodeModal()" class="qr">
+                <ion-icon src="assets/imgs/qr-img.svg"></ion-icon>
+              </span>
+            </p>
           </div>
         </div>
       </ion-col>
@@ -31,7 +37,7 @@
       </ion-col>
       <ion-col size="12">
         <div class="btn-wrapper">
-          <ion-button class="legend-btn legend-btn-inverse ion-text-capitalize" type="button" (click)="logout()">Log Out</ion-button>
+          <ion-button class="legend-btn legend-btn-inverse ion-text-capitalize" [disabled]="!profile" type="button" (click)="logout()">Log Out</ion-button>
         </div>
       </ion-col>
     </ion-row>

@@ -25,7 +25,8 @@ import { AppComponent } from './app.component';
     IonicModule.forRoot(), 
     IonicStorageModule.forRoot(),
     HttpClientModule,
-    AppRoutingModule],
+    AppRoutingModule
+  ],
   providers: [
     StatusBar,
     SplashScreen,

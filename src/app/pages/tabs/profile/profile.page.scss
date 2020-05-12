@@ -52,7 +52,7 @@ ion-col:nth-of-type(4){
 }
 
 .profile-details-content{
-    padding: 3rem 0.7rem 1rem 0.7rem;
+    padding: 1.5rem 0.7rem 1rem 0.7rem;
 
     hr{
         width: 20%;
@@ -67,6 +67,21 @@ ion-col:nth-of-type(4){
         margin: 5px;
         span:last-child{
             float: right;
+        }
+    }
+
+    .qr{
+        text-align: center;
+        height: 2rem;
+        width: 2rem;
+        background-color: var(--ion-color-primary);
+        padding: 0.35rem 0.3rem 0.3rem 0.3rem;
+        border-radius: 100px;
+
+        ion-icon{
+            margin-top: 1px;
+            margin-left: -1px;
+            font-size: 20px;
         }
     }
 }
