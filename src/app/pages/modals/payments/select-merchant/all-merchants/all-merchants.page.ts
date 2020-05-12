@@ -3,6 +3,7 @@ import { ModalController, NavParams } from '@ionic/angular';
 import { Merchant, MerchantWrapper } from 'src/app/models/merchant';
 import { MerchantService } from 'src/app/services/merchant.service';
 import { UtilService } from 'src/app/services/util.service';
+import { Constants } from 'src/app/models/constants';
 
 @Component({
   selector: 'app-all-merchants',
@@ -19,6 +20,8 @@ export class AllMerchantsPage implements OnInit {
   public searchWord: string; // Word in search field for a merchant
 
   public showLoading: boolean;
+
+  public merchantImgBaseUrl = Constants.merchantImageBaseUrl;
 
   constructor(
     private modalCtrl: ModalController,

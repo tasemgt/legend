@@ -6,6 +6,7 @@ import { Balance } from 'src/app/models/wallet';
 import { NgForm } from '@angular/forms';
 import { MerchantService } from 'src/app/services/merchant.service';
 import { WalletService } from 'src/app/services/wallet.service';
+import { Constants } from 'src/app/models/constants';
 
 @Component({
   selector: 'app-pay-merchant',
@@ -19,6 +20,8 @@ export class PayMerchantPage implements OnInit {
   public isDirectPayment: boolean;
 
   public balance: Balance;
+
+  public merchantImgBaseUrl = Constants.merchantImageBaseUrl;
 
   constructor(
     private modalCtrl: ModalController,

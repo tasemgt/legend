@@ -203,10 +203,12 @@ ion-grid.tabs-area{
 
     }[size="3"]{
       div{
+        padding-top: 0.4rem;
+        text-align: center;
         height: 3.5rem;
         width: 3.5rem;
         border-radius: 8px;
-        background-color: #FFFFFF;
+        background-color: transparent;
         box-shadow: 0px 1px 8px 0px rgba(229,63,39,0.5);
       }
     }

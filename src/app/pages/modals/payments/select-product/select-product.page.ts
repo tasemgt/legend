@@ -8,6 +8,7 @@ import { MerchantService } from 'src/app/services/merchant.service';
 import { UtilService } from 'src/app/services/util.service';
 import { AllProductsPage } from './all-products/all-products.page';
 import { Balance } from 'src/app/models/wallet';
+import { Constants } from 'src/app/models/constants';
 
 @Component({
   selector: 'app-select-product',
@@ -25,6 +26,8 @@ export class SelectProductPage implements OnInit {
   public showLoading: boolean;
 
   public showIosOnce = true;
+
+  public merchantImgBaseUrl = Constants.merchantImageBaseUrl;
 
   constructor(
     private platform: Platform,

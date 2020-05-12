@@ -9,6 +9,8 @@ import { Merchant, MerchantWrapper } from 'src/app/models/merchant';
 import { UtilService } from 'src/app/services/util.service';
 import { Balance } from 'src/app/models/wallet';
 
+import {Constants} from 'src/app/models/constants';
+
 @Component({
   selector: 'app-select-merchant',
   templateUrl: './select-merchant.page.html',
@@ -26,6 +28,9 @@ export class SelectMerchantPage implements OnInit {
   public balance: Balance;
 
   private showIosOnce: boolean;
+
+
+  public merchantImgBaseUrl = Constants.merchantImageBaseUrl;
 
   constructor(
     private modalCtrl: ModalController,
