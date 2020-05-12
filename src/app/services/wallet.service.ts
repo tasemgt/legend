@@ -5,6 +5,7 @@ import { AuthService } from './auth.service';
 import { Constants } from '../models/constants';
 import { User } from '../models/user';
 import { BehaviorSubject } from 'rxjs';
+import { Balance } from '../models/wallet';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +17,34 @@ export class WalletService {
 
   public balanceState: BehaviorSubject<boolean> = new BehaviorSubject(null);
 
+  public uniBalanceValue: Balance;
+
   constructor(
     private http: HttpClient,
     private authService: AuthService,
-    private storage: Storage) {}
+    private storage: Storage) {
+
+      this.getUniveralBalance();
+
+      this.balanceState.subscribe((reloadBal) =>{
+        if(reloadBal){
+          this.getUniveralBalance();
+        }
+      });
+  }
+
+  private getUniveralBalance(){
+    this.getBalance()
+      .then((bal) =>{
+        this.uniBalanceValue = bal; // Store universal balance value
+      }).catch((err) =>{
+        if(err.status === 0){
+          setTimeout(() =>{
+            this.getBalance();
+          }, 100);
+        }
+      });
+  }
 
   public getBalance(): Promise<any>{
      return this.authService.getUser()

@@ -45,8 +45,8 @@ export class ProfilePage implements OnInit, OnDestroy{
       }
       else{
         setTimeout(() =>{ //Fixes null display bug before page redirects to login
-          this.profile = null;
-          this.user = null;
+          this.profile = {} as Profile;
+          this.user = {} as User;
         },100)
       }
     });

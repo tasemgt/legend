@@ -4,3 +4,15 @@
     font-size: 0.75rem;
   }
 }
+
+ion-fab{
+  margin-bottom: 1.5rem;
+  margin-right: 0.7rem;
+
+  ion-fab-button{
+    height: 4rem;
+    width: 4rem;
+    box-shadow: 4px 11px 18px -14px rgba(229,63,39,0.81);
+    border-radius: 100px;
+  }
+}

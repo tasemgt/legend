@@ -3,6 +3,7 @@ import { ModalController, LoadingController } from '@ionic/angular';
 import { NgForm } from '@angular/forms';
 import { UtilService } from 'src/app/services/util.service';
 import { FundTransferService } from 'src/app/services/fund-transfer.service';
+import { QrPagePage } from '../../utility/qr-page/qr-page.page';
 
 @Component({
   selector: 'app-search-user-transfer',
@@ -11,6 +12,8 @@ import { FundTransferService } from 'src/app/services/fund-transfer.service';
 })
 export class SearchUserTransferPage implements OnInit {
 
+  public username: string;
+
   constructor(
     private modalCtrl: ModalController,
     private utilService: UtilService,
@@ -18,7 +21,7 @@ export class SearchUserTransferPage implements OnInit {
     private fundTransService: FundTransferService) { }
 
   ngOnInit() {
-    
+    // this.username = 'tas3';
   }
 
   public transferFunds(form: NgForm): void{
@@ -61,6 +64,20 @@ export class SearchUserTransferPage implements OnInit {
           });
       }, 'Cancel', 'Proceed');
     }
+
+  public async openQRPageModal(){
+    const modal = await this.modalCtrl.create({
+      component: QrPagePage
+    });
+    await modal.present();
+    const {data} = await modal.onDidDismiss();
+    if(data && data.text){
+      this.username = data.text;
+    }
+    else if(data && data.err){
+      this.utilService.showToast('QR scan failed', 2000, 'danger');
+    }
+  }
 
   public closeModal(){
     this.modalCtrl.dismiss();

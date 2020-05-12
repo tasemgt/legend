@@ -27,7 +27,9 @@
           </ion-text>
         </ion-col>
         <ion-col size="12" class="ion-text-center">
-          <h4>Wallet Balance: <ion-icon src="assets/imgs/naira.svg"></ion-icon> {{balance.balance}}</h4>
+          <h4>Wallet Balance: <span *ngIf="balance"><ion-icon src="assets/imgs/naira.svg"></ion-icon> {{balance.balance}}</span>
+            <span><ion-spinner class="spinner" *ngIf="!balance" name="dots"></ion-spinner></span>
+          </h4>
         </ion-col>
       </ion-row>
 

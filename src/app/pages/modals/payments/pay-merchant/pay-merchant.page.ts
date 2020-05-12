@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ModalController, NavParams, LoadingController } from '@ionic/angular';
 import { UtilService } from 'src/app/services/util.service';
 import { Merchant, MerchantProduct } from 'src/app/models/merchant';
@@ -13,7 +13,7 @@ import { Constants } from 'src/app/models/constants';
   templateUrl: './pay-merchant.page.html',
   styleUrls: ['./pay-merchant.page.scss'],
 })
-export class PayMerchantPage implements OnInit {
+export class PayMerchantPage implements OnInit, OnDestroy {
 
   public merchant: Merchant;
   public product: MerchantProduct;
@@ -34,13 +34,28 @@ export class PayMerchantPage implements OnInit {
       this.isDirectPayment = this.navParams.get('directPayment');
       this.product = this.navParams.get('product');
       this.merchant = this.navParams.get('merchant');
-      this.balance = this.navParams.get('balance');
   }
 
   ngOnInit() {
-
-    console.log(this.product);
+    console.log(this.balance);
+    this.balance = this.walletService.uniBalanceValue;
   }
+
+  // private async getBalance(){
+  //   let balance: Balance;
+  //   try{
+  //     console.log("Getting balance");
+  //     balance = await this.walletService.getBalance();
+  //     this.balance = balance.balance;
+  //   }
+  //   catch(err){
+  //     if(err.status === 0){
+  //       setTimeout(() =>{
+  //         this.getBalance();
+  //       }, 100);
+  //     }
+  //   }
+  // }
 
 
   public payMerchant(form: NgForm){
@@ -92,6 +107,15 @@ export class PayMerchantPage implements OnInit {
   }
 
   public closeModal(data?: any){
-    data && data.closeParent? this.modalCtrl.dismiss(data): this.modalCtrl.dismiss();
+    if(data && data.closeParent){
+      this.modalCtrl.dismiss(data);
+    }
+    else{
+      this.modalCtrl.dismiss();
+    }
+  }
+
+  public ngOnDestroy(){
+    // this.balance = '';
   }
 }

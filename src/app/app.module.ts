@@ -16,6 +16,8 @@ import { MobileAccessibility } from '@ionic-native/mobile-accessibility/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,6 +37,7 @@ import { AppComponent } from './app.component';
     InAppBrowser,
     AppMinimize,
     Network,
+    BarcodeScanner,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ToastController, LoadingController, AlertController, Platform } from '@ionic/angular';
 import { HttpErrorResponse } from '@angular/common/http';
+import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ export class UtilService {
   constructor(
     private toastCtrl: ToastController,
     private platform: Platform,
+    private barcodeScanner: BarcodeScanner,
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController
     ) { }
@@ -122,6 +124,30 @@ export class UtilService {
     let newPhone = '';
     newPhone = `234${phone.substring(1)}`;
     return newPhone;
+  }
+
+  public scanQRCode(): Promise<any>{
+
+    let options: BarcodeScannerOptions;
+
+    options = {
+      prompt : "Position the QR code inside the scanner window",
+    }
+
+    if (this.platform.is('cordova')) {
+      return this.barcodeScanner.scan(options)
+        .then((scanResult) => {
+          if(scanResult){
+            return scanResult.text;
+          }
+          return '';
+        }, (err) => {
+            return  err;
+        });
+    }
+    else {
+      return Promise.reject('Cordova not available');
+    }
   }
 
   public getErrorMessage(error: HttpErrorResponse): string {

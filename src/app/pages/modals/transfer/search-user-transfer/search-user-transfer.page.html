@@ -17,7 +17,7 @@
       <ion-row class="user-row">
         <ion-col size="12" class="legend-input">
           <ion-item>
-            <ion-input placeholder="Username of recipient" type="text" name="username" ngModel #username="ngModel" required></ion-input>
+            <ion-input placeholder="Username of recipient" type="text" name="username" [(ngModel)]="username" required></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -42,5 +42,11 @@
 
     </ion-grid>
   </form>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openQRPageModal()">
+      <ion-icon src="assets/imgs/qr.svg"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
 </ion-content>

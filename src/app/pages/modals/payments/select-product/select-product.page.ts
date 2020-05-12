@@ -52,8 +52,7 @@ export class SelectProductPage implements OnInit {
       componentProps: {
         'merchant':this.merchant, 
         'directPayment':directPayment, 
-        'product':product,
-        'balance': this.balance
+        'product':product
       }
     });
     await modal.present();
