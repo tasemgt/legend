@@ -27,7 +27,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
     IonicModule.forRoot(), 
     IonicStorageModule.forRoot(),
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [
     StatusBar,
