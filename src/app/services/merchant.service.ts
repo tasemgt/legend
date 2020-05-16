@@ -12,6 +12,24 @@ export class MerchantService {
     private authService: AuthService) { }
 
 
+    public getMerchant(searchString: string): Promise<any>{
+      const baseUrl = 'http://41.73.8.123/horizonaccess/legend/public/api'
+  
+      return this.authService.getUser()
+        .then(user => {
+          const headers = {Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json'};
+          return this.http.get(`${baseUrl}/merchant/${searchString}`, {headers}).toPromise();
+        })
+        .then(resp => {
+          return Promise.resolve(resp);
+        })
+        .catch(err => {
+          console.log(err)
+          return Promise.reject(err);
+        });
+    }
+
+
 
   public getMerchants(aRefresher:boolean, url?: string): Promise<any>{
     const baseUrl = 'http://41.73.8.123/horizonaccess/legend/public/api'

@@ -30,3 +30,9 @@ export interface UserCred{
     password: string;
     password_confirmation: string;
 }
+
+export interface UserAddress{
+    street: string;
+    streetname: string;
+    city: string;
+}

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, Platform, NavParams } from '@ionic/angular';
+import { ModalController, Platform, NavParams, LoadingController } from '@ionic/angular';
 import { SelectProductPage } from '../select-product/select-product.page';
 import { myLeaveAnimation } from 'src/app/animations/leave';
 import { myEnterAnimation, myEnterAnimation2 } from 'src/app/animations/enter';
@@ -10,6 +10,7 @@ import { UtilService } from 'src/app/services/util.service';
 import { Balance } from 'src/app/models/wallet';
 
 import {Constants} from 'src/app/models/constants';
+import { QrPagePage } from '../../utility/qr-page/qr-page.page';
 
 @Component({
   selector: 'app-select-merchant',
@@ -35,6 +36,7 @@ export class SelectMerchantPage implements OnInit {
   constructor(
     private modalCtrl: ModalController,
     private platform: Platform,
+    private loadingCtrl: LoadingController,
     private navParams: NavParams,
     private merchantService: MerchantService,
     private utilService: UtilService) { 
@@ -119,6 +121,47 @@ export class SelectMerchantPage implements OnInit {
       componentProps: {'merchant': merchant, 'balance': this.balance}
     });
     await modal.present();
+  }
+
+  public async openQRPageModal(){
+    const modal = await this.modalCtrl.create({
+      component: QrPagePage
+    });
+    await modal.present();
+    const {data} = await modal.onDidDismiss();
+    if(data && data.text){
+      if(this.utilService.isUser(data.text)){
+        this.utilService.showToast('QR code belongs to a legend pay user. Kindly use the transfer feature to transfer to a user', 3000, 'danger');
+        return;
+      }
+
+      if(!this.utilService.isMerchant(data.text)){
+        this.utilService.showToast('QR code doesn\'t belong to a merchant. Try again', 2000, 'danger');
+        return;
+      }
+
+      let searchParam = data.text.replace(/%%%/, '');
+
+      //Get merchant and load select product modal
+      this.utilService.presentLoading('')
+        .then(() =>{
+          return this.merchantService.getMerchant(searchParam);
+        })
+        .then((merchant) =>{
+          this.loadingCtrl.dismiss();
+          this.openSelectProductModal(merchant);
+        })
+        .catch((err) =>{
+          this.loadingCtrl.dismiss();
+          console.log(err);
+          if(err.status === '404'){
+            this.utilService.showToast('Merchant not found', 2000, 'danger');
+          }
+        });
+    }
+    else if(data && data.err){
+      this.utilService.showToast('QR scan failed', 2000, 'danger');
+    }
   }
 
 

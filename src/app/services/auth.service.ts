@@ -5,7 +5,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 
 import { BehaviorSubject } from 'rxjs';
 import { Constants } from '../models/constants';
-import { User, UserCred } from '../models/user';
+import { User, UserCred, UserAddress } from '../models/user';
 import { HTTP } from '@ionic-native/http/ngx';
 import { UtilService } from './util.service';
 
@@ -60,9 +60,24 @@ export class AuthService {
     return false;
   }
 
-  public register(userCred: UserCred) : Promise<any>{
+  public submitUserBasicInfo(userCred: UserCred) : Promise<any>{
     const headers = {Accept: 'application/json', 'Content-Type': 'application/json'};
     return this.http.post(`${this.baseUrl}/sign-up`, userCred, {headers})
+      .toPromise()
+      .then((resp) =>{
+        return Promise.resolve(resp);
+      })
+      .catch((error: HttpErrorResponse) =>{
+          return Promise.reject(error);
+        });
+  }
+
+  public submitUserAddressInfo(userAddress: UserAddress, userToken: string) : Promise<any>{
+
+    let url = "http://41.73.8.123/horizonaccess/legend/public/api";
+
+    const headers = {Authorization: `Bearer ${userToken}`, Accept: 'application/json', 'Content-Type': 'application/json'};
+    return this.http.post(`${url}/update-info`, userAddress, {headers})
       .toPromise()
       .then((resp) =>{
         return Promise.resolve(resp);

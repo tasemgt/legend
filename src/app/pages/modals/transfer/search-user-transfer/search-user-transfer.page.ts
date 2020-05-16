@@ -72,7 +72,17 @@ export class SearchUserTransferPage implements OnInit {
     await modal.present();
     const {data} = await modal.onDidDismiss();
     if(data && data.text){
-      this.username = data.text;
+      if(this.utilService.isMerchant(data.text)){
+        this.utilService.showToast('QR code belongs to a Merchant. Kindly use the payments feature to pay merchants', 3500, 'danger');
+        return;
+      }
+      else if(!this.utilService.isUser(data.text)){
+        this.utilService.showToast('QR code doesn\'t belong to a legend pay user. Try again or type user name directly', 3500, 'danger');
+        return;
+      }
+
+      this.username = data.text.replace(/%%-%/, '');
+
     }
     else if(data && data.err){
       this.utilService.showToast('QR scan failed', 2000, 'danger');

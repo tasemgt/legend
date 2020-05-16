@@ -10,7 +10,8 @@
     <ion-card-content>
       <div>
         <ngx-qrcode 
-          [qrc-value] = "profile.username">
+          [qrc-value] = "'%%-%'+profile.username"
+          cssClass = "qr-code">
         </ngx-qrcode>
       </div>
     </ion-card-content>

@@ -150,6 +150,21 @@ export class UtilService {
     }
   }
 
+
+  public isMerchant(word: string): boolean{
+    if(word.search(/%%%/) != -1){
+      return true;
+    }
+    return false;
+  }
+
+  public isUser(word: string): boolean{
+    if(word.search(/%%-%/) != -1){
+      return true;
+    }
+    return false;
+  }
+
   public getErrorMessage(error: HttpErrorResponse): string {
     let message;
     switch(error.statusText) {
