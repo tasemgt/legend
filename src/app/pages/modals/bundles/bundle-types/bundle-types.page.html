@@ -15,7 +15,7 @@
           <!-- <img [src]="getBundleImagePath(bundle)" /> -->
           <ion-card-header>
             <ion-card-title color="primary">{{bundle?.products_name}}</ion-card-title>
-            <ion-card-subtitle color="tertiary-tint"><ion-icon src="assets/imgs/naira.svg"></ion-icon> {{bundle?.checkout_amount}}</ion-card-subtitle>
+            <ion-card-subtitle color="tertiary-tint"><ion-icon src="assets/imgs/naira.svg"></ion-icon> {{formatWithCommas(bundle?.checkout_amount)}}</ion-card-subtitle>
           </ion-card-header>
           <ion-card-content>
             {{bundle?.checkout_cycle | uppercase}}

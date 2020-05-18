@@ -54,7 +54,7 @@
               <ion-col size="5" class="ion-text-right amount-date">
                 <h4>
                   <span [ngStyle]="{'background-color':transaction.status === 'Success' ? '#054e1c' : '#a20a0a'}">
-                    <ion-icon src="assets/imgs/naira.svg"></ion-icon>{{transaction.amount}}
+                    <ion-icon src="assets/imgs/naira.svg"></ion-icon>{{formatWithCommas(transaction.amount)}}
                   </span>
                 </h4>
                 <p>{{transaction.date}}</p>

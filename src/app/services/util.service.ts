@@ -132,6 +132,7 @@ export class UtilService {
 
     options = {
       prompt : "Position the QR code inside the scanner window",
+      disableSuccessBeep: true
     }
 
     if (this.platform.is('cordova')) {
@@ -173,6 +174,11 @@ export class UtilService {
         break;
     }
     return message;
+  }
+
+  public numberWithCommas(x): string{
+    x = x.toString().replace(/,/g, "");
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
 }

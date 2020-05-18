@@ -21,6 +21,8 @@ export class FundWalletPage implements OnInit, OnDestroy {
   public amount = "";
   public paymentType = "";
 
+  public _amount: string;
+
   public responseSubscription: Subscription;
 
   constructor(
@@ -54,10 +56,13 @@ export class FundWalletPage implements OnInit, OnDestroy {
       return;
     }
 
-    const amount = form.value.amount;
+    let _amount = form.value.amount;
 
     this.utilService.presentLoading('Funding your wallet.')
       .then(() =>{
+
+        let amount = _amount.replace(/,/g, "");
+
         this.paymentService.makePayment(amount)// Calls the payment service
           .then((err:any) =>{
             if(err){
@@ -76,7 +81,7 @@ export class FundWalletPage implements OnInit, OnDestroy {
             setTimeout(() =>{  // Just to create some load effect before completing
               //this.loadingCtrl.dismiss();
               if(response === 'Transaction Successful'){ //if(JSON.parse(response).code === 100){
-                  this.utilService.showToast(`Success! Your payment of \u20A6${amount} is confirmed.`, 3000, 'success');
+                  this.utilService.showToast(`Success! Your payment of \u20A6${_amount} is confirmed.`, 3000, 'success');
                   this.walletService.balanceState.next(true); // Inform subscribed pages that balance needs to be updated..
               }
               else{
@@ -96,6 +101,10 @@ export class FundWalletPage implements OnInit, OnDestroy {
 
   public closeModal(){
     this.modalCtrl.dismiss();
+  }
+
+  public refreshModel(): void{
+    this._amount = this.utilService.numberWithCommas(this._amount);
   }
 
   ngOnDestroy(){

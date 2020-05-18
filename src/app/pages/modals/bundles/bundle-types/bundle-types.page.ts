@@ -5,6 +5,7 @@ import { BundleService } from 'src/app/services/bundle.service';
 import { Bundle } from 'src/app/models/bundle';
 import { BundleImage } from 'src/app/models/constants';
 import { AuthService } from 'src/app/services/auth.service';
+import { UtilService } from 'src/app/services/util.service';
 
 @Component({
   selector: 'app-bundle-types',
@@ -18,7 +19,8 @@ export class BundleTypesPage implements OnInit {
   constructor(
     private modalCtrl: ModalController,
     private auth: AuthService,
-    private bundleService: BundleService) { }
+    private bundleService: BundleService,
+    private utilService: UtilService) { }
 
   ngOnInit() {
     this.getBundleTypes();
@@ -43,5 +45,9 @@ export class BundleTypesPage implements OnInit {
 
   public getBundleImagePath(bundleName: string): string{
     return bundleName? BundleImage[bundleName]: '';
+  }
+
+  public formatWithCommas(num: any){
+    return this.utilService.numberWithCommas(num);
   }
 }

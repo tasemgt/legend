@@ -17,7 +17,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class RenewBundlePage{
 
-  public amount;
+  public _amount;
   public currentBundle;
   public profile: Profile;
 
@@ -50,8 +50,12 @@ export class RenewBundlePage{
     }
 
     this.utilService.presentAlertConfirm('Confirm Renewal', 'Are you sure you wan\'t to renew this plan?', () =>{
-      const amount = form.value.amount;
+      let amount = form.value.amount;
       const pid = this.currentBundle.bundle_id;
+
+      amount = amount.replace(/,/g, "");
+      
+      console.log(amount);
 
       this.utilService.presentLoading('Renewing Product bundle')
       .then(() =>{
@@ -80,6 +84,9 @@ export class RenewBundlePage{
 
   }
 
+  public refreshModel(): void{
+    this._amount = this.utilService.numberWithCommas(this._amount);
+  }
 
   public closeModal(balance?: any){
     balance? this.modalCtrl.dismiss({balance}): this.modalCtrl.dismiss();

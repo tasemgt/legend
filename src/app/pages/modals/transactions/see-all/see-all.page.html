@@ -3,7 +3,7 @@
     <ion-item lines="full" *ngFor="let transaction of transactions">
       <ion-label class="ion-text-wrap">
         <ion-text color="primary">
-          <h3>{{transaction.type}} <span><ion-icon src="assets/imgs/naira.svg"></ion-icon> <span>{{transaction.amount}}</span></span></h3>
+          <h3>{{transaction.type}} <span><ion-icon src="assets/imgs/naira.svg"></ion-icon> <span>{{formatWithCommas(transaction.amount)}}</span></span></h3>
         </ion-text>
         <ion-text color="white">
           <p>{{transaction.product}}</p>

@@ -13,6 +13,7 @@ import { QrPagePage } from '../../utility/qr-page/qr-page.page';
 export class SearchUserTransferPage implements OnInit {
 
   public username: string;
+  public _amount: string;
 
   constructor(
     private modalCtrl: ModalController,
@@ -38,6 +39,8 @@ export class SearchUserTransferPage implements OnInit {
       () =>{
         //Do tranfer...
 
+        amount = amount.replace(/,/g, "");
+
         this.utilService.presentLoading('Transfering funds..')
           .then(() =>{
             return this.fundTransService.doTransferFunds({username, amount});
@@ -45,7 +48,7 @@ export class SearchUserTransferPage implements OnInit {
           .then((resp) =>{
             this.loadingCtrl.dismiss();
             if(resp.code === 100){
-              this.utilService.showToast(`Successfully transfered \u20A6${amount} to ${username}`, 3000, 'success');
+              this.utilService.showToast(`Successfully transfered to ${username}`, 3000, 'success');
               return this.closeModal();
             }
             else if(resp.code === 418){
@@ -87,6 +90,16 @@ export class SearchUserTransferPage implements OnInit {
     else if(data && data.err){
       this.utilService.showToast('QR scan failed', 2000, 'danger');
     }
+  }
+
+
+   // if(this._amount.startsWith('0')){
+    //   console.log('called', this._amount);
+    //   this._amount = '0';
+    // }
+
+  public refreshModel(): void{
+    this._amount = this.utilService.numberWithCommas(this._amount);
   }
 
   public closeModal(){

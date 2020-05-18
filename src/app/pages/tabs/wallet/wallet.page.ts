@@ -165,6 +165,11 @@ export class WalletPage implements OnInit, OnDestroy {
     await modal.present();
   }
 
+
+  public formatWithCommas(num: any){
+    return this.utilService.numberWithCommas(num);
+  }
+
   ngOnDestroy(){
 
   }

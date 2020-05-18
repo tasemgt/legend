@@ -9,6 +9,7 @@ import { RenewBundlePage } from '../renew-bundle/renew-bundle.page';
 import { AuthService } from 'src/app/services/auth.service';
 import { myEnterAnimation } from 'src/app/animations/enter';
 import { myLeaveAnimation } from 'src/app/animations/leave';
+import { UtilService } from 'src/app/services/util.service';
 
 @Component({
   selector: 'app-bundle-details',
@@ -19,7 +20,11 @@ export class BundleDetailsPage implements OnInit {
 
   public currentBundle: Balance;
 
-  constructor(private navParams: NavParams, private modalCtrl: ModalController, private auth: AuthService) {
+  constructor(
+    private navParams: NavParams, 
+    private modalCtrl: ModalController, 
+    private auth: AuthService,
+    private utilService: UtilService) {
     this.currentBundle = this.navParams.get('balance');
    }
 
@@ -52,6 +57,10 @@ export class BundleDetailsPage implements OnInit {
     if(data){
       this.currentBundle = data.balance;
     }
+  }
+
+  public formatWithCommas(num: any){
+    return this.utilService.numberWithCommas(num);
   }
 
 

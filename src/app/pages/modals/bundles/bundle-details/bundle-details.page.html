@@ -22,7 +22,7 @@
           <div class="prices">
             <p>
               <span>Product Amount</span><br>
-              <span><ion-icon src="assets/imgs/naira.svg"></ion-icon> {{currentBundle.price || '---'}}</span>
+              <span><ion-icon src="assets/imgs/naira.svg"></ion-icon> {{formatWithCommas(currentBundle.price) || '---'}}</span>
             </p>
             <p>
               <span>Product Balance</span><br>

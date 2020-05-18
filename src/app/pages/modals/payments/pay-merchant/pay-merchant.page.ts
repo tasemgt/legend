@@ -23,6 +23,8 @@ export class PayMerchantPage implements OnInit, OnDestroy {
 
   public merchantImgBaseUrl = Constants.merchantImageBaseUrl;
 
+  public _amount: string;
+
   constructor(
     private modalCtrl: ModalController,
     private loadingCtrl: LoadingController,
@@ -65,13 +67,15 @@ export class PayMerchantPage implements OnInit, OnDestroy {
       return;
     }
 
-    const amount = form.value.amount;
+    let amount = form.value.amount;
     console.log(amount);
 
     this.utility.presentAlertConfirm('Payment Confirmation',
     `Do you want to proceed with the payment of 
     <strong>${amount || this.product.price}</strong> naira to <strong>${this.merchant.name}</strong>?`, 
       ()=>{
+
+        amount = amount.replace(/,/g, "");
 
         this.utility.presentLoading('....')
           .then(() =>{
@@ -113,6 +117,11 @@ export class PayMerchantPage implements OnInit, OnDestroy {
     else{
       this.modalCtrl.dismiss();
     }
+  }
+
+
+  public refreshModel(): void{
+    this._amount = this.utility.numberWithCommas(this._amount);
   }
 
   public ngOnDestroy(){
