@@ -39,6 +39,28 @@
     }
 }
 
+.action-row{
+    margin: 0.1rem -1.5rem;
+  
+    .action{
+      display: inline-block;
+      text-align: center;
+      width: 30%;
+  
+      ion-icon{
+        font-size: 50px;
+      }
+  
+      p{
+        margin: 0px;
+        font-size: 0.9rem;
+        font-family: MuliLight;
+        font-weight: lighter;
+      }
+  
+    }
+  }
+
 ion-col:last-child{
     p{
         font-weight: bolder;

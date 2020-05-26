@@ -31,7 +31,28 @@
           </div>
         </div>
       </ion-col>
+    </ion-row>
 
+    <ion-row class="action-row">
+      <ion-col size="12" class="ion-text-center">
+        <div tappable  class="action" *ngIf="currentBundle?.bundle_id !== 22" (click)="openRenewBundleModal()">
+          <ion-icon src="assets/imgs/renewals.svg"></ion-icon>
+          <p>Renewals</p>
+        </div>
+        <div class="action" *ngIf="currentBundle.renew === '1' ">
+          <div tappable *ngIf="currentBundle.bundle_id !== 22" (click)="openBuyBundleModal()">
+            <ion-icon src="assets/imgs/switch-plan.svg"></ion-icon>
+            <p>Switch Plan</p>
+          </div>
+        </div>
+        <div tappable (click)="openSearchForFriendModal()" class="action">
+          <ion-icon src="assets/imgs/payment-friend.svg"></ion-icon>
+          <p>Pay for a Friend</p>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <!-- <ion-row>
       <ion-col size="12" class="ion-text-center">
         <div class="btn-wrapper" *ngIf="currentBundle?.bundle_id !== 22">
           <ion-button class="legend-btn ion-text-capitalize" color="primary" type="button" (click)="openRenewBundleModal()">Renew Bundle</ion-button>
@@ -41,8 +62,7 @@
           <p><a [routerLink]="" (click)="openBuyBundleModal()" *ngIf="currentBundle.bundle_id === 22">New Subscription</a></p>
         </div>
       </ion-col>
-
-    </ion-row>
+    </ion-row> -->
   </ion-grid>
 
 </ion-content>

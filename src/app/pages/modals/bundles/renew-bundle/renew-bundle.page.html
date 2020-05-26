@@ -6,7 +6,7 @@
   
   <ion-grid>
     <ion-row>
-      <ion-col size="8" class="name-heading-alt ion-text-left">
+      <ion-col size="10" class="name-heading-alt ion-text-left">
         <p>Product Renewals</p>
       </ion-col>
       <ion-col></ion-col>
@@ -33,11 +33,23 @@
       <ion-col size="12" >
         <ion-text color="primary" class="renew-content">
           <h6>Product Amount</h6>
-          <p><ion-icon src="assets/imgs/naira.svg"></ion-icon>  {{currentBundle.price}}</p>
+          <p><ion-icon src="assets/imgs/naira.svg"></ion-icon>  {{formatNumWithCommas(currentBundle.price)}}</p>
         </ion-text>
       </ion-col>
       <form #renewForm="ngForm" (ngSubmit)="renewBundle(renewForm)" style="width: 100%;">
         <ion-row>
+          <ion-col size="12">
+            <span>Auto Renewal</span>
+            <ion-toggle style="float: right;" color="primary" name="toggle" [(ngModel)]="toggle" (ionChange)="onToggle()"></ion-toggle>
+          </ion-col>
+          <ion-col size="12" class="legend-input animated bounceIn" *ngIf="toggle">
+            <ion-item>
+              <ion-label>Select renewal plan</ion-label>
+              <ion-select interface="action-sheet" name="chosenPlan" [(ngModel)]="chosenPlan" (ionChange)="calculateAmount()">
+                <ion-select-option [value]="plan" *ngFor="let plan of plans">{{plan.name}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
           <ion-col size="12" class="legend-input">
             <p>Amount</p>
             <ion-item class="amount">

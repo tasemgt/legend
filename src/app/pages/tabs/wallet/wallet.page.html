@@ -10,7 +10,7 @@
       <ion-col size="12" class="ion-text-center">
         <div class="balance-wrapper">
           <p>Available Balance</p>
-          <h1><ion-icon src="assets/imgs/naira.svg"></ion-icon> {{balance?.balance}}<ion-spinner *ngIf="!balance" name="dots"></ion-spinner></h1>
+          <h1><ion-icon src="assets/imgs/naira.svg"></ion-icon> {{formatWithCommas(balance?.balance)}}<ion-spinner *ngIf="!balance" name="dots"></ion-spinner></h1>
         </div>
       </ion-col>
     </ion-row>
@@ -29,9 +29,9 @@
           <ion-icon src="assets/imgs/fund.svg"></ion-icon>
           <p>Fund</p>
         </div>
-        <div tappable (click)="openSearchForFriendModal()" class="wallet-action">
-          <ion-icon src="assets/imgs/payment-friend.svg"></ion-icon>
-          <p>Pay for a Friend</p>
+        <div tappable class="wallet-action">
+          <ion-icon src="assets/imgs/purchases.svg"></ion-icon>
+          <p>Purchases</p>
         </div>
       </ion-col>
     </ion-row>

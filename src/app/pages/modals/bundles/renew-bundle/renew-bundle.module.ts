@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
+import { RenewBundlePage } from './renew-bundle.page';
 
 
 @NgModule({
@@ -11,6 +12,7 @@ import { IonicModule } from '@ionic/angular';
     FormsModule,
     IonicModule
   ],
-  declarations: []
+  declarations: [RenewBundlePage],
+  entryComponents: [RenewBundlePage]
 })
 export class RenewBundlePageModule {}

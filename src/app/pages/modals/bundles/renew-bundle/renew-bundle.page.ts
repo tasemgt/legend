@@ -3,11 +3,11 @@ import { Router } from '@angular/router';
 import { ModalController, NavParams, LoadingController } from '@ionic/angular';
 import { NgForm } from '@angular/forms';
 import { UtilService } from 'src/app/services/util.service';
-import { Bundle } from 'src/app/models/bundle';
 import { BundleService } from 'src/app/services/bundle.service';
 import { Profile } from 'src/app/models/user';
 import { WalletService } from 'src/app/services/wallet.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { Balance } from 'src/app/models/wallet';
 
 
 @Component({
@@ -18,8 +18,17 @@ import { AuthService } from 'src/app/services/auth.service';
 export class RenewBundlePage{
 
   public _amount;
-  public currentBundle;
+  public currentBundle: Balance;
   public profile: Profile;
+  public chosenPlan: any;
+
+  public toggle: boolean;
+
+  public plans = [
+    {value: 1, name: 'Monthly', verb: 'a'},
+    {value: 3, name: 'Quarterly', verb: 'a'},
+    {value: 12, name: 'Annually', verb: 'an'}
+  ]
 
   constructor(
     private navParams: NavParams,
@@ -33,10 +42,22 @@ export class RenewBundlePage{
 
       this.currentBundle = this.navParams.get('bundle');
       this.profile = this.navParams.get('profile');
+
+      this._amount = this.formatNumWithCommas(this.currentBundle.price);
+
+      if(this.currentBundle.autorenew === 'NO'){
+        this.toggle = false;
+      }
+      else{
+        this.toggle = true;
+        this.initChosenPlan();
+      }
+      console.log(this.currentBundle.autorenew , this.toggle);
     }
 
 
   ionViewDidEnter(){
+    //For logging off on token expiration.
     setTimeout(async () =>{
       const user = await this.auth.getUser();
       this.auth.checkTokenExpiry(user);
@@ -44,14 +65,26 @@ export class RenewBundlePage{
   }
 
   public renewBundle(form: NgForm){
+    console.log(this.toggle, this.chosenPlan);
+    let amount = form.value.amount;
+    const pid = this.currentBundle.bundle_id;
+
     if(form.invalid){
       this.utilService.showToast('Please enter a valid amount.', 2000, 'danger');
       return;
     }
 
-    this.utilService.presentAlertConfirm('Confirm Renewal', 'Are you sure you wan\'t to renew this plan?', () =>{
-      let amount = form.value.amount;
-      const pid = this.currentBundle.bundle_id;
+    if(this.toggle && !this.chosenPlan){
+      this.utilService.showToast('To use auto renew, you must select a renew plan', 3000, 'danger');
+      return;
+    }
+
+    let message: string;
+
+    this.toggle ? message = `Confirm ${this.chosenPlan.verb} <strong>${this.chosenPlan.name}</strong> renewal of <strong>${amount}</strong> naira for this subscription?`:
+                            message = `Confirm a one time renewal of <strong>${amount}</strong> naira for this subscription?`;
+
+    this.utilService.presentAlertConfirm('Confirm Renewal', message, () =>{
 
       amount = amount.replace(/,/g, "");
       
@@ -84,8 +117,53 @@ export class RenewBundlePage{
 
   }
 
+  public formatNumWithCommas(amount){
+    return this.utilService.numberWithCommas(amount);
+  }
+
   public refreshModel(): void{
     this._amount = this.utilService.numberWithCommas(this._amount);
+  }
+
+  public calculateAmount(): void{
+    this._amount = this.formatNumWithCommas(this.chosenPlan.value * Number(this.currentBundle.price));
+  }
+
+  public onToggle(): void{
+    if(this.toggle){
+      this.chosenPlan ? this.calculateAmount(): '';
+    }
+    else{
+      this._amount = this.formatNumWithCommas(this.currentBundle.price);
+    }
+  }
+
+  public initChosenPlan(): void{
+    let val = this.currentBundle.autorenew_rate;
+
+    switch(val){
+      case "12":
+        this.chosenPlan = this.getPlanFromValue(this.plans, 12);
+        break;
+      case "3":
+        this.chosenPlan = this.getPlanFromValue(this.plans, 3);
+        break;
+      case "1":
+        this.chosenPlan = this.getPlanFromValue(this.plans, 1);
+        break;
+    }
+
+    this.calculateAmount();
+  }
+
+  private getPlanFromValue(arr: any[], value: number){
+    let plan;
+    for(let i of arr){
+      if(i.value === value){
+        plan = i;
+      }
+    }
+    return plan;
   }
 
   public closeModal(balance?: any){

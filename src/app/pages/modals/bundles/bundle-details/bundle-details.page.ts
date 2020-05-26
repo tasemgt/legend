@@ -10,6 +10,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { myEnterAnimation } from 'src/app/animations/enter';
 import { myLeaveAnimation } from 'src/app/animations/leave';
 import { UtilService } from 'src/app/services/util.service';
+import { SearchUserPage } from '../friend/search-user/search-user.page';
+
 
 @Component({
   selector: 'app-bundle-details',
@@ -57,6 +59,16 @@ export class BundleDetailsPage implements OnInit {
     if(data){
       this.currentBundle = data.balance;
     }
+  }
+
+   //Modals for Pay for a friend
+   public async openSearchForFriendModal(){
+    const modal = await this.modalCtrl.create({
+      component: SearchUserPage,
+      enterAnimation: myEnterAnimation,
+      leaveAnimation: myLeaveAnimation
+    });
+    await modal.present();
   }
 
   public formatWithCommas(num: any){

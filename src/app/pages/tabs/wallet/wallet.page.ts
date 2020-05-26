@@ -12,7 +12,6 @@ import { WalletService } from 'src/app/services/wallet.service';
 import { FundTransferService } from 'src/app/services/fund-transfer.service';
 import { Balance } from 'src/app/models/wallet';
 import { UtilService } from 'src/app/services/util.service';
-import { SearchUserPage } from '../../modals/friend/search-user/search-user.page';
 import { Transaction } from 'src/app/models/transaction';
 import { SeeAllPage } from '../../modals/transactions/see-all/see-all.page';
 
@@ -144,16 +143,6 @@ export class WalletPage implements OnInit, OnDestroy {
     await modal.present();
   }
 
-  //Modals for Pay for a friend
-  public async openSearchForFriendModal(){
-    const modal = await this.modalCtrl.create({
-      component: SearchUserPage,
-      enterAnimation: myEnterAnimation,
-      leaveAnimation: myLeaveAnimation
-    });
-    await modal.present();
-  }
-
   //Modal for see all transactions
   public async openSeeAllTransactionsModal(){
     const modal = await this.modalCtrl.create({
@@ -167,6 +156,9 @@ export class WalletPage implements OnInit, OnDestroy {
 
 
   public formatWithCommas(num: any){
+    if(!num){
+      return;
+    }
     return this.utilService.numberWithCommas(num);
   }
 

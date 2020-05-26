@@ -1,5 +1,8 @@
 // Common global styles for whole app
 
+ion-toggle {
+    --background: var(--ion-color-tertiary);
+}
 
 //To prevent default scrolling
 .no-scroll .scroll-content {
@@ -177,6 +180,13 @@ ion-grid.tabs-area{
     ion-icon{
         font-size: 32px;
     }
+}
+
+//Takes care of large screens
+.sc-ion-modal-md-h,
+.sc-ion-modal-ios-h{
+    --min-width: 100%;
+    --min-height: 100%;
 }
 
 
