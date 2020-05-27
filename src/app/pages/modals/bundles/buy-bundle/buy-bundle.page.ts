@@ -9,6 +9,7 @@ import { BundleTypesPage } from '../bundle-types/bundle-types.page';
 import { Bundle } from 'src/app/models/bundle';
 import { WalletService } from 'src/app/services/wallet.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { Plans } from 'src/app/models/constants';
 
 
 @Component({
@@ -23,6 +24,13 @@ export class BuyBundlePage implements OnInit {
   public chosenBundle: Bundle;
   public renewOrRequest: string;
 
+  public toggle: boolean;
+  public disableToggle: boolean;
+
+  public plans = Plans;
+
+  public chosenPlan: any;
+
   constructor(
     private modalCtrl: ModalController, 
     private loadingCtrl: LoadingController,
@@ -31,17 +39,25 @@ export class BuyBundlePage implements OnInit {
     private bundleService: BundleService,
     private walletService: WalletService) { 
 
-    }
+      this.disableToggle = true;
+      this.toggle = false;
+  }
 
   ngOnInit() {
     this.bundleForm.reset();
   }
 
-  public buyBundle(form: NgForm){
+  public buyBundle(){
     if(!this.chosenBundle){
       this.utilService.showToast('Please select a bundle first', 2000, 'danger');
       return;
     }
+
+    if(this.toggle && !this.chosenPlan){
+      this.utilService.showToast('To use auto renew, you must select a renew plan', 3000, 'danger');
+      return;
+    }
+
     console.log(this.chosenBundle);
 
     if(this.renewOrRequest === '0'){
@@ -51,7 +67,7 @@ export class BuyBundlePage implements OnInit {
         this.utilService.presentLoading('')
           .then(() =>{
             // Make the request here...
-            return this.bundleService.buyBundle(Number(this.renewOrRequest), this.chosenBundle.products_id);
+            return this.bundleService.buyBundle(Number(this.renewOrRequest));
           })
           .then((resp) =>{
             this.loadingCtrl.dismiss();
@@ -70,22 +86,40 @@ export class BuyBundlePage implements OnInit {
       });
     }
 
+
+    let message: string;
+
+    this.toggle ? message = `Confirm this subscription plan with ${this.chosenPlan.verb} <strong>${this.chosenPlan.name}</strong> renewal?`:
+                            message = `Proceed with confirming the subscription of this plan?`;
+
     if(this.renewOrRequest === '1'){
       //Proceed to subscribe...
 
-      this.utilService.presentAlertConfirm('Confirm Subscription', `Are you sure you want to proceed to subscribe this plan?`, 
+      let rate;
+
+      this.toggle ? rate = this.chosenPlan.value : rate = 0;
+
+      let payload = {
+        activeid: Number(this.renewOrRequest),
+        pid: this.chosenBundle.products_id,
+        autorenew: Number(this.toggle),
+        autorenew_rate: rate
+      }
+
+      console.log(payload);
+      this.utilService.presentAlertConfirm('Confirm Subscription', message, 
     
       () =>{
 
         this.utilService.presentLoading('Funding your wallet.')
         .then(() =>{
-          this.bundleService.buyBundle(Number(this.renewOrRequest), this.chosenBundle.products_id)
+          this.bundleService.buyBundle(payload)
             .then((resp) =>{
               this.loadingCtrl.dismiss();
               if(resp.code === 100){
                 this.walletService.getBalance()
                 .then((balance) =>{
-                  this.utilService.showToast(`Your payment of ${this.chosenBundle.checkout_amount} to your Legend subscription was successful`, 3000, 'success');
+                  this.utilService.showToast(`Your subscription to the ${this.chosenBundle.products_name} plan was successful`, 3000, 'success');
                   this.closeModal(balance);
                   this.bundleForm.reset();
                 });
@@ -121,6 +155,9 @@ export class BuyBundlePage implements OnInit {
   }
 
   public async openBundleTypesModal(){
+
+    this.disableToggle = true;
+
     const modal = await this.modalCtrl.create({
       component: BundleTypesPage,
     });
@@ -129,7 +166,27 @@ export class BuyBundlePage implements OnInit {
     if(data){
       this.chosenBundle = data.bundle;
       this.renewOrRequest = data.renew;
+
+      if(this.chosenBundle.checkout_cycle === 'month'){
+        this.disableToggle = false;
+      }
       console.log(this.chosenBundle, data.renew);
+    }
+  }
+
+
+  public onToggle(): void{
+    // if(this.toggle){
+    //   this.chosenPlan ? this.calculateAmount(): '';
+    // }
+    // else{
+    //   this._amount = this.formatNumWithCommas(this.currentBundle.price);
+    // }
+  }
+
+  public onTapToggle(){
+    if(this.disableToggle){
+      this.utilService.showToast('Kindly select a monthly bundle to use this feature', 3000, 'danger');
     }
   }
 

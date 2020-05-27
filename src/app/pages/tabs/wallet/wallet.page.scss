@@ -65,11 +65,23 @@
 
   p{
     margin-bottom: 2vh;
-    font-size: 0.92rem;
+    font-size: 0.8rem;
     font-weight: bolder;
+
+    span.reload{
+      position: relative;
+      color: var(--ion-color-primary);
+      
+      .list-spinner{
+        position: absolute;
+        top: -0.2rem;
+        right: -2rem;
+      }
+    }
+
     span.see-all{
       float: right;
-      color: var(--ion-color-primary);;
+      color: var(--ion-color-primary);
     }
   }
 
@@ -136,7 +148,6 @@
 
 }
 
-
 .trans-spinner{
   position: absolute;
   top: 70%;
@@ -149,4 +160,16 @@
   position: absolute;
   width: 100%;
   top: 60%;
+}
+
+ion-fab{
+  margin-bottom: 1.5rem;
+  margin-right: 0.7rem;
+
+  ion-fab-button{
+    height: 4rem;
+    width: 4rem;
+    box-shadow: 4px 11px 18px -14px rgba(229,63,39,0.81);
+    border-radius: 100px;
+  }
 }

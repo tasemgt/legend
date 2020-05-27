@@ -46,10 +46,11 @@ export class BundleService{
   }
 
   public renewBundle(payload: any): Promise<any>{
+    const baseUrl = 'http://41.73.8.123/horizonaccess/legend/public/api';
     return this.authService.getUser()
       .then(user => {
         const headers = {Authorization: `Bearer ${user.token}`, Accept: 'application/json', 'Content-Type': 'application/json'};
-        return this.http.post(`${this.baseUrl}/renewals`, payload, {headers} ).toPromise()
+        return this.http.post(`${baseUrl}/renewals`, payload, {headers} ).toPromise()
       })
       .then((resp:any) => {
         if (resp.code === 100){
@@ -60,11 +61,12 @@ export class BundleService{
       .catch(err => console.log(err) );
   }
 
-  public buyBundle(renew: number, pid: number): Promise<any>{
+  public buyBundle(payload: any): Promise<any>{
+    const baseUrl = 'http://41.73.8.123/horizonaccess/legend/public/api';
     return this.authService.getUser()
       .then(user => {
         const headers = {Authorization: `Bearer ${user.token}`, Accept: 'application/json', 'Content-Type': 'application/json'};
-        return this.http.get(`${this.baseUrl}/subscription/subscribe/${renew}/${pid}`, {headers} ).toPromise()
+        return this.http.post(`${baseUrl}/subscribe`, payload, {headers} ).toPromise()
       })
       .then((resp:any) => {
         if (resp.code === 100){

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ModalController, Platform } from '@ionic/angular';
-import { SelectMerchantPage } from '../../modals/payments/select-merchant/select-merchant.page';
+import { SelectMerchantPage } from '../../modals/purchases/select-merchant/select-merchant.page';
 import { SearchUserTransferPage } from '../../modals/transfer/search-user-transfer/search-user-transfer.page';
 import { TopUpPage } from '../../modals/topups/top-up/top-up.page';
 
@@ -20,12 +20,13 @@ import { SeeAllPage } from '../../modals/transactions/see-all/see-all.page';
 
 
 
+
 @Component({
   selector: 'app-wallet',
   templateUrl: './wallet.page.html',
   styleUrls: ['./wallet.page.scss'],
 })
-export class WalletPage implements OnInit, OnDestroy {
+export class WalletPage implements OnInit {
 
   private authSubscription: Subscription;
   private balanceSubscription: Subscription;
@@ -35,6 +36,10 @@ export class WalletPage implements OnInit, OnDestroy {
   public showIosOnce: boolean;
   public showLoading: boolean;
 
+  public listReload: boolean;
+
+
+
   constructor(
     private modalCtrl: ModalController,
     private authService: AuthService,
@@ -43,6 +48,7 @@ export class WalletPage implements OnInit, OnDestroy {
     private utilService: UtilService) { 
 
       this.showIosOnce = true;
+      this.listReload = false;
     }
 
   ngOnInit() {
@@ -50,7 +56,7 @@ export class WalletPage implements OnInit, OnDestroy {
     this.authSubscription = this.authService.getAuthStateSubject().subscribe((state) =>{
       if(state){
         this.getBalance();
-        this.getTransactions();
+        this.getTransactions(false);
       }
       else{
         this.balance = null;
@@ -62,7 +68,7 @@ export class WalletPage implements OnInit, OnDestroy {
     this.balanceSubscription = this.walletService.balanceState.subscribe((fetchBalance) =>{
       if(fetchBalance){
         this.getBalance();
-        this.getTransactions();
+        this.getTransactions(false);
       }
     });
   }
@@ -88,7 +94,10 @@ export class WalletPage implements OnInit, OnDestroy {
   }
 
 
-  private async getTransactions(){
+  public async getTransactions(reload: boolean){
+
+    reload ? this.listReload = true: this.listReload = false;
+
     this.showLoading = true;
     //let transactions: Transaction[] = [];
 
@@ -96,14 +105,16 @@ export class WalletPage implements OnInit, OnDestroy {
       // Object.values(trans).map(function(value: Transaction) {
       //   transactions.push(value)
       // });
+      console.log("loading")
       this.showLoading = false;
+      this.listReload = false;
       this.transactions = trans;
     })
     .catch((err) =>{
       if(err.status === 0){
         console.log("calling trans again")
         setTimeout(() =>{
-          this.getTransactions(); // Call get balance again after 15secs;
+          this.getTransactions(false); // Call get balance again after 15secs;
         }, 10000);
       }
     });
@@ -160,10 +171,6 @@ export class WalletPage implements OnInit, OnDestroy {
       return;
     }
     return this.utilService.numberWithCommas(num);
-  }
-
-  ngOnDestroy(){
-
   }
 
 }

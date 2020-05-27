@@ -5,11 +5,11 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { WalletPage } from './wallet.page';
-
-import { SelectMerchantPageModule } from '../../modals/payments/select-merchant/select-merchant.module';
+import { SelectMerchantPageModule } from '../../modals/purchases/select-merchant/select-merchant.module';
 import { SearchUserTransferPageModule } from '../../modals/transfer/search-user-transfer/search-user-transfer.module';
 import { TopUpPageModule } from '../../modals/topups/top-up/top-up.module';
 import { SeeAllPageModule } from '../../modals/transactions/see-all/see-all.module';
+
 
 
 

@@ -9,7 +9,7 @@
       </ion-col>
       <ion-col></ion-col>
     </ion-row>
-    <form class="auth-form" (ngSubmit)="buyBundle(bundleForm)" #bundleForm="ngForm">
+    <form class="auth-form" (ngSubmit)="buyBundle()" #bundleForm="ngForm">
       <ion-row>
         <ion-col size="12" class="legend-input">
           <ion-button class="legend-btn legend-btn-inverse select-btn ion-text-capitalize" (click)="openBundleTypesModal()"  type="button">
@@ -17,9 +17,23 @@
             <span class="bundle-type-text">{{chosenBundle?.products_name.substring(0, 22) | uppercase}}</span>
           </ion-button>
         </ion-col>
+        <ion-col size="12">
+          <span style="display: inline-block; margin-top: .3rem;">Auto Renewal</span>
+          <span style="float: right;" (click)="onTapToggle()">
+            <ion-toggle  color="primary" name="toggle" [disabled]="disableToggle" [(ngModel)]="toggle" (ionChange)="onToggle()"></ion-toggle>
+          </span>
+        </ion-col>
+        <ion-col size="12" class="legend-input animated bounceIn" *ngIf="toggle">
+          <ion-item>
+            <ion-label>Select renewal plan</ion-label>
+            <ion-select interface="action-sheet" name="chosenPlan" [(ngModel)]="chosenPlan">
+              <ion-select-option [value]="plan" *ngFor="let plan of plans">{{plan.name}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
         <ion-col size="12" class="ion-text-center">
           <div class="btn-wrapper">
-            <ion-button class="legend-btn ion-text-capitalize" color="primary" type="submit">Subscribe</ion-button>
+            <ion-button class="legend-btn ion-text-capitalize" color="primary" type="submit">Subscribe Plan</ion-button>
           </div>
         </ion-col>
       </ion-row>

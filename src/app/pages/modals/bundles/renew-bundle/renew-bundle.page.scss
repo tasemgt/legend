@@ -51,3 +51,10 @@ ion-col{
 form{
     margin-top: 10px;
 }
+
+.toggle-area{
+    span{display: inline-block;}
+    span:first-child{
+        margin-top: .3rem;
+    }
+}

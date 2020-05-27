@@ -8,6 +8,7 @@ import { Profile } from 'src/app/models/user';
 import { WalletService } from 'src/app/services/wallet.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Balance } from 'src/app/models/wallet';
+import { Plans } from 'src/app/models/constants';
 
 
 @Component({
@@ -18,17 +19,14 @@ import { Balance } from 'src/app/models/wallet';
 export class RenewBundlePage{
 
   public _amount;
-  public currentBundle: Balance;
+  public currentBalance: Balance;
   public profile: Profile;
   public chosenPlan: any;
 
   public toggle: boolean;
+  public disableToggle: boolean;
 
-  public plans = [
-    {value: 1, name: 'Monthly', verb: 'a'},
-    {value: 3, name: 'Quarterly', verb: 'a'},
-    {value: 12, name: 'Annually', verb: 'an'}
-  ]
+  public plans = Plans;
 
   constructor(
     private navParams: NavParams,
@@ -40,19 +38,27 @@ export class RenewBundlePage{
     private walletService: WalletService,
     private utilService: UtilService) {
 
-      this.currentBundle = this.navParams.get('bundle');
+      this.currentBalance = this.navParams.get('bundle');
       this.profile = this.navParams.get('profile');
 
-      this._amount = this.formatNumWithCommas(this.currentBundle.price);
+      this._amount = this.formatNumWithCommas(this.currentBalance.price);
 
-      if(this.currentBundle.autorenew === 'NO'){
-        this.toggle = false;
+      if(this.currentBalance.period === 'month'){
+        this.disableToggle = false;
+
+        if(this.currentBalance.autorenew === 'NO'){
+          this.toggle = false;
+        }
+        else{
+          this.toggle = true;
+          this.initChosenPlan();
+        }
       }
       else{
-        this.toggle = true;
-        this.initChosenPlan();
+        this.disableToggle = true;
       }
-      console.log(this.currentBundle.autorenew , this.toggle);
+
+      console.log(this.currentBalance.autorenew , this.toggle);
     }
 
 
@@ -67,7 +73,7 @@ export class RenewBundlePage{
   public renewBundle(form: NgForm){
     console.log(this.toggle, this.chosenPlan);
     let amount = form.value.amount;
-    const pid = this.currentBundle.bundle_id;
+    const pid = this.currentBalance.bundle_id;
 
     if(form.invalid){
       this.utilService.showToast('Please enter a valid amount.', 2000, 'danger');
@@ -79,6 +85,11 @@ export class RenewBundlePage{
       return;
     }
 
+    let rate;
+    this.toggle ? rate = this.chosenPlan.value : rate = 0;
+
+    console.log(this.toggle, rate, amount, pid);
+
     let message: string;
 
     this.toggle ? message = `Confirm ${this.chosenPlan.verb} <strong>${this.chosenPlan.name}</strong> renewal of <strong>${amount}</strong> naira for this subscription?`:
@@ -87,12 +98,10 @@ export class RenewBundlePage{
     this.utilService.presentAlertConfirm('Confirm Renewal', message, () =>{
 
       amount = amount.replace(/,/g, "");
-      
-      console.log(amount);
 
       this.utilService.presentLoading('Renewing Product bundle')
       .then(() =>{
-        return this.bundleService.renewBundle({amount, pid});
+        return this.bundleService.renewBundle({amount, pid, autorenew:Number(this.toggle), autorenew_rate: rate});
       })
       .then((resp) =>{
         if(resp.code === 418){
@@ -126,7 +135,7 @@ export class RenewBundlePage{
   }
 
   public calculateAmount(): void{
-    this._amount = this.formatNumWithCommas(this.chosenPlan.value * Number(this.currentBundle.price));
+    this._amount = this.formatNumWithCommas(this.chosenPlan.value * Number(this.currentBalance.price));
   }
 
   public onToggle(): void{
@@ -134,12 +143,12 @@ export class RenewBundlePage{
       this.chosenPlan ? this.calculateAmount(): '';
     }
     else{
-      this._amount = this.formatNumWithCommas(this.currentBundle.price);
+      this._amount = this.formatNumWithCommas(this.currentBalance.price);
     }
   }
 
   public initChosenPlan(): void{
-    let val = this.currentBundle.autorenew_rate;
+    let val = this.currentBalance.autorenew_rate;
 
     switch(val){
       case "12":
@@ -164,6 +173,12 @@ export class RenewBundlePage{
       }
     }
     return plan;
+  }
+
+  public onTapToggle(){
+    if(this.disableToggle){
+      this.utilService.showToast('You can only activate auto renewal on a month plan', 3000, 'danger');
+    }
   }
 
   public closeModal(balance?: any){
