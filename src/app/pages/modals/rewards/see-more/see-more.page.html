@@ -1,0 +1,25 @@
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item lines="full" *ngFor="let reward of rewards.rewards">
+      <ion-label class="ion-text-wrap">
+        <ion-text color="primary">
+          <h3>
+            <span *ngIf="reward.points_after >= numberIt(reward.points_before)">+</span>{{reward.points_after - numberIt(reward.points_before)}} <span> 
+            <span>{{reward.updated_at | date}}</span></span>
+          </h3>
+        </ion-text>
+        <ion-text color="white">
+          <p>points</p>
+        </ion-text>
+      </ion-label>
+    </ion-item>
+    <br>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="closeModal()">
+      <ion-icon src="assets/imgs/close.svg"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

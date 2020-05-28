@@ -11,6 +11,7 @@ export interface FundWalletObject{
 export class Balance{
     autorenew: string;
     period: string;
+    points: number;
     autorenew_rate: string;
     code: number;
     renew: string;

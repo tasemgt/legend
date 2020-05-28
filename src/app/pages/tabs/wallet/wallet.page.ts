@@ -14,6 +14,7 @@ import { Balance } from 'src/app/models/wallet';
 import { UtilService } from 'src/app/services/util.service';
 import { Transaction } from 'src/app/models/transaction';
 import { SeeAllPage } from '../../modals/transactions/see-all/see-all.page';
+import { SelectServicePage } from '../../modals/payments/select-service/select-service.page';
 
 
 
@@ -121,7 +122,7 @@ export class WalletPage implements OnInit {
   }
 
 
-  //Modals for payment
+  //Modals for purchases
   public async openSearchMerchantModal(){
     // this.router.navigateByUrl('/edit-profile');
     const modal = await this.modalCtrl.create({
@@ -150,6 +151,16 @@ export class WalletPage implements OnInit {
       component: TopUpPage,
       enterAnimation: myEnterAnimation,
       leaveAnimation: myLeaveAnimation
+    });
+    await modal.present();
+  }
+
+  //Modals for payment
+  public async openSelectServiceModal(){
+    const modal = await this.modalCtrl.create({
+      component: SelectServicePage,
+      enterAnimation: myEnterAnimation,
+      leaveAnimation: myLeaveAnimation,
     });
     await modal.present();
   }

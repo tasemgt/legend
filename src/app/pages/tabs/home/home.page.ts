@@ -18,6 +18,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { myEnterAnimation } from 'src/app/animations/enter';
 import { myLeaveAnimation } from 'src/app/animations/leave';
+import { RewardsPage } from '../../modals/rewards/rewards.page';
+import { Reward } from 'src/app/models/reward';
+import { RewardsService } from 'src/app/services/rewards.service';
 
 @Component({
   selector: 'app-home',
@@ -28,6 +31,7 @@ export class HomePage implements OnInit, OnDestroy{
 
   user: User;
   profile: Profile;
+  rewards: Reward;
   greetMsg: string;
   balance: Balance;
   daysLeft: string;
@@ -110,10 +114,16 @@ export class HomePage implements OnInit, OnDestroy{
     });
     return await modal.present();
   }
-  
-  private getUser(){
-    this.authService.getUser().then(user => this.user = user);
+
+  public async openRewardsModal(){
+    const modal = await this.modalCtrl.create({
+      component: RewardsPage,
+      enterAnimation: myEnterAnimation,
+      leaveAnimation: myLeaveAnimation
+    });
+    return await modal.present();
   }
+
 
   private getBalance(from?: string){
     this.walletService.getBalance().then((balance: Balance) =>{
@@ -139,7 +149,7 @@ export class HomePage implements OnInit, OnDestroy{
             this.showIosOnce = false; 
           }
           this.getBalance(); // Call get balance again after 10secs;
-        }, 15000);
+        }, 10000);
         
       }
     });
@@ -154,8 +164,8 @@ export class HomePage implements OnInit, OnDestroy{
     .catch((err: HttpErrorResponse) =>{
       if(err.status === 0){
         setTimeout(() =>{
-          this.getProfile(user); // Call get balance again after 10secs;
-        }, 15000);
+          this.getProfile(user); // Call get profile again after 10secs;
+        }, 10000);
       }
     })
   }

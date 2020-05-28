@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-select-service',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SelectServicePage implements OnInit {
 
-  constructor() { }
+  constructor(private modalCtrl: ModalController) { }
 
   ngOnInit() {
   }
 
+  public closeModal(){
+    this.modalCtrl.dismiss();
+  }
 }

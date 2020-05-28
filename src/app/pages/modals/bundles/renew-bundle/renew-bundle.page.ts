@@ -40,6 +40,7 @@ export class RenewBundlePage{
 
       this.currentBalance = this.navParams.get('bundle');
       this.profile = this.navParams.get('profile');
+      this.toggle = false;
 
       this._amount = this.formatNumWithCommas(this.currentBalance.price);
 

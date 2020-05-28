@@ -9,6 +9,7 @@ import { SelectMerchantPageModule } from '../../modals/purchases/select-merchant
 import { SearchUserTransferPageModule } from '../../modals/transfer/search-user-transfer/search-user-transfer.module';
 import { TopUpPageModule } from '../../modals/topups/top-up/top-up.module';
 import { SeeAllPageModule } from '../../modals/transactions/see-all/see-all.module';
+import { SelectServicePageModule } from '../../modals/payments/select-service/select-service.module';
 
 
 
@@ -23,6 +24,7 @@ import { SeeAllPageModule } from '../../modals/transactions/see-all/see-all.modu
     SelectMerchantPageModule,
     SearchUserTransferPageModule,
     TopUpPageModule,
+    SelectServicePageModule,
     SeeAllPageModule,
     RouterModule.forChild([{ path: '', component: WalletPage }]),
   ],

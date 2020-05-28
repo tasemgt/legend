@@ -11,6 +11,10 @@ ion-col{
       background-color: var(--ion-color-primary);
       padding: .2rem 1rem .3rem 1rem;
       border-radius: 15px;
+
+      ion-icon{
+        font-size: .7rem;
+      }
     }
   }
 }

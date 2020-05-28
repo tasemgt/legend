@@ -1,9 +1,47 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>select-service</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="ion-padding legend-modal">
+  <div>
+    <ion-icon name="arrow-back" color="primary" (click)="closeModal()"></ion-icon>
+  </div>
 
-<ion-content>
+  <form #selectService="ngForm">
+    <ion-grid>
+
+      <ion-row>
+        <ion-col size="7" class="name-heading-alt ion-text-left">
+          <p>Make payment for a service</p>
+        </ion-col>
+        <ion-col></ion-col>
+      </ion-row>
+
+      
+      <ion-row class="user-row">
+        <ion-col size="12" class="legend-input">
+          <ion-item>
+            <ion-input placeholder="Search Service" type="text" name="service" required></ion-input>
+            <ion-icon slot="end" color="white" name="search"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="services-row">
+        <ion-col size="6">
+          <div class="service">
+            <img src="assets/imgs/img-legendtv.svg">
+          </div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="service">
+            <img src="assets/imgs/img-netflix.svg">
+          </div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="service">
+            <img src="assets/imgs/img-dstv.svg">
+          </div>
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+  </form>
 
 </ion-content>

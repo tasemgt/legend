@@ -119,7 +119,7 @@ export class BuyBundlePage implements OnInit {
               if(resp.code === 100){
                 this.walletService.getBalance()
                 .then((balance) =>{
-                  this.utilService.showToast(`Your subscription to the ${this.chosenBundle.products_name} plan was successful`, 3000, 'success');
+                  this.utilService.showToast(`Your subscription to the ${this.chosenBundle.products_name} plan was successful`, 4000, 'success');
                   this.closeModal(balance);
                   this.bundleForm.reset();
                 });
@@ -157,6 +157,7 @@ export class BuyBundlePage implements OnInit {
   public async openBundleTypesModal(){
 
     this.disableToggle = true;
+    this.toggle = false;
 
     const modal = await this.modalCtrl.create({
       component: BundleTypesPage,

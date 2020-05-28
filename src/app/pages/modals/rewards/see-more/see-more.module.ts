@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SelectServicePage } from './select-service.page';
+import { SeeMorePage } from './see-more.page';
 
 @NgModule({
   imports: [
@@ -12,7 +12,7 @@ import { SelectServicePage } from './select-service.page';
     FormsModule,
     IonicModule
   ],
-  declarations: [SelectServicePage],
-  entryComponents: [SelectServicePage]
+  declarations: [SeeMorePage],
+  entryComponents: [SeeMorePage]
 })
-export class SelectServicePageModule {}
+export class SeeMorePageModule {}

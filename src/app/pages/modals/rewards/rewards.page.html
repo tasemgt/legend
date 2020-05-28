@@ -1,0 +1,73 @@
+<ion-content class="ion-padding legend-modal">
+  <div>
+    <ion-icon name="arrow-back" color="primary" (click)="closeModal()"></ion-icon>
+  </div>
+
+  <ion-grid>
+    
+    <ion-row class="reward-points-row">
+       <ion-col size="12" class="ion-text-center">
+        <p>My Reward Points</p>
+        <h1>{{rewards?.point}} <ion-spinner *ngIf="!rewards" name="dots"></ion-spinner></h1>
+       </ion-col>
+    </ion-row>
+
+    <ion-row class="cta-redeem-row">
+       <ion-col size="12" class="ion-text-center">
+        <div class="btn-wrapper">
+          <ion-button class="legend-btn ion-text-capitalize" type="button">Redeem Points</ion-button>
+        </div>
+       </ion-col>
+    </ion-row>
+
+    <ion-row class="referral-row">
+      <ion-col size="9" class="ion-text-left legend-input">
+        <p>Referral ID: {{rewards?.username}} <span *ngIf="!rewards">---</span></p>
+        <ion-item>
+          <ion-input [(ngModel)]="referral" type="text" name="referral"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="3" class="ion-text-right">
+        <div class="btn-wrapper">
+          <ion-button class="legend-btn" type="button" (click)="copyLink()">
+            <ion-icon slot="icon-only" src="assets/imgs/copy.svg"></ion-icon>
+          </ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="points-row">
+      <ion-col size="12">
+        <p *ngIf="!(rewards?.rewards.length <= 0 && !showLoading)">
+          <span>Rewards History</span> &nbsp;&nbsp; 
+          <span class="see-all" (click)="openSeeMoreModal()" tappable>See more</span>
+        </p>
+        <div class="rewards-list" *ngIf="rewards?.rewards.length > 0">
+          <div 
+          class="reward"
+          *ngFor="let reward of rewards?.rewards | slice:0:5">
+            <ion-row>
+              <ion-col size="2">
+                <div class="bullet"></div>
+              </ion-col>
+              <ion-col class="points">
+                <p>Points</p>
+                <p><span *ngIf="reward.points_after >= numberIt(reward.points_before)">+</span>{{reward.points_after - numberIt(reward.points_before)}}</p>
+              </ion-col>
+              <ion-col size="5" class="ion-text-right date">
+                <p>Date</p>
+                <h4>{{reward.updated_at | date}}</h4>
+              </ion-col>
+            </ion-row>
+          </div>
+        </div>
+        
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+  <ion-spinner class="rewards-spinner" *ngIf="rewards?.rewards.length <= 0 && showLoading" name="dots"></ion-spinner>
+
+  <div class="no-rewards" *ngIf="rewards?.rewards?.length <= 0 && !showLoading">No wallet transactions!</div>
+</ion-content>
