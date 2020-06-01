@@ -8,13 +8,15 @@ import { Clipboard } from '@ionic-native/clipboard/ngx';
 
 import { RewardsPage } from './rewards.page';
 import { SeeMorePageModule } from './see-more/see-more.module';
+import { RedeemsPageModule } from './redeems/redeems.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    SeeMorePageModule
+    SeeMorePageModule,
+    RedeemsPageModule
   ],
   providers: [
     Clipboard

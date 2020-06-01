@@ -1,0 +1,39 @@
+<ion-content class="ion-padding legend-modal">
+
+  <div>
+    <ion-icon name="arrow-back" color="primary" (click)="closeModal()"></ion-icon>
+  </div>
+  
+  <ion-grid>
+    <ion-row>
+      <ion-col size="8" class="name-heading-alt ion-text-left">
+        <p>Kindly select a redeem option.</p>
+      </ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+
+    <ion-row class="reward-points-row">
+      <ion-col size="12">
+       <p>My Reward Points <span>{{rewards.point}}</span></p>
+       <!-- <h1>{{rewards?.point}} <ion-spinner *ngIf="!rewards" name="dots"></ion-spinner></h1> -->
+      </ion-col>
+   </ion-row>
+
+   <ion-row class="cta-row">
+     <ion-col size="6" *ngFor="let redeem of redeems">
+      <ion-card (click)="onRedeemItem(redeem)">
+        <ion-card-header>
+          <ion-card-title color="primary">{{redeem.point}} Points</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          {{redeem.name}}
+        </ion-card-content>
+      </ion-card>
+     </ion-col>
+   </ion-row>
+
+  </ion-grid>
+
+
+
+</ion-content>

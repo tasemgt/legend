@@ -22,11 +22,11 @@
           <div class="prices">
             <p>
               <span>Product Amount</span><br>
-              <span><ion-icon src="assets/imgs/naira.svg"></ion-icon> {{formatWithCommas(currentBundle.price) || '---'}}</span>
+              <span><ion-icon src="assets/imgs/naira.svg"></ion-icon>{{formatWithCommas(currentBundle.price) || '---'}}</span>
             </p>
             <p>
               <span>Product Balance</span><br>
-              <span><ion-icon src="assets/imgs/naira.svg"></ion-icon> {{currentBundle.prod_balance || '---'}}</span>
+              <span><ion-icon src="assets/imgs/naira.svg"></ion-icon>{{currentBundle.prod_balance || '---'}}</span>
             </p>
           </div>
         </div>
@@ -42,7 +42,17 @@
         <div class="action" *ngIf="currentBundle.renew === '1' ">
           <div tappable *ngIf="currentBundle.bundle_id !== 22" (click)="openBuyBundleModal()">
             <ion-icon src="assets/imgs/switch-plan.svg"></ion-icon>
-            <p>Switch Plan</p>
+            <p>Switch plan</p>
+          </div>
+          <div tappable *ngIf="currentBundle.bundle_id === 22" (click)="openBuyBundleModal()">
+            <ion-icon src="assets/imgs/switch-plan.svg"></ion-icon>
+            <p>Subscribe a plan</p>
+          </div>
+        </div>
+        <div class="action" *ngIf="currentBundle.renew === '0' ">
+          <div tappable *ngIf="currentBundle.bundle_id !== 22" (click)="openBuyBundleModal()">
+            <ion-icon src="assets/imgs/switch-plan.svg"></ion-icon>
+            <p style="font-size: .85rem; margin-left: -.5rem;">Request plan change</p>
           </div>
         </div>
         <div tappable (click)="openSearchForFriendModal()" class="action">

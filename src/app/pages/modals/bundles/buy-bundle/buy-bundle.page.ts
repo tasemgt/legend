@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalController, LoadingController } from '@ionic/angular';
+import { ModalController, LoadingController, NavParams } from '@ionic/angular';
 import { NgForm } from '@angular/forms';
 import { UtilService } from 'src/app/services/util.service';
 import { BundleService } from 'src/app/services/bundle.service';
@@ -37,6 +37,7 @@ export class BuyBundlePage implements OnInit {
     private auth: AuthService,
     private utilService: UtilService,
     private bundleService: BundleService,
+    private navParams: NavParams,
     private walletService: WalletService) { 
 
       this.disableToggle = true;
@@ -54,25 +55,39 @@ export class BuyBundlePage implements OnInit {
     }
 
     if(this.toggle && !this.chosenPlan){
-      this.utilService.showToast('To use auto renew, you must select a renew plan', 3000, 'danger');
+      this.utilService.showToast('To use auto renew, you must select a renewal plan', 3000, 'danger');
       return;
     }
 
     console.log(this.chosenBundle);
 
+    let rate;
+
+    this.toggle ? rate = this.chosenPlan.value : rate = 0;
+
+    let payload = {
+      activeid: Number(this.renewOrRequest),
+      pid: this.chosenBundle.products_id,
+      autorenew: Number(this.toggle),
+      autorenew_rate: rate
+    }
+
+    console.log(payload);
+
     if(this.renewOrRequest === '0'){
       // send a request for subscription..
-      this.utilService.presentAlertConfirm('Send Subscription Request', `To activate plan, a request has to be made. <br/> Proceed?`, 
+      this.utilService.presentAlertConfirm('Request Plan Change',
+     `You are requesting a change in subscription plan to <br><strong>(${this.chosenBundle.products_name})</strong>. <br><br> Proceed?`,
       () =>{
         this.utilService.presentLoading('')
           .then(() =>{
             // Make the request here...
-            return this.bundleService.buyBundle(Number(this.renewOrRequest));
+            return this.bundleService.buyBundle(payload);
           })
           .then((resp) =>{
             this.loadingCtrl.dismiss();
             if(resp.code === 100){
-              this.utilService.showToast(`A subscription request has been made, and a confirmation email sent to you`, 3000, 'success');
+              this.utilService.showToast(`A subscription request has been made, and a confirmation email sent to you`, 4000, 'success');
               this.closeModal();
             }
             else if(resp.code === 418){
@@ -95,17 +110,6 @@ export class BuyBundlePage implements OnInit {
     if(this.renewOrRequest === '1'){
       //Proceed to subscribe...
 
-      let rate;
-
-      this.toggle ? rate = this.chosenPlan.value : rate = 0;
-
-      let payload = {
-        activeid: Number(this.renewOrRequest),
-        pid: this.chosenBundle.products_id,
-        autorenew: Number(this.toggle),
-        autorenew_rate: rate
-      }
-
       console.log(payload);
       this.utilService.presentAlertConfirm('Confirm Subscription', message, 
     
@@ -115,21 +119,23 @@ export class BuyBundlePage implements OnInit {
         .then(() =>{
           this.bundleService.buyBundle(payload)
             .then((resp) =>{
-              this.loadingCtrl.dismiss();
               if(resp.code === 100){
                 this.walletService.getBalance()
                 .then((balance) =>{
+                  this.loadingCtrl.dismiss();
                   this.utilService.showToast(`Your subscription to the ${this.chosenBundle.products_name} plan was successful`, 4000, 'success');
                   this.closeModal(balance);
                   this.bundleForm.reset();
                 });
               }
               else if(resp.code === 418){
+                this.loadingCtrl.dismiss();
                 this.utilService.showToast(`${resp.message}`, 3000, 'danger');
                 this.closeModal();
                 this.bundleForm.reset();
               }
               else{
+                this.loadingCtrl.dismiss();
                 this.utilService.showToast(`Your purchase could not be completed at this time`, 2000, 'danger');
               }
             })

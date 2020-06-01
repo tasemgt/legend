@@ -107,6 +107,12 @@ ion-col{
 
 }
 
+.btn-wrapper{
+  ion-button{
+    font-family: MuliBold;
+  }
+}
+
 .summary-blocks{
   margin-top: 1.5rem;
   div{
@@ -141,6 +147,10 @@ ion-col{
         display: inline-block;
         margin-top: 8px;
         font-size: 0.8rem;
+      }
+
+      ion-icon{
+        color: #FFFFFF;
       }
     }
 

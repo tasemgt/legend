@@ -1,0 +1,53 @@
+.name-heading-alt{
+  margin-top: 1rem;
+}
+
+.reward-points-row{
+  ion-col{
+    p{
+      font-size: 1rem;
+      color: var(--ion-color-primary);
+      border: 1.5px solid var(--ion-color-primary);
+      padding: 1rem;
+      font-weight: bolder;
+
+      span{
+        color: #FFFFFF;
+        margin-top: -.5rem;
+        font-size: 1.5rem;
+        float: right;
+      }
+    }
+  }
+}
+
+.cta-row{
+  
+  ion-col{
+    margin: 0px;
+  }
+
+  ion-card{
+    --background: var(--ion-color-tertiary);
+    --color: #FFFFFF;
+    border-radius: 7px;
+    margin: .5rem;
+    min-height: 8rem;
+    height: 8rem;
+
+    ion-card-header,
+    ion-card-content{
+      padding: 0.55rem;
+    }
+
+    ion-card-content{
+      padding: .7rem;
+      font-size: .8rem;
+    }
+
+    ion-card-title{
+      font-size: 1.2rem;
+      font-weight: bolder;
+    }
+  }
+}

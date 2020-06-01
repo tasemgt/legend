@@ -21,7 +21,7 @@
             color: var(--ion-color-primary);
         }
         span:last-child{
-            font-size: 1.5rem;
+            font-size: 1.4rem;
         }
     }
 
@@ -40,8 +40,7 @@
 }
 
 .action-row{
-    margin: 0.1rem -1.5rem;
-  
+    margin: 0.1rem -3rem;
     .action{
       display: inline-block;
       text-align: center;
@@ -53,7 +52,7 @@
   
       p{
         margin: 0px;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         font-family: MuliLight;
         font-weight: lighter;
       }

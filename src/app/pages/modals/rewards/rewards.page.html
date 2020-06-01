@@ -15,7 +15,7 @@
     <ion-row class="cta-redeem-row">
        <ion-col size="12" class="ion-text-center">
         <div class="btn-wrapper">
-          <ion-button class="legend-btn ion-text-capitalize" type="button">Redeem Points</ion-button>
+          <ion-button (click)="openRedeemsModal()" class="legend-btn ion-text-capitalize" type="button">Redeem Points</ion-button>
         </div>
        </ion-col>
     </ion-row>
@@ -24,7 +24,7 @@
       <ion-col size="9" class="ion-text-left legend-input">
         <p>Referral ID: {{rewards?.username}} <span *ngIf="!rewards">---</span></p>
         <ion-item>
-          <ion-input [(ngModel)]="referral" type="text" name="referral"></ion-input>
+          <ion-input [(ngModel)]="referralDisp" [readonly]="true" type="text" name="referral"></ion-input>
         </ion-item>
       </ion-col>
       <ion-col size="3" class="ion-text-right">
@@ -39,7 +39,7 @@
     <ion-row class="points-row">
       <ion-col size="12">
         <p *ngIf="!(rewards?.rewards.length <= 0 && !showLoading)">
-          <span>Rewards History</span> &nbsp;&nbsp; 
+          <span>Rewards Transaction</span> &nbsp;&nbsp; 
           <span class="see-all" (click)="openSeeMoreModal()" tappable>See more</span>
         </p>
         <div class="rewards-list" *ngIf="rewards?.rewards.length > 0">
@@ -69,5 +69,5 @@
 
   <ion-spinner class="rewards-spinner" *ngIf="rewards?.rewards.length <= 0 && showLoading" name="dots"></ion-spinner>
 
-  <div class="no-rewards" *ngIf="rewards?.rewards?.length <= 0 && !showLoading">No wallet transactions!</div>
+  <div class="no-rewards" *ngIf="rewards?.rewards?.length <= 0 && !showLoading">No rewards available!</div>
 </ion-content>

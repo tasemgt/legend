@@ -10,7 +10,7 @@
       <ion-col size="12" class="ion-text-center">
         <div class="balance-wrapper">
           <p>Available Balance</p>
-          <h1><ion-icon src="assets/imgs/naira.svg"></ion-icon> {{formatWithCommas(balance?.balance)}}<ion-spinner *ngIf="!balance" name="dots"></ion-spinner></h1>
+          <h1><ion-icon src="assets/imgs/naira.svg"></ion-icon>{{formatWithCommas(balance?.balance)}}<ion-spinner *ngIf="!balance" name="dots"></ion-spinner></h1>
         </div>
       </ion-col>
     </ion-row>
@@ -41,7 +41,7 @@
         <p *ngIf="!(transactions?.length <= 0 && !showLoading)">
           <span>Transactions</span> &nbsp;&nbsp; 
           <span class="reload" tappable (click)="getTransactions(true)">
-            Reload List
+            Refresh List
             <ion-spinner class="list-spinner" *ngIf="listReload" name="lines-small"></ion-spinner>
           </span>
           <span class="see-all" tappable (click)="openSeeAllTransactionsModal()">See all</span>

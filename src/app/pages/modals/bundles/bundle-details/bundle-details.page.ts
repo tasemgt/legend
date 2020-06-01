@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams, ModalController } from '@ionic/angular';
+import { NavParams, ModalController, LoadingController } from '@ionic/angular';
 
 
 import { BuyBundlePage } from '../buy-bundle/buy-bundle.page';
@@ -11,6 +11,9 @@ import { myEnterAnimation } from 'src/app/animations/enter';
 import { myLeaveAnimation } from 'src/app/animations/leave';
 import { UtilService } from 'src/app/services/util.service';
 import { SearchUserPage } from '../friend/search-user/search-user.page';
+import { BundleTypesPage } from '../bundle-types/bundle-types.page';
+import { Bundle } from 'src/app/models/bundle';
+import { BundleService } from 'src/app/services/bundle.service';
 
 
 @Component({
@@ -21,12 +24,15 @@ import { SearchUserPage } from '../friend/search-user/search-user.page';
 export class BundleDetailsPage implements OnInit {
 
   public currentBundle: Balance;
+  public chosenBundle: Bundle;
 
   constructor(
     private navParams: NavParams, 
     private modalCtrl: ModalController, 
     private auth: AuthService,
-    private utilService: UtilService) {
+    private bundleService: BundleService,
+    private utilService: UtilService,
+    private loadingCtrl: LoadingController) {
     this.currentBundle = this.navParams.get('balance');
    }
 
