@@ -46,6 +46,8 @@ export class HomePage implements OnInit, OnDestroy{
   subscribeNow: boolean;
   rotateCirclePos: number;
 
+  public counter = 1;
+
   @ViewChild('numberFlip', {static:false}) private numberFlip: ElementRef;
   flipAnim = null;
 
@@ -148,6 +150,10 @@ export class HomePage implements OnInit, OnDestroy{
             this.utilService.showToast('Check network connectivity..', 1000, 'danger');
             this.showIosOnce = false; 
           }
+          if(this.counter >= 10){
+            return;
+          }
+          this.counter++;
           this.getBalance(); // Call get balance again after 10secs;
         }, 10000);
         
@@ -212,24 +218,22 @@ export class HomePage implements OnInit, OnDestroy{
     // });
   }
 
-  goToTab(tabName: string){
-    this.router.navigateByUrl(`/tabs/${tabName}`);
+  public doRefresh(event): void{
+    this.getBalance();
+
+    setTimeout(() => {
+      event.target.complete();
+    }, 1000);
   }
 
-  ionViewWillLeave(){
-    //this.rotateCircle = ;
+  goToTab(tabName: string){
+    this.router.navigateByUrl(`/tabs/${tabName}`);
   }
 
   // On Destroy of the home component..
   ngOnDestroy(){
     this.balanceSubscription.unsubscribe();
     this.authSubscription.unsubscribe();
-    // if(this.connectSubscription){
-    //   this.connectSubscription.unsubscribe();
-    // }
-    // if(this.disconnectSubscription){
-    //   this.disconnectSubscription.unsubscribe();
-    // }
   }
 
 }

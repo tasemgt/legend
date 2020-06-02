@@ -1,0 +1,60 @@
+<ion-content class="ion-padding legend-modal">
+  <div>
+    <ion-icon name="arrow-back" color="primary" (click)="closeModal()"></ion-icon>
+  </div>
+
+    <ion-grid>
+
+      <ion-row>
+        <ion-col size="7" class="name-heading-alt ion-text-left">
+          <p>{{service.name}}</p>
+        </ion-col>
+        <ion-col></ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="12">
+          <div class="img-wrapper">
+            <img [src]="service.img">
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <form (ngSubmit)="subscribe(subscribeForm)" #subscribeForm="ngForm" *ngIf="service.id >= 2">
+        <ion-row>
+          <p class="desc ion-text-center">{{service.desc}}</p>
+          <ion-col size="12" class="legend-input">
+            <ion-item>
+              <ion-input placeholder="Email Address" type="email" name="email" ngModel #email="ngModel" required></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" class="ion-text-center">
+            <div class="btn-wrapper">
+              <ion-button class="legend-btn ion-text-capitalize" color="primary" type="submit">Subscribe</ion-button>
+            </div>
+            <p class="tip">Signup up to be the first to know when this feature is available</p>
+          </ion-col>
+        </ion-row>
+      </form>
+
+      <div class="tv-wrapper" *ngIf="service.id === 1">
+        <ion-row>
+          <p class="desc ion-text-center">{{service.desc}}</p>
+          <ion-col size="6">
+            <div class="tv">
+              <h3>Legend Lite</h3>
+              <p>Take your entertainment with you, anywhere you go</p>
+            </div>
+          </ion-col>
+          <ion-col size="6">
+            <div class="tv">
+              <h3>Legend Box Office</h3>
+              <p>Latest blockbuster movies to you at home or on the go</p>
+            </div>
+          </ion-col>
+        </ion-row>       
+      </div>
+
+    </ion-grid>
+
+</ion-content>

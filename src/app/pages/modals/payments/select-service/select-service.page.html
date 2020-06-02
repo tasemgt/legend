@@ -24,19 +24,9 @@
       </ion-row> -->
 
       <ion-row class="services-row">
-        <ion-col size="6">
-          <div class="service">
-            <img src="assets/imgs/img-legendtv.svg">
-          </div>
-        </ion-col>
-        <ion-col size="6">
-          <div class="service">
-            <img src="assets/imgs/img-netflix.svg">
-          </div>
-        </ion-col>
-        <ion-col size="6">
-          <div class="service">
-            <img src="assets/imgs/img-dstv.svg">
+        <ion-col size="6" *ngFor="let service of services">
+          <div class="service" tappable (click)="openServiceDetailsModal(service)">
+            <img [src]="service.icon">
           </div>
         </ion-col>
       </ion-row>

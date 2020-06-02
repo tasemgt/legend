@@ -1,0 +1,41 @@
+.img-wrapper{
+  margin: 0 auto;
+  text-align: center;
+
+  img{
+    max-width: 60%;
+  }
+
+}
+
+.desc{
+  font-size: .9rem;
+  opacity: .8;
+}
+
+.tip{
+  font-size: .8rem;
+}
+
+.tv{
+  min-height: 10rem;
+  width: 100%;
+  background-color: var(--ion-color-tertiary);
+  border-radius: 7px;
+  padding: .5rem;
+
+  p,h3{
+    margin: 0;
+  }
+
+  h3{
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--ion-color-primary);
+    margin: 1rem auto;
+  }
+
+  p{
+    font-size: .8rem;
+  }
+}

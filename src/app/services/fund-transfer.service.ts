@@ -9,7 +9,7 @@ import { WalletService } from './wallet.service';
 })
 export class FundTransferService {
 
-  private baseUrl = 'http://41.73.8.123/horizonaccess/legend/public/api';
+  private baseUrl = Constants.baseUrl;
 
   constructor(
     private auth: AuthService,

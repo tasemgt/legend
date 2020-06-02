@@ -78,7 +78,9 @@ export class WalletPage implements OnInit {
 
   private async getBalance(){
     try{
-      this.balance = await this.walletService.getBalance();
+      let balance: Balance;
+      balance = await this.walletService.getBalance();
+      this.balance = balance;
     }
     catch(err){
       if(err.status === 0){
@@ -182,6 +184,15 @@ export class WalletPage implements OnInit {
       return;
     }
     return this.utilService.numberWithCommas(num);
+  }
+
+  public doRefresh(event): void{
+    this.getBalance();
+    this.getTransactions(false);
+
+    setTimeout(() =>{
+      event.target.complete();
+    }, 1000)
   }
 
 }

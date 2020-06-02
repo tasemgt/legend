@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { WalletService } from './wallet.service';
+import { Constants } from '../models/constants';
 
 
 @Injectable({
@@ -9,7 +10,7 @@ import { WalletService } from './wallet.service';
 })
 export class PayForFriendService {
 
-  private baseUrl = 'http://41.73.8.123/horizonaccess/legend/public/api';
+  private baseUrl = Constants.baseUrl;
 
   constructor(
     private auth: AuthService,

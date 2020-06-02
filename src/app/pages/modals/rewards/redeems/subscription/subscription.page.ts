@@ -4,6 +4,7 @@ import { RedeemSub } from 'src/app/models/reward';
 import { Bundle } from 'src/app/models/bundle';
 import { RewardsService } from 'src/app/services/rewards.service';
 import { UtilService } from 'src/app/services/util.service';
+import { WalletService } from 'src/app/services/wallet.service';
 
 @Component({
   selector: 'app-subscription',
@@ -21,7 +22,8 @@ export class SubscriptionPage implements OnInit {
     private navParams: NavParams,
     private rewardsService: RewardsService,
     private utilService: UtilService,
-    private loadingCtrl: LoadingController) {
+    private loadingCtrl: LoadingController,
+    private walletService: WalletService) {
 
       this.redeemSub = this.navParams.get('redeemSub');
       this.rewardPoints = this.navParams.get('rewardPoints');
@@ -50,6 +52,9 @@ export class SubscriptionPage implements OnInit {
             if(resp.code === 100){
               this.loadingCtrl.dismiss();
               this.utilService.showToast(resp.message, 3000, 'success');
+              this.walletService.balanceState.next(true);
+              this.rewardsService.rewardState.next(true);
+              this.closeModal({closeParent:true});
             }
             else if(resp.code === 418){
               this.utilService.showToast(resp.message, 3000, 'danger');
@@ -66,8 +71,8 @@ export class SubscriptionPage implements OnInit {
       }, 'Cancel', 'Redeem');
   }
 
-  public closeModal(){
-    this.modalCtrl.dismiss();
+  public closeModal(param:any){
+    this.modalCtrl.dismiss(param);
   }
 
 }

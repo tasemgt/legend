@@ -3,6 +3,7 @@ import { ModalController, NavParams, LoadingController } from '@ionic/angular';
 import { RedeemMerchant } from 'src/app/models/reward';
 import { UtilService } from 'src/app/services/util.service';
 import { RewardsService } from 'src/app/services/rewards.service';
+import { WalletService } from 'src/app/services/wallet.service';
 
 @Component({
   selector: 'app-merchant',
@@ -14,13 +15,15 @@ export class MerchantPage implements OnInit {
   public redeemMerchant: RedeemMerchant;
   public rewardPoints: number;
   public payAmount: string;
+  
 
   constructor(
     private modalCtrl: ModalController,
     private navParams: NavParams,
     private utilService: UtilService,
     private loadingCtrl: LoadingController,
-    private rewardsService: RewardsService) { 
+    private rewardsService: RewardsService,
+    private walletService: WalletService) { 
 
       this.redeemMerchant = this.navParams.get('redeemMerchant');
       this.rewardPoints = this.navParams.get('rewardPoints');
@@ -44,6 +47,9 @@ export class MerchantPage implements OnInit {
             if(resp.code === 100){
               this.loadingCtrl.dismiss();
               this.utilService.showToast(resp.message, 3000, 'success');
+              this.walletService.balanceState.next(true);
+              this.rewardsService.rewardState.next(true);
+              this.closeModal({closeParent:true});
             }
             else if(resp.code === 418){
               this.utilService.showToast(resp.message, 3000, 'danger');
@@ -83,8 +89,8 @@ export class MerchantPage implements OnInit {
     }
   }
 
-  public closeModal(){
-    this.modalCtrl.dismiss();
+  public closeModal(param:any){
+    this.modalCtrl.dismiss(param);
   }
 
 }

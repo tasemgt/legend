@@ -74,10 +74,8 @@ export class AuthService {
 
   public submitUserAddressInfo(userAddress: UserAddress, userToken: string) : Promise<any>{
 
-    let url = "http://41.73.8.123/horizonaccess/legend/public/api";
-
     const headers = {Authorization: `Bearer ${userToken}`, Accept: 'application/json', 'Content-Type': 'application/json'};
-    return this.http.post(`${url}/update-info`, userAddress, {headers})
+    return this.http.post(`${this.baseUrl}/update-info`, userAddress, {headers})
       .toPromise()
       .then((resp) =>{
         return Promise.resolve(resp);

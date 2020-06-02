@@ -29,6 +29,7 @@ export interface UserCred{
     username: string;
     password: string;
     password_confirmation: string;
+    ref?: string;
 }
 
 export interface UserAddress{

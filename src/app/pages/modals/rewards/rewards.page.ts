@@ -10,6 +10,8 @@ import { SeeMorePage } from './see-more/see-more.page';
 import { UtilService } from 'src/app/services/util.service';
 import { RedeemsPage } from './redeems/redeems.page';
 import { myLeaveAnimation } from 'src/app/animations/leave';
+import { Subscription } from 'rxjs';
+import { WalletService } from 'src/app/services/wallet.service';
 
 @Component({
   selector: 'app-rewards',
@@ -26,17 +28,25 @@ export class RewardsPage implements OnInit {
 
   public showLoading: boolean;
 
+  private rewardsSubscription: Subscription;
+
   constructor(
     private modalCtrl: ModalController,
     private clipboard: Clipboard,
     private rewardsService: RewardsService,
     private utilService: UtilService,
-    private loadingCtrl: LoadingController) { 
+    private loadingCtrl: LoadingController,
+    private walletService: WalletService) { 
 
   }
 
   ngOnInit() {
     this.getRewards();
+    this.rewardsSubscription = this.walletService.balanceState.subscribe((fetch) =>{
+      if(fetch){
+        this.getRewards();
+      }
+    });
   }
 
   public copyLink(){
@@ -109,4 +119,7 @@ export class RewardsPage implements OnInit {
     this.modalCtrl.dismiss();
   }
 
+  ngOnDestroy(){
+    this.rewardsSubscription.unsubscribe();
+  }
 }

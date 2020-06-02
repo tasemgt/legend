@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ModalController, NavParams, LoadingController } from '@ionic/angular';
 import { Redeem, Reward, RedeemSub, RedeemMerchant } from 'src/app/models/reward';
 import { RewardsService } from 'src/app/services/rewards.service';
@@ -7,6 +7,8 @@ import { SubscriptionPage } from './subscription/subscription.page';
 import { myEnterAnimation } from 'src/app/animations/enter';
 import { myLeaveAnimation } from 'src/app/animations/leave';
 import { MerchantPage } from './merchant/merchant.page';
+import { WalletService } from 'src/app/services/wallet.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-redeems',
@@ -22,6 +24,7 @@ export class RedeemsPage implements OnInit {
     private modalCtrl: ModalController,
     private navParams: NavParams,
     private rewardsService: RewardsService,
+    private walletService: WalletService,
     private utilService: UtilService,
     private loadingCtrl: LoadingController) {
 
@@ -84,6 +87,12 @@ export class RedeemsPage implements OnInit {
       componentProps: {'redeemSub': redeemSub, 'rewardPoints': this.rewards.point}
     });
     await modal.present();
+    const {data} = await modal.onDidDismiss();
+    if(data){
+      setTimeout(() => {
+        data.closeParent? this.closeModal(): '';
+      },0);
+    }
   }
 
 
@@ -96,6 +105,12 @@ export class RedeemsPage implements OnInit {
       componentProps: {'redeemMerchant': redeemMerchant, 'rewardPoints': this.rewards.point}
     });
     await modal.present();
+    const {data} = await modal.onDidDismiss();
+    if(data){
+      setTimeout(() => {
+        data.closeParent? this.closeModal(): '';
+      },0);
+    }
   }
 
   private immediateRedeemHandler(item: Redeem): void{
@@ -112,6 +127,9 @@ export class RedeemsPage implements OnInit {
             if(resp.code === 100){
               this.loadingCtrl.dismiss();
               this.utilService.showToast(resp.message, 3000, 'success');
+              this.walletService.balanceState.next(true);
+              this.rewardsService.rewardState.next(true);
+              this.closeModal();
             }
             else if(resp.code === 418){
               this.utilService.showToast(resp.message, 3000, 'danger');

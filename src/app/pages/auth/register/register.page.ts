@@ -88,7 +88,8 @@ export class RegisterPage implements OnInit {
       phone: this.utilService.transformPhone(form.value.phone),
       username: form.value.username,
       password: form.value.password,
-      password_confirmation: form.value.password_confirmation
+      password_confirmation: form.value.password_confirmation,
+      ref: form.value.ref
     };
 
     this.nextSlide();

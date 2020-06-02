@@ -40,12 +40,18 @@ export class WalletService {
   }
 
   private getUniveralBalance(){
+    let counter = 1;
     this.getBalance()
       .then((bal) =>{
         this.uniBalanceValue = bal; // Store universal balance value
       }).catch((err) =>{
         if(err.status === 0){
           setTimeout(() =>{
+            if(counter >= 10){
+              return;
+            }
+            counter++;
+            console.log(counter);
             this.getBalance();
           }, 100);
         }
@@ -53,12 +59,11 @@ export class WalletService {
   }
 
   public getBalance(): Promise<any>{
-     const baseUrl = 'http://41.73.8.123/horizonaccess/legend/public/api';
      return this.authService.getUser()
       .then(user => {
         this.user = user;
         const headers = {Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json'};
-        return this.http.get(`${baseUrl}/balance`, {headers}).toPromise()
+        return this.http.get(`${this.baseUrl}/balance`, {headers}).toPromise()
       })
       .then(resp => {
         return Promise.resolve(resp);
@@ -71,12 +76,11 @@ export class WalletService {
 
 
   public getTransactions(): Promise<any>{
-    const baseUrl = 'http://41.73.8.123/horizonaccess/legend/public/api'
     return this.authService.getUser()
       .then(user => {
         this.user = user;
         const headers = {Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json'};
-        return this.http.get(`${baseUrl}/wallet-transactions`, {headers}).toPromise()
+        return this.http.get(`${this.baseUrl}/wallet-transactions`, {headers}).toPromise()
       })
       .then(resp => {
         return Promise.resolve(resp);

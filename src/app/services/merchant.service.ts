@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
+import { Constants } from '../models/constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MerchantService {
+
+  private baseUrl = Constants.baseUrl;
 
   constructor(
     private http: HttpClient,
@@ -13,12 +16,10 @@ export class MerchantService {
 
 
     public getMerchant(searchString: string): Promise<any>{
-      const baseUrl = 'http://41.73.8.123/horizonaccess/legend/public/api'
-  
       return this.authService.getUser()
         .then(user => {
           const headers = {Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json'};
-          return this.http.get(`${baseUrl}/merchant/${searchString}`, {headers}).toPromise();
+          return this.http.get(`${this.baseUrl}/merchant/${searchString}`, {headers}).toPromise();
         })
         .then(resp => {
           return Promise.resolve(resp);
@@ -32,12 +33,10 @@ export class MerchantService {
 
 
   public getMerchants(aRefresher:boolean, url?: string): Promise<any>{
-    const baseUrl = 'http://41.73.8.123/horizonaccess/legend/public/api'
-
     return this.authService.getUser()
       .then(user => {
         const headers = {Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json'};
-        return url && aRefresher? this.http.get(url, {headers}).toPromise(): this.http.get(`${baseUrl}/merchants`, {headers}).toPromise();
+        return url && aRefresher? this.http.get(url, {headers}).toPromise(): this.http.get(`${this.baseUrl}/merchants`, {headers}).toPromise();
       })
       .then(resp => {
         return Promise.resolve(resp);
@@ -50,12 +49,10 @@ export class MerchantService {
 
 
   public getSearchedMerchants(aRefresher:boolean, searchWord:string, url?: string){
-    const baseUrl = 'http://41.73.8.123/horizonaccess/legend/public/api'
-
     return this.authService.getUser()
       .then(user => {
         const headers = {Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json'};
-        return url && aRefresher? this.http.get(url, {headers}).toPromise(): this.http.get(`${baseUrl}/merchant/search/${searchWord}`, {headers}).toPromise();
+        return url && aRefresher? this.http.get(url, {headers}).toPromise(): this.http.get(`${this.baseUrl}/merchant/search/${searchWord}`, {headers}).toPromise();
       })
       .then(resp => {
         return Promise.resolve(resp);
@@ -67,12 +64,10 @@ export class MerchantService {
   }
 
   public getProducts(merchantID: number): Promise<any>{
-    const baseUrl = 'http://41.73.8.123/horizonaccess/legend/public/api'
-
     return this.authService.getUser()
       .then(user => {
         const headers = {Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json'};
-        return this.http.get(`${baseUrl}/products/${merchantID}`, {headers}).toPromise();
+        return this.http.get(`${this.baseUrl}/products/${merchantID}`, {headers}).toPromise();
       })
       .then(resp => {
         return Promise.resolve(resp);
@@ -84,12 +79,10 @@ export class MerchantService {
   }
 
   public directPayMerchant(merchantID: string, amount:string): Promise<any>{
-    const baseUrl = 'http://41.73.8.123/horizonaccess/legend/public/api'
-
     return this.authService.getUser()
       .then(user => {
         const headers = {Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json'};
-        return this.http.post(`${baseUrl}/pay-merchant`, {id:merchantID, amount}, {headers}).toPromise();
+        return this.http.post(`${this.baseUrl}/pay-merchant`, {id:merchantID, amount}, {headers}).toPromise();
       })
       .then(resp => {
         return Promise.resolve(resp);
@@ -101,12 +94,10 @@ export class MerchantService {
   }
 
   public buyProduct(productID: string): Promise<any>{
-    const baseUrl = 'http://41.73.8.123/horizonaccess/legend/public/api'
-
     return this.authService.getUser()
       .then(user => {
         const headers = {Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json'};
-        return this.http.post(`${baseUrl}/buy-product`, {id:productID}, {headers}).toPromise();
+        return this.http.post(`${this.baseUrl}/buy-product`, {id:productID}, {headers}).toPromise();
       })
       .then(resp => {
         return Promise.resolve(resp);
