@@ -56,6 +56,7 @@ export class TopUpService implements OnDestroy {
 
   // Function to handle browser related stuff...
   private openBrowser(url: string){
+    this.loadingCtrl.dismiss();
     const browser = this.iab.create(url, '_blank', `
     location=no,zoom=no,useWideViewPort=no,closebuttoncolor=#ffffff,
     hidenavigationbuttons=yes,hideurlbar=yes,toolbarcolor=#2C3038`);
@@ -63,7 +64,6 @@ export class TopUpService implements OnDestroy {
     // Listens for browser fully load and excutes scripts for completion url on Pay
     this.loadStopSub = browser.on('loadstop')
       .subscribe((event: InAppBrowserEvent) => {
-        this.loadingCtrl.dismiss();
         browser.executeScript({code:`
         if(window.location.pathname.includes('/api/legendpay/verify') || window.location.pathname.includes('/api/saved/verify')){
           console.log("Exect script gave a true for this");

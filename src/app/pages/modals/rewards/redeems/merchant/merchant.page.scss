@@ -10,8 +10,7 @@
 
 .product-discount-details{
   position: relative;
-  padding: 0.5rem 1rem;
-  height: 19rem;
+  padding: 1rem;
   width: 100%;
   background: var(--ion-color-secondary);
   border: 1.2px solid var(--ion-color-primary);
@@ -19,6 +18,7 @@
 
   h2{
     font-weight: bolder;
+    margin-top: 0;
   }
 
   div{

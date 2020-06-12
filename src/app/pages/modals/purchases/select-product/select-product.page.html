@@ -1,6 +1,6 @@
 <ion-content class="ion-padding legend-modal">
   <div>
-    <ion-icon name="arrow-back" color="primary" (click)="closeModal()"></ion-icon>
+    <ion-icon name="ios-arrow-back" color="primary" (click)="closeModal()"></ion-icon>
   </div>
 
   <ion-grid>
@@ -44,7 +44,7 @@
                 <p> {{product.name}} </p>
               </ion-col>
               <ion-col class="price ion-text-right">
-                <p><ion-icon src="assets/imgs/naira.svg"></ion-icon>{{product.price}}</p>
+                <p><ion-icon src="assets/imgs/naira.svg"></ion-icon>{{formatWithCommas(product.price)}}</p>
               </ion-col>
             </ion-row>
           </div>

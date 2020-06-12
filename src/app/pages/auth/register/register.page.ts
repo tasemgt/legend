@@ -135,8 +135,13 @@ export class RegisterPage implements OnInit {
           })
           .then((resp) =>{
             this.loadingCtrl.dismiss();
-            this.utilService.showToast(`Hi, ${this.userBasicInfo.firstName}, your Legend wallet has successfully been created`, 4000, 'success');
-            this.router.navigateByUrl('/login');
+            if(resp.code === 100){
+              this.utilService.showToast(`Hi, ${this.userBasicInfo.firstName}, your Legend wallet has successfully been created`, 4000, 'success');
+              this.router.navigateByUrl('/login');
+            }
+            if(resp.code === 418){
+              this.utilService.showToast(resp.message, 3000, 'danger');
+            }
           })
           .catch((error:HttpErrorResponse) => {
             console.log(error);

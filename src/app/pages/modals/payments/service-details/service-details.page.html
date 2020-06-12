@@ -1,6 +1,6 @@
 <ion-content class="ion-padding legend-modal">
   <div>
-    <ion-icon name="arrow-back" color="primary" (click)="closeModal()"></ion-icon>
+    <ion-icon name="ios-arrow-back" color="primary" (click)="closeModal()"></ion-icon>
   </div>
 
     <ion-grid>
@@ -41,13 +41,13 @@
         <ion-row>
           <p class="desc ion-text-center">{{service.desc}}</p>
           <ion-col size="6">
-            <div class="tv">
+            <div class="tv" (click)="openLegendTv()">
               <h3>Legend Lite</h3>
               <p>Take your entertainment with you, anywhere you go</p>
             </div>
           </ion-col>
           <ion-col size="6">
-            <div class="tv">
+            <div class="tv" (click)="openLegendTv()">
               <h3>Legend Box Office</h3>
               <p>Latest blockbuster movies to you at home or on the go</p>
             </div>

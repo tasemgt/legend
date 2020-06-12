@@ -15,7 +15,7 @@
       <ion-col size="12" class="ion-text-center">
         <div class="balance-wrapper">
           <p>Available Balance</p>
-          <h1><ion-icon src="assets/imgs/naira.svg"></ion-icon>{{formatWithCommas(balance?.balance)}}<ion-spinner *ngIf="!balance" name="dots"></ion-spinner></h1>
+          <h1><ion-icon src="assets/imgs/naira.svg"></ion-icon>{{balance?.balance}}<ion-spinner *ngIf="!balance" name="dots"></ion-spinner></h1>
         </div>
       </ion-col>
     </ion-row>
@@ -65,7 +65,8 @@
               </ion-col>
               <ion-col size="5" class="ion-text-right amount-date">
                 <h4>
-                  <span [ngStyle]="{'background-color':transaction.status === 'Success' ? '#054e1c' : '#a20a0a'}">
+                  <span [ngStyle]="{'background-color':transaction.status === 'Success' ? '#05c46b' : '#a20a0a'}">
+                    <!-- #054e1c -->
                     <ion-icon src="assets/imgs/naira.svg"></ion-icon>{{formatWithCommas(transaction.amount)}}
                   </span>
                 </h4>

@@ -13,7 +13,7 @@ export class SelectServicePage implements OnInit {
 
   public services = [
     {
-      name: "Legent TV",
+      name: "Legend TV",
       desc: "Legend TV that offers movies and series through Legend Box Office, Legend Vault, and Legend Freeview.",
       img: "",
       icon: "assets/imgs/img-legendtv.svg",

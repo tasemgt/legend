@@ -114,7 +114,8 @@ export class RenewBundlePage{
           this.walletService.getBalance()
             .then((balance) =>{
               this.loadingCtrl.dismiss();
-              this.utilService.showToast('Product renewal successful.', 3000, 'success');
+              this.utilService.showToast(resp.message, 2000, 'success');
+              //this.utilService.showToast('Product renewal successful.', 3000, 'success');
               this.closeModal(balance);
               this.router.navigateByUrl('/tabs/home');
             });

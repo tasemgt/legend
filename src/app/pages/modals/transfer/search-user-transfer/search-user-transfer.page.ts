@@ -48,7 +48,8 @@ export class SearchUserTransferPage implements OnInit {
           .then((resp) =>{
             this.loadingCtrl.dismiss();
             if(resp.code === 100){
-              this.utilService.showToast(`Successfully transfered to ${username}`, 3000, 'success');
+              this.utilService.showToast(`${resp.message}`, 3000, 'success');
+              //this.utilService.showToast(`Successfully transfered to ${username}`, 3000, 'success');
               return this.closeModal();
             }
             else if(resp.code === 418){

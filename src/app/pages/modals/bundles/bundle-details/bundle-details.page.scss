@@ -1,7 +1,7 @@
 .product-details{
     position: relative;
-    padding: 0.5rem;
-    height: 14rem;
+    padding: 0.5rem 0.8rem;
+    min-height: 12rem;
     width: 100%;
     background: var(--ion-color-secondary);
     border: 1.2px solid var(--ion-color-primary);
@@ -9,10 +9,10 @@
 
     p{
         text-align: center;
-        margin: 0.8rem;
+        margin: 0.5rem 0.8;
 
         ion-icon{
-            font-size: 1.1rem;
+            font-size: .9rem; //1.1rem;
         }
 
         span:first-child{
@@ -53,7 +53,7 @@
       p{
         margin: 0px;
         font-size: 0.85rem;
-        font-family: MuliLight;
+        font-family: SourceSansPro; //MuliLight;
         font-weight: lighter;
       }
   

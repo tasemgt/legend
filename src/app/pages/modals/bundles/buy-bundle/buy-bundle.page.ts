@@ -123,7 +123,8 @@ export class BuyBundlePage implements OnInit {
                 this.walletService.getBalance()
                 .then((balance) =>{
                   this.loadingCtrl.dismiss();
-                  this.utilService.showToast(`Your subscription to the ${this.chosenBundle.products_name} plan was successful`, 4000, 'success');
+                  this.utilService.showToast(resp.message, 4000, 'success');
+                  // this.utilService.showToast(`Your subscription to the ${this.chosenBundle.products_name} plan was successful`, 4000, 'success');
                   this.closeModal(balance);
                   this.bundleForm.reset();
                 });

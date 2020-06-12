@@ -13,10 +13,28 @@
   src: url('assets/fonts/muli/Muli-Light.ttf');
 }
 
+@font-face {
+  font-family: SourceSansPro;
+  src: url('assets/fonts/ssp/SourceSansPro-Regular.ttf');
+}
+
+@font-face {
+  font-family: SourceSansPro-Light;
+  src: url('assets/fonts/ssp/SourceSansPro-Light.ttf');
+}
+
+@font-face {
+  font-family: SourceSansProBold;
+  src: url('assets/fonts/ssp/SourceSansPro-Bold.ttf');
+}
 
 *{
   // font-family: Muli;
-  --ion-font-family: Muli;
+  --ion-font-family: SourceSansPro;
+}
+
+html{
+  font-size: 107%;
 }
 
 /* smaller devices */

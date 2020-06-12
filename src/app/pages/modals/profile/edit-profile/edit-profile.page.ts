@@ -57,7 +57,7 @@ export class EditProfilePage implements OnInit {
       this.tempProfile.streetname !== form.value.streetname ||
       this.tempProfile.city !== form.value.city))
       {
-        this.utilService.showToast('You have to edit first', 2000, 'danger');
+        this.utilService.showToast('Please edit your profile first', 2000, 'danger');
         return;
       }
     
@@ -81,7 +81,8 @@ export class EditProfilePage implements OnInit {
         if(resp.code === 100){
           this.userService.getUserProfile(this.user)
             .then((profile) =>{
-              this.utilService.showToast(`Profile updated successfully`, 3000, 'success');
+              this.utilService.showToast(`${resp.message}`, 3000, 'success');
+              // this.utilService.showToast(`Profile updated successfully`, 3000, 'success');
               this.closeModal(profile);
             });
         }

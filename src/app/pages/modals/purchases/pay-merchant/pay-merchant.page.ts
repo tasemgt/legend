@@ -75,7 +75,7 @@ export class PayMerchantPage implements OnInit, OnDestroy {
     <strong>${amount || this.product.price}</strong> naira to <strong>${this.merchant.name}</strong>?`, 
       ()=>{
 
-        amount = amount.replace(/,/g, "");
+        amount? amount = amount.replace(/,/g, ""): ''; //Ignore amount if paying for a product
 
         this.utility.presentLoading('....')
           .then(() =>{
@@ -89,7 +89,8 @@ export class PayMerchantPage implements OnInit, OnDestroy {
           .then((resp) =>{
             this.loadingCtrl.dismiss();
             if(resp.code === 100){
-              this.utility.showToast(`Successfully paid to ${this.merchant.name}`, 3000, 'success');
+              this.utility.showToast(`${resp.message}`, 3000, 'success');
+              // this.utility.showToast(`Successfully paid to ${this.merchant.name}`, 3000, 'success');
               this.walletService.balanceState.next(true);
               return this.closeModal({closeParent: true});
             }
@@ -126,5 +127,12 @@ export class PayMerchantPage implements OnInit, OnDestroy {
 
   public ngOnDestroy(){
     // this.balance = '';
+  }
+
+  public formatWithCommas(num: any){
+    if(!num){
+      return;
+    }
+    return this.utility.numberWithCommas(num);
   }
 }

@@ -51,7 +51,7 @@ export class LoginPage implements OnInit {
       .then((response: any) =>{
         this.utilService.dismissLoading();
         if(response.code === 418){
-          this.utilService.showToast('Incorrect Username or Password', 3000, 'danger');
+          this.utilService.showToast(response.message, 3000, 'danger');
         }
       })
       .catch((error:HttpErrorResponse) => {

@@ -1,6 +1,6 @@
 <ion-content class="ion-padding legend-modal">
   <div>
-    <ion-icon name="arrow-back" color="primary" (click)="closeModal()"></ion-icon>
+    <ion-icon name="ios-arrow-back" color="primary" (click)="closeModal()"></ion-icon>
   </div>
 
   <form #payMerchantForm="ngForm" (ngSubmit)="payMerchant(payMerchantForm)">
@@ -23,7 +23,7 @@
         </ion-col>
         <ion-col *ngIf="!isDirectPayment" size="12" >
           <ion-text color="primary" class="product-price">
-            <p>{{product?.name}} <span style="float: right;"><ion-icon src="assets/imgs/naira.svg"></ion-icon> {{product?.price}}</span></p>
+            <p>{{product?.name}} <span style="float: right;"><ion-icon src="assets/imgs/naira.svg"></ion-icon> {{formatWithCommas(product?.price)}}</span></p>
           </ion-text>
         </ion-col>
         <ion-col size="12" class="ion-text-center">

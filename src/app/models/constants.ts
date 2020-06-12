@@ -1,5 +1,5 @@
 export const Constants = {
-    baseUrl:   'http://41.73.8.123/horizonaccess/legend/public/api' , //'https://legendpay.ng/api',
+    baseUrl:   'http://41.73.8.123/horizonaccess/legend/public/api/v2' , //'https://legendpay.ng/api',
     merchantImageBaseUrl: "http://41.73.8.123/horizonaccess/pos/legend/public/storage/merchant-image/",
     authUser: 'authUser'
 }

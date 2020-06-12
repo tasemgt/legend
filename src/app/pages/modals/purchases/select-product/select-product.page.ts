@@ -103,6 +103,13 @@ export class SelectProductPage implements OnInit {
       })
   }
 
+  public formatWithCommas(num: any){
+    if(!num){
+      return;
+    }
+    return this.utilService.numberWithCommas(num);
+  }
+
   public closeModal(){
     this.modalCtrl.dismiss();
   }
