@@ -21,7 +21,7 @@
       <ion-col size="12" >
         <ion-text color="primary" class="renew-content">
           <h6>Main Balance</h6>
-          <p><ion-icon src="assets/imgs/naira.svg"></ion-icon>  {{currentBalance.balance}}</p>
+          <p>&#8358;{{currentBalance.balance}}</p>
         </ion-text>
       </ion-col>
       <ion-col size="12" >
@@ -33,7 +33,7 @@
       <ion-col size="12" >
         <ion-text color="primary" class="renew-content">
           <h6>Product Amount</h6>
-          <p><ion-icon src="assets/imgs/naira.svg"></ion-icon>  {{formatNumWithCommas(currentBalance.price)}}</p>
+          <p>&#8358;{{formatNumWithCommas(currentBalance.price)}}</p>
         </ion-text>
       </ion-col>
       <form #renewForm="ngForm" (ngSubmit)="renewBundle(renewForm)" style="width: 100%;">
@@ -55,8 +55,7 @@
           <ion-col size="12" class="legend-input">
             <p>Amount</p>
             <ion-item class="amount">
-              <ion-icon src="assets/imgs/naira.svg"></ion-icon>
-              &nbsp;&nbsp;
+              &#8358;
               <ion-input  type="text" name="amount" [(ngModel)]="_amount" (ionChange)="refreshModel()" required></ion-input>
             </ion-item>
           </ion-col>

@@ -67,44 +67,46 @@ export class FundWalletPage implements OnInit, OnDestroy {
           .then((err:any) =>{
             if(err){
               this.utilService.showToast(`${err.message}`, 3000, 'danger');
-              //this.loadingCtrl.dismiss();
+              this.loadingCtrl.dismiss();
             }
           });
 
         this.responseSubscription = this.paymentService.getResponseSubject()
-          .subscribe((response) =>{
+          .subscribe((response: string) =>{
             console.log("RESP ", response);
             if(!response){
-              //this.loadingCtrl.dismiss(); //Happens when inapp browser closes without payment
+              //Happens when inapp browser closes without payment
+              console.log('no response', response);
               return;
             }
-            setTimeout(() =>{  // Just to create some load effect before completing
-              //this.loadingCtrl.dismiss();
-              if(response === 'Transaction Successful'){ //if(JSON.parse(response).code === 100){
-                  this.utilService.showToast(`Success! Your payment of \u20A6${_amount} is confirmed.`, 3000, 'success');
+            else{
+              let status = response.substring(0, response.indexOf('-'));
+              let message = response.substring(response.indexOf('-')+1);
+              if(status === 'success'){
+                  this.utilService.showToast(message, 3000, 'success');
                   this.walletService.balanceState.next(true); // Inform subscribed pages that balance needs to be updated..
+                  this.closeModal();
+              }
+              else if(status === 'failure'){
+                this.utilService.showToast(message, 3000, 'success');
               }
               else{
                 this.utilService.showToast(`Your payment could not be processed. Please try again.`, 3000, 'danger');
-              }
-              this.closeModal();
-              this.fundWalletForm.resetForm();
-              //this.router.navigateByUrl('/tabs/home');
-            }, 1000);}
+              }  
+            }
+          }
         );
       });
   }
-
-  // public onModelChange(){
-  //   this.amount = this.amount.replace(/\d(?=(?:\d{3})+$)/g, '$&,');
-  // }
 
   public closeModal(){
     this.modalCtrl.dismiss();
   }
 
   public refreshModel(): void{
-    this._amount = this.utilService.numberWithCommas(this._amount);
+    if(this._amount){
+      this._amount = this.utilService.numberWithCommas(this._amount);
+    }
   }
 
   ngOnDestroy(){

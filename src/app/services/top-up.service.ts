@@ -40,7 +40,7 @@ export class TopUpService implements OnDestroy {
         if(err.status === 0){
           return Promise.resolve({message: 'Connection unsuccessful, check network and try again'});
         }
-        if(err.error.code === 100){
+        if(err.error.code === 100){  // Where the deal happens
           console.log(err.error.url);
           const url = `${err.error.url}`;
           this.openBrowser(url)
@@ -57,6 +57,7 @@ export class TopUpService implements OnDestroy {
   // Function to handle browser related stuff...
   private openBrowser(url: string){
     this.loadingCtrl.dismiss();
+    this.paymentResponse = ''; //Clear previous responses
     const browser = this.iab.create(url, '_blank', `
     location=no,zoom=no,useWideViewPort=no,closebuttoncolor=#ffffff,
     hidenavigationbuttons=yes,hideurlbar=yes,toolbarcolor=#2C3038`);
@@ -65,24 +66,26 @@ export class TopUpService implements OnDestroy {
     this.loadStopSub = browser.on('loadstop')
       .subscribe((event: InAppBrowserEvent) => {
         browser.executeScript({code:`
-        if(window.location.pathname.includes('/api/legendpay/verify') || window.location.pathname.includes('/api/saved/verify')){
+        if(window.location.pathname.includes('/api/legendpay/verify') || window.location.pathname.includes('/api/legendpay/saved')){
           console.log("Exect script gave a true for this");
-          document.getElementsByTagName('h1')[0].innerHTML
+          var message = document.getElementById('message').innerHTML;
+          'success'+'-'+message;
         }
         else if(window.location.pathname.includes('/api/legendpay/failed')){
           console.log("Exect script gave a true for this");
-          document.getElementsByTagName('h1')[0].innerHTML
+          let message = document.getElementById('message').innerHTML;
+          'failure'+'-'+message;
         }
         else{
           console.log("Exect script gave a false for this");
         }
-        `}).then((resp) =>{ // Traps the innerHTML value of the Pre tag. This contains the json response
+        `}).then((resp) =>{ // Traps the innerHTML value of the Pre tag.
           if(resp[0]){
             this.paymentResponse = resp[0];
             console.log(this.paymentResponse);
             setTimeout(() => {
               browser.close();
-            }, 3000);
+            }, 2000);
           }
         });
     });

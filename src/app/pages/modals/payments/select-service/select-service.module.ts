@@ -6,13 +6,15 @@ import { IonicModule } from '@ionic/angular';
 
 import { SelectServicePage } from './select-service.page';
 import { ServiceDetailsPageModule } from '../service-details/service-details.module';
+import { BuyPowerPageModule } from '../buy-power/buy-power.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ServiceDetailsPageModule
+    ServiceDetailsPageModule,
+    BuyPowerPageModule
   ],
   declarations: [SelectServicePage],
   entryComponents: [SelectServicePage]

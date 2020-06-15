@@ -1,0 +1,66 @@
+<ion-content class="ion-padding legend-modal">
+  <div>
+    <ion-icon name="ios-arrow-back" color="primary" (click)="closeModal()"></ion-icon>
+  </div>
+
+  <ion-grid>
+    
+    <ion-row>
+      <ion-col size="10" class="name-heading-alt ion-text-left">
+        <p>Confirm Purchase</p>
+      </ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12" >
+        <ion-text color="primary" class="account-content">
+          <h6>Meter Number</h6>
+          <p>{{account.meter}}</p>
+        </ion-text>
+      </ion-col>
+      <ion-col size="12" >
+        <ion-text color="primary" class="account-content">
+          <h6>Account Name</h6>
+          <p>{{account.name}}</p>
+        </ion-text>
+      </ion-col>
+      <ion-col size="12" >
+        <ion-text color="primary" class="account-content">
+          <h6>Account Address</h6>
+          <p>{{account.address}}</p>
+        </ion-text>
+      </ion-col>
+      <ion-col size="12" >
+        <ion-text color="primary" class="account-content">
+          <h6>State</h6>
+          <p>{{account.state}}</p>
+        </ion-text>
+      </ion-col>
+      <ion-col size="12" >
+        <ion-text color="primary" class="account-content">
+          <h6>Amount</h6>
+          <p>&#8358;{{formatNumWithCommas(account.amount)}}</p>
+        </ion-text>
+      </ion-col>
+      <ion-col size="12" >
+        <ion-text color="primary" class="account-content">
+          <h6>Service Charge</h6>
+          <p>&#8358;{{formatNumWithCommas(account.serviceCharge)}}</p>
+        </ion-text>
+      </ion-col>
+      <ion-col size="12" >
+        <ion-text color="primary" class="account-content">
+          <h6>Total Cost</h6>
+          <p>&#8358;{{formatNumWithCommas(account.total)}}</p>
+        </ion-text>
+      </ion-col>
+      <ion-col size="12" class="ion-text-center">
+        <div class="btn-wrapper">
+          <ion-button (click)="makePurchase()" class="legend-btn ion-text-capitalize" color="primary" type="button">Make Purchase</ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

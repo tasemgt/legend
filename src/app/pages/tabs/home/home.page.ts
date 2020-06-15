@@ -230,6 +230,15 @@ export class HomePage implements OnInit, OnDestroy{
     this.router.navigateByUrl(`/tabs/${tabName}`);
   }
 
+  public styleObject(){
+    if(this.balance){
+      if(this.balance.bundle.substring(0,38).length <= 19){
+        return {padding: '.5rem .3rem', 'font-size': '0.7rem'}
+      }
+      return {};
+    }
+  }
+
   // On Destroy of the home component..
   ngOnDestroy(){
     this.balanceSubscription.unsubscribe();

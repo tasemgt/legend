@@ -3,7 +3,7 @@ import { ModalController, NavParams, LoadingController } from '@ionic/angular';
 import { NgForm } from '@angular/forms';
 import { UtilService } from 'src/app/services/util.service';
 import { Constants } from 'src/app/models/constants';
-import { TvServicesService } from 'src/app/services/tv-services.service';
+import { ExtraServicesService } from 'src/app/services/extra-services.service';
 
 @Component({
   selector: 'app-service-details',
@@ -21,7 +21,7 @@ export class ServiceDetailsPage implements OnInit {
     private navParams: NavParams,
     private utilService: UtilService,
     private loadingCtrl: LoadingController,
-    private tvService: TvServicesService) {
+    private extraService: ExtraServicesService) {
 
       this.service = this.navParams.get('service');
   }
@@ -49,7 +49,7 @@ export class ServiceDetailsPage implements OnInit {
 
     this.utilService.presentLoading('')
       .then(() =>{
-        return this.tvService.SubscribeToTvUpdate(payload)
+        return this.extraService.SubscribeToTvUpdate(payload)
           .then((resp) =>{
             if(resp.code === 100){
               this.loadingCtrl.dismiss();

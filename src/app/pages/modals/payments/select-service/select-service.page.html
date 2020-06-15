@@ -26,6 +26,7 @@
       <ion-row class="services-row">
         <ion-col size="6" *ngFor="let service of services">
           <div class="service" tappable (click)="openServiceDetailsModal(service)">
+            <span *ngIf="service.status === 'inactive'">Coming soon</span>
             <img [src]="service.icon">
           </div>
         </ion-col>

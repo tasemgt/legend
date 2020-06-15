@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavParams } from '@ionic/angular';
 import { BundleService } from 'src/app/services/bundle.service';
 
 import { Bundle } from 'src/app/models/bundle';
@@ -15,12 +15,19 @@ import { UtilService } from 'src/app/services/util.service';
 export class BundleTypesPage implements OnInit {
   
   public bundleList: Bundle;
+  public reqPlanChange: boolean;
+
 
   constructor(
     private modalCtrl: ModalController,
     private auth: AuthService,
     private bundleService: BundleService,
-    private utilService: UtilService) { }
+    private utilService: UtilService,
+    private navParams: NavParams) {
+
+      this.reqPlanChange = this.navParams.get('reqPlanChange');
+      console.log(this.reqPlanChange);
+    }
 
   ngOnInit() {
     this.getBundleTypes();
@@ -34,13 +41,15 @@ export class BundleTypesPage implements OnInit {
   }
 
   private getBundleTypes(){
-    this.bundleService.getBundleTypes().then((bundles) =>{
-      this.bundleList = bundles;
+    this.bundleService.getBundleTypes(this.reqPlanChange).then((resp) =>{
+      this.bundleList = resp.data || resp.sub;
     });
   }
 
   public closeModal(bundle?: Bundle){
-    bundle? this.modalCtrl.dismiss({ bundle,  renew: this.bundleList.renew}): this.modalCtrl.dismiss();
+    let activeid;
+    this.reqPlanChange? activeid = 0: activeid = 1; 
+    bundle? this.modalCtrl.dismiss({ bundle,  renew: activeid}): this.modalCtrl.dismiss();
   }
 
   public getBundleImagePath(bundleName: string): string{

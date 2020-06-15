@@ -47,9 +47,9 @@ export class UtilService {
 
   public async presentAlert(message: string) {
     const alert = await this.alertCtrl.create({
-      // header: 'Alert',
+      // header,
       // subHeader: 'Subtitle',
-      message: message,
+      message,
       buttons: ['Ok']
     });
     await alert.present();

@@ -26,11 +26,11 @@ export class BundleService{
   private balanceState: BehaviorSubject<boolean>;
 
 
-  public getBundleTypes(): Promise<any>{
+  public getBundleTypes(reqPlanChange: boolean): Promise<any>{
     return this.authService.getUser()
       .then(user => {
         const headers = {Authorization: `Bearer ${user.token}`, Accept: 'application/json', 'Content-Type': 'application/json'};
-        return this.http.get(`${this.baseUrl}/bundle-list`, {headers}).toPromise();
+        return reqPlanChange? this.http.get(`${this.baseUrl}/request-plan`, {headers}).toPromise(): this.http.get(`${this.baseUrl}/bundle-list`, {headers}).toPromise();
       })
       .then((response: any) =>{
         console.log(response);

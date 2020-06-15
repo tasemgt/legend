@@ -15,12 +15,6 @@ ion-col{
     font-size: 0.9rem;
     margin: 1rem 0px;
 
-    ion-icon{
-        font-size: 0.6rem;
-        position: absolute;
-        top: 1.1rem;
-    }
-
     ion-input{
         --padding-start: 0.5rem;
     }
@@ -41,10 +35,6 @@ ion-col{
         font-size: 0.9rem;
         border-radius: 5px;
         padding: .8rem;
-
-        ion-icon{
-            font-size: 0.65rem;
-        }
     }
 }
 

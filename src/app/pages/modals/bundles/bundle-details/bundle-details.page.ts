@@ -54,11 +54,12 @@ export class BundleDetailsPage implements OnInit {
   }
 
 
-  public async openBuyBundleModal(){
+  public async openBuyBundleModal(reqPlanChange: boolean){
     const modal = await this.modalCtrl.create({
       component: BuyBundlePage,
       enterAnimation: myEnterAnimation,
-      leaveAnimation: myLeaveAnimation
+      leaveAnimation: myLeaveAnimation,
+      componentProps: {'reqPlanChange': reqPlanChange}
     });
     await modal.present();
     const {data} = await modal.onDidDismiss();

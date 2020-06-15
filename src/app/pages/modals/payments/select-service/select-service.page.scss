@@ -9,7 +9,19 @@
     border-radius: 10px;
     // box-shadow: 0 .3rem 1rem rgba(229,63,39,0.4);
     padding-left: .8rem;
+    position: relative;
 
+    span{
+      position: absolute;
+      display: inline-block;
+      background-color: var(--ion-color-primary);
+      background-color: var(--ion-color-primary);
+      padding: .1rem .4rem .2rem .4rem;
+      border-radius: 13px;
+      font-size: .6rem;
+      top: .2rem;
+      right: .2rem;
+    }
 
     img{
       width: 90%;

@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { Platform } from '@ionic/angular';
+import { Platform, LoadingController } from '@ionic/angular';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
 import { BehaviorSubject } from 'rxjs';
 import { Constants } from '../models/constants';
 import { User, UserCred, UserAddress } from '../models/user';
-import { HTTP } from '@ionic-native/http/ngx';
 import { UtilService } from './util.service';
 
 
@@ -30,9 +29,9 @@ export class AuthService {
   constructor(
     private platform: Platform, 
     private storage: Storage,
-    private http2: HTTP,
     private http: HttpClient,
-    private util: UtilService) {
+    private util: UtilService,
+    private loadingCtrl: LoadingController) {
     this.platform.ready().then(() =>{
       this.checkToken(); // Check auth state on every app instantiation
     });
@@ -54,7 +53,7 @@ export class AuthService {
     if(currentDate >= expDate){
       // Log user out
       this.logout();
-      this.util.presentAlert('Session Expired. Login to continue');
+      this.util.presentAlert('Session Expired. <br/><br/>Login to continue');
       return true;
     }
     return false;
@@ -118,10 +117,26 @@ export class AuthService {
       });
   }
 
-  public logout() {
-    return this.storage.clear().then(() => {
-      this.authState.next(false);
-    });
+  public logout(user?: User) {
+    if(user){  // If user initiated logout, expire token and clear from storage
+      const headers = {Authorization: `Bearer ${user.token}`, Accept: 'application/json', 'Content-Type': 'application/json'};
+      return this.http.get(`${this.baseUrl}/logout`, {headers}).toPromise()
+        .then((resp: {code:number; message:string}) =>{
+          this.loadingCtrl.dismiss();
+          if(resp.code === 100){
+            this.clearUserToken();
+            return Promise.resolve(resp);
+          }
+          else if(resp.code === 418){
+            return Promise.reject(resp);
+          }
+        })
+        .catch((err) =>{
+          this.loadingCtrl.dismiss();
+          return Promise.reject(err);
+        });
+    }
+    this.clearUserToken();  //Simply clear token if user token expires and app needs to logout
   }
 
   public getUser(): Promise<User>{
@@ -135,6 +150,12 @@ export class AuthService {
 
   public isAuthenticated() {
     return this.authState.value;
+  }
+
+  private clearUserToken(){
+    this.storage.clear().then(() => {
+      this.authState.next(false);
+    });
   }
 
   public getAuthStateSubject(){

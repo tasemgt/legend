@@ -17,17 +17,17 @@
       <ion-row class="amount-row">
         <ion-col *ngIf="isDirectPayment" size="12" class="legend-input">
           <ion-item>
-            <ion-icon src="assets/imgs/naira.svg"></ion-icon> &nbsp;
+            &#8358;&nbsp;
             <ion-input type="text" name="amount" [(ngModel)]="_amount" #amount="ngModel" (ionChange)="refreshModel()" required></ion-input>
           </ion-item>
         </ion-col>
         <ion-col *ngIf="!isDirectPayment" size="12" >
           <ion-text color="primary" class="product-price">
-            <p>{{product?.name}} <span style="float: right;"><ion-icon src="assets/imgs/naira.svg"></ion-icon> {{formatWithCommas(product?.price)}}</span></p>
+            <p>{{product?.name}} <span style="float: right;">&#8358;{{formatWithCommas(product?.price)}}</span></p>
           </ion-text>
         </ion-col>
         <ion-col size="12" class="ion-text-center">
-          <h4>Wallet Balance: <span *ngIf="balance"><ion-icon src="assets/imgs/naira.svg"></ion-icon> {{balance.balance}}</span>
+          <h4>Wallet Balance: &nbsp;&nbsp;<span *ngIf="balance">&#8358;{{balance.balance}}</span>
             <span><ion-spinner class="spinner" *ngIf="!balance" name="dots"></ion-spinner></span>
           </h4>
         </ion-col>

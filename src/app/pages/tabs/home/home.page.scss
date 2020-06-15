@@ -90,17 +90,19 @@ ion-col{
     background-color: var(--ion-color-secondary);
     color: var(--ion-color-secondary-contrast);
     width: 60%;
-    margin: 2rem auto 0.5rem auto;
+    height: 2rem;
+    max-height: 2rem;
+    margin: 2.2rem auto 0.5rem auto;
     font-size: 0.6rem;
     border-radius: 5px;
-    padding: .1rem;
+    padding: .15rem;
   }
   
   p:last-child{
     span{
       font-size: 2.5rem;
       line-height: 1;
-      font-family: SourceSansPro;//MuliLight; 
+      font-weight: 100 !important;
       font-weight: bold; 
     }
   }
@@ -188,6 +190,8 @@ ion-col{
       }
     }
   }
+
+  
 
 
   div:nth-of-type(1),

@@ -76,6 +76,9 @@ export class PayForFriendPage implements OnInit {
   
   }
 
+  public formatWithCommas(num: any){
+    return this.utilService.numberWithCommas(num);
+  }
 
   public closeModal(){
     this.modalCtrl.dismiss();

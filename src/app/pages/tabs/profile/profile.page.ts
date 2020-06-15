@@ -99,7 +99,17 @@ export class ProfilePage implements OnInit, OnDestroy{
   public logout(){
     this.utilService.presentAlertConfirm('Log Out', 
     `This action will log you out of Legend Pay App. <br><br> Proceed ?`, () =>{
-      this.authService.logout();
+      this.utilService.presentLoading('')
+        .then(() =>{
+          console.log('called', this.user);
+          return this.authService.logout(this.user);
+        })
+        .then((resp) =>{
+          //
+        })
+        .catch((err) =>{
+          console.log(err);
+        });
     });
   }
 

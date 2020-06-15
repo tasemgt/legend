@@ -22,7 +22,8 @@ export class BuyBundlePage implements OnInit {
   @ViewChild('bundleForm', null) bundleForm: NgForm;
   public bundles: {name: string, amount: string, description: { duration: string, package: string}}[];
   public chosenBundle: Bundle;
-  public renewOrRequest: string;
+  public renewOrRequest: number;
+  public reqPlanChange: boolean;
 
   public toggle: boolean;
   public disableToggle: boolean;
@@ -30,6 +31,7 @@ export class BuyBundlePage implements OnInit {
   public plans = Plans;
 
   public chosenPlan: any;
+
 
   constructor(
     private modalCtrl: ModalController, 
@@ -40,6 +42,7 @@ export class BuyBundlePage implements OnInit {
     private navParams: NavParams,
     private walletService: WalletService) { 
 
+      this.reqPlanChange = this.navParams.get('reqPlanChange');
       this.disableToggle = true;
       this.toggle = false;
   }
@@ -66,7 +69,7 @@ export class BuyBundlePage implements OnInit {
     this.toggle ? rate = this.chosenPlan.value : rate = 0;
 
     let payload = {
-      activeid: Number(this.renewOrRequest),
+      activeid: this.renewOrRequest,
       pid: this.chosenBundle.products_id,
       autorenew: Number(this.toggle),
       autorenew_rate: rate
@@ -74,7 +77,7 @@ export class BuyBundlePage implements OnInit {
 
     console.log(payload);
 
-    if(this.renewOrRequest === '0'){
+    if(this.renewOrRequest === 0){
       // send a request for subscription..
       this.utilService.presentAlertConfirm('Request Plan Change',
      `You are requesting a change in subscription plan to <br><strong>(${this.chosenBundle.products_name})</strong>. <br><br> Proceed?`,
@@ -107,7 +110,7 @@ export class BuyBundlePage implements OnInit {
     this.toggle ? message = `Confirm this subscription plan with ${this.chosenPlan.verb} <strong>${this.chosenPlan.name}</strong> renewal?`:
                             message = `Proceed with confirming the subscription of this plan?`;
 
-    if(this.renewOrRequest === '1'){
+    if(this.renewOrRequest === 1){
       //Proceed to subscribe...
 
       console.log(payload);
@@ -168,6 +171,7 @@ export class BuyBundlePage implements OnInit {
 
     const modal = await this.modalCtrl.create({
       component: BundleTypesPage,
+      componentProps: {'reqPlanChange': this.reqPlanChange}
     });
     await modal.present();
     const {data} = await modal.onDidDismiss();
