@@ -44,6 +44,7 @@ export class RegisterPage implements OnInit {
       // this.basicForm.resetForm();
     }
 
+    //Prevents slide to next by swiping
     ionViewWillEnter(){
       this.slides.lockSwipes(true);
     }
@@ -63,6 +64,7 @@ export class RegisterPage implements OnInit {
   }
 
 
+  // After basic info entered
   public proceedToAddress(form: NgForm): void{
 
     this.accountCreationState = 0;
@@ -95,14 +97,16 @@ export class RegisterPage implements OnInit {
     this.nextSlide();
   }
 
+  //Signup without address info
   public skipAddress(): void{
-    this.utilService.presentAlertConfirm('Skip Address Info!', 
+    this.utilService.presentAlertConfirm('Skip Address Info', 
     `You can still update your address information from your profile page.
     <br/><br/> <strong>Proceed</strong>?`, () =>{
       this.doSignup(false);
     }, 'Cancel', 'Yes');
   }
 
+  //Finish registration with address info
   public finishRegistration(form: NgForm): void{
     if(form.invalid){
       this.utilService.showToast('Form cannot contain empty fields.', 2000, 'danger');
@@ -118,25 +122,33 @@ export class RegisterPage implements OnInit {
     this.doSignup(true);
   }
 
+  //Signup method to send info to server
   private doSignup(withAddress: boolean): void{
     this.utilService.presentLoading('Creating your account')
       .then(() =>{
+        let successRespMessage = '';
         this.authService.submitUserBasicInfo(this.userBasicInfo)
-          .then((resp) =>{ //Quickly login to get a token.
-            this.accountCreationState = 1;
-            return this.authService.login(this.userBasicInfo.username, this.userBasicInfo.password);
+          .then((resp) =>{ 
+            this.accountCreationState = 1; //After basic info
+            if(!withAddress){
+              return resp;
+            }
+            //Quickly login to get a token to use for address submission.
+            successRespMessage = resp.message; //Save for use after address add;
+            return this.authService.login(this.userBasicInfo.username, this.userBasicInfo.password, true);
           })
           .then((resp) =>{
             if(withAddress){ //Calls submit address info function if user fills it
-              this.accountCreationState = 2;
+              this.accountCreationState = 2; //After address info
               return this.authService.submitUserAddressInfo(this.userAddressInfo, resp.token);
             }
             return resp;
           })
           .then((resp) =>{
             this.loadingCtrl.dismiss();
+            withAddress ? resp.message = successRespMessage: '';
             if(resp.code === 100){
-              this.utilService.showToast(`Hi, ${this.userBasicInfo.firstName}, your Legend wallet has successfully been created`, 4000, 'success');
+              this.utilService.showToast(resp.message, 4000, 'success');
               this.router.navigateByUrl('/login');
             }
             if(resp.code === 418){

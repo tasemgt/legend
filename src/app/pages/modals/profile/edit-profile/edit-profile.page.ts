@@ -37,14 +37,6 @@ export class EditProfilePage implements OnInit {
   ngOnInit() {
   }
 
-  // Checks for token expiration...
-   ionViewDidEnter(){
-    setTimeout(async () =>{
-      const user = await this.auth.getUser();
-      this.auth.checkTokenExpiry(user);
-    }, 200);
-  }
-
   public updateProfile(form: NgForm){ 
 
     console.log(form.value.email, form.value.phone);

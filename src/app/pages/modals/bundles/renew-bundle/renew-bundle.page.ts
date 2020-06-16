@@ -93,8 +93,8 @@ export class RenewBundlePage{
 
     let message: string;
 
-    this.toggle ? message = `Confirm ${this.chosenPlan.verb} <strong>${this.chosenPlan.name}</strong> renewal of <strong>${amount}</strong> naira for this subscription?`:
-                            message = `Confirm a one time renewal of <strong>${amount}</strong> naira for this subscription?`;
+    this.toggle ? message = `Confirm ${this.chosenPlan.verb} <strong>${this.chosenPlan.name}</strong> renewal of <strong>&#8358;${amount}</strong> for this subscription?`:
+                            message = `Confirm a one time renewal of <strong>&#8358;${amount}</strong> for this subscription?`;
 
     this.utilService.presentAlertConfirm('Confirm Renewal', message, () =>{
 

@@ -16,6 +16,8 @@ export class AuthService {
 
   private baseUrl = Constants.baseUrl;
   private authUser = Constants.authUser;
+
+  public user: User;
   
   public authState: BehaviorSubject<boolean> = new BehaviorSubject(null);
 
@@ -35,6 +37,8 @@ export class AuthService {
     this.platform.ready().then(() =>{
       this.checkToken(); // Check auth state on every app instantiation
     });
+
+    this.getUser().then(() =>{}).catch((err) => console.log(err)); //User object for use, universally
   }
 
   public checkToken(): void {
@@ -43,22 +47,15 @@ export class AuthService {
     });
   }
 
-  // NB Automatic logout happens in
-  // bundle-types, renew bundle, edit profile, fund wallet, 
-
+  //Check if token has expired
   public checkTokenExpiry(user: User): boolean{
     const currentDate = new Date();
-    const expDate =  new Date(user.expiry); // new Date("2020-03-05T15:27:00.000000Z");
-
-    if(currentDate >= expDate){
-      // Log user out
-      this.logout();
-      this.util.presentAlert('Session Expired. <br/><br/>Login to continue');
-      return true;
-    }
-    return false;
+    const expDate =  new Date(user.expiry); //new Date("2020-06-16T11:47:00.000000Z"); //NB Date is 1hr behind actual West Africa time
+    console.log(expDate); 
+    return currentDate >= expDate ? true : false;
   }
 
+  //Signup stage 1, creating basic info
   public submitUserBasicInfo(userCred: UserCred) : Promise<any>{
     const headers = {Accept: 'application/json', 'Content-Type': 'application/json'};
     return this.http.post(`${this.baseUrl}/sign-up`, userCred, {headers})
@@ -71,8 +68,8 @@ export class AuthService {
         });
   }
 
+  //Signup stage 2, creating address info
   public submitUserAddressInfo(userAddress: UserAddress, userToken: string) : Promise<any>{
-
     const headers = {Authorization: `Bearer ${userToken}`, Accept: 'application/json', 'Content-Type': 'application/json'};
     return this.http.post(`${this.baseUrl}/update-info`, userAddress, {headers})
       .toPromise()
@@ -84,7 +81,8 @@ export class AuthService {
         });
   }
 
-  public login(username: string, password: string) : Promise<User>{
+  //Login user from Login page or from registration page to get token
+  public login(username: string, password: string, fromRegstr: boolean) : Promise<User>{
     let usr: User;
     const headers = {Accept: 'application/json', 'Content-Type': 'application/json'};
     return this.http.post(`${this.baseUrl}/login`, {username, password}, {headers})
@@ -95,26 +93,20 @@ export class AuthService {
           return Promise.resolve(response); // Invalid login here, but pass along to be handled by page
         }
         usr = response;
-        return this.storage.set(this.authUser, response)
-          .then(() =>{
-            this.authState.next(true);
-            return Promise.resolve(usr);
-          });
+        if(!fromRegstr){
+          return this.storage.set(this.authUser, response)
+            .then(() =>{
+              this.authState.next(true);
+              return Promise.resolve(usr);
+            });
+        }
+        else{
+          return Promise.resolve(usr); //Only return the user object if api is called from register
+        }
       })
       .catch((error: HttpErrorResponse) =>{
           return Promise.reject(error);
         });
-  }
-
-  public forgotPassword(email: string){
-    return this.http.post(`${this.baseUrl}/providerauth/password`, {email})
-      .toPromise()
-      .then(res =>{
-        return Promise.resolve(res);
-      })
-      .catch((err: HttpErrorResponse) =>{
-        return Promise.reject(err); 
-      });
   }
 
   public logout(user?: User) {
@@ -136,22 +128,27 @@ export class AuthService {
           return Promise.reject(err);
         });
     }
+    this.loadingCtrl.dismiss(); // For post routes that trigger loading
     this.clearUserToken();  //Simply clear token if user token expires and app needs to logout
   }
 
+  //Get user form storage
   public getUser(): Promise<User>{
     return this.storage.get(this.authUser).then((user) =>{
       if(user){
+        this.user = user;
         return Promise.resolve(user);
       } 
       return Promise.reject('No user in storage');
     });
   }
 
+  //Return auth state value
   public isAuthenticated() {
     return this.authState.value;
   }
 
+  //Clear token form storage
   private clearUserToken(){
     this.storage.clear().then(() => {
       this.authState.next(false);

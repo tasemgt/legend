@@ -81,7 +81,7 @@ export class HomePage implements OnInit, OnDestroy{
       }
       else{
         //this.balance.resetBalance();
-        this.profile.username = '';
+        this.profile? this.profile.username = '': '';
         this.daysLeft = '';
         this.balance = null;
         this.rotateCirclePos = 0;

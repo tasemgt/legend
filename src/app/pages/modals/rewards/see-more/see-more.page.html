@@ -4,8 +4,8 @@
       <ion-label class="ion-text-wrap">
         <ion-text color="primary">
           <h3>
-            <span *ngIf="reward.points_after >= numberIt(reward.points_before)">+</span>{{reward.points_after - numberIt(reward.points_before)}} <span> 
-            <span>{{reward.updated_at | date}}</span></span>
+            <span *ngIf="reward.points_after >= numberIt(reward.points_before)">+</span>{{reward.points_after - numberIt(reward.points_before)}} 
+            <span class="date">{{reward.updated_at | date}}</span>
           </h3>
         </ion-text>
         <ion-text color="white">

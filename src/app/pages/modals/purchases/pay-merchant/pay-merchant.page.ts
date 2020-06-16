@@ -72,7 +72,7 @@ export class PayMerchantPage implements OnInit, OnDestroy {
 
     this.utility.presentAlertConfirm('Payment Confirmation',
     `Do you want to proceed with the payment of 
-    <strong>${amount || this.product.price}</strong> naira to <strong>${this.merchant.name}</strong>?`, 
+    <strong>&#8358;${amount || this.formatWithCommas(this.product.price)}</strong> to <strong>${this.merchant.name}</strong>?`, 
       ()=>{
 
         amount? amount = amount.replace(/,/g, ""): ''; //Ignore amount if paying for a product

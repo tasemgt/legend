@@ -33,13 +33,6 @@ export class BundleTypesPage implements OnInit {
     this.getBundleTypes();
   }
 
-  ionViewDidEnter(){
-    setTimeout(async () =>{
-      const user = await this.auth.getUser();
-      this.auth.checkTokenExpiry(user);
-    }, 200);
-  }
-
   private getBundleTypes(){
     this.bundleService.getBundleTypes(this.reqPlanChange).then((resp) =>{
       this.bundleList = resp.data || resp.sub;

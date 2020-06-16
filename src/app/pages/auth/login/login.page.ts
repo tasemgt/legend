@@ -41,42 +41,37 @@ export class LoginPage implements OnInit {
       return;
     }
     
-    // if(!this.utilService.validateEmail(form.value.email)){
-    //   this.utilService.showToast('Please enter a valid email.', 2000, 'danger');
-    //   return;
-    // }
     console.log(form.value.username, form.value.password);
-    this.utilService.presentLoading('Logging you in');
-    this.authService.login(form.value.username, form.value.password)
-      .then((response: any) =>{
-        this.utilService.dismissLoading();
-        if(response.code === 418){
-          this.utilService.showToast(response.message, 3000, 'danger');
-        }
-      })
-      .catch((error:HttpErrorResponse) => {
-        console.log(error.status);
-        if(error.status === 0){
-          setTimeout(()=>{ // To give a little time for loadingCtrl to be available before dismissal
-            this.loadingCtrl.dismiss();
-            console.log('No network')
-            this.utilService.showToast('Ooops! something went wrong, please check your connection and try again.', 3000, 'danger');
-          },2000);
-        }   
-        else{
-          switch(error.status){
-            case(401):
-              this.loadingCtrl.dismiss();
-              this.utilService.showToast('Invalid Login Credentials', 3000, 'danger');
-              break;
-            case(500):
-              this.loadingCtrl.dismiss();
-              this.utilService.showToast('Cannot connect to server at the moment, please try again later', 3000, 'danger');
-              break;
-          }
-        }
-      });
 
+    this.utilService.presentLoading('Logging you in')
+      .then(() =>{
+        this.authService.login(form.value.username, form.value.password, false)
+          .then((response: any) =>{
+            this.loadingCtrl.dismiss();
+            if(response.code === 418){
+              this.utilService.showToast(response.message, 3000, 'danger');
+            }
+          })
+          .catch((error:HttpErrorResponse) => {
+            console.log(error);
+            this.loadingCtrl.dismiss();
+            if(error.status === 0){
+              console.log('No network')
+              this.utilService.showToast('Ooops! something went wrong, please check your connection and try again.', 3000, 'danger');        
+            }   
+            else{
+              this.loadingCtrl.dismiss();
+              switch(error.status){
+                case(401):
+                  this.utilService.showToast('Invalid Login Credentials', 3000, 'danger');
+                  break;
+                case(500):
+                  this.utilService.showToast('Cannot connect to server at the moment, please try again later', 3000, 'danger');
+                  break;
+              }
+            }
+          });
+      });
   }
 
   public hideShowPassword() {

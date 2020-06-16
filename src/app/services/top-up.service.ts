@@ -66,20 +66,20 @@ export class TopUpService implements OnDestroy {
     this.loadStopSub = browser.on('loadstop')
       .subscribe((event: InAppBrowserEvent) => {
         browser.executeScript({code:`
-        if(window.location.pathname.includes('/api/legendpay/verify') || window.location.pathname.includes('/api/legendpay/saved')){
-          console.log("Exect script gave a true for this");
+        if(window.location.pathname.includes('/api/v2/legendpay/verify') || window.location.pathname.includes('/api/v2/legendpay/saved')){
+          console.log("true");
           var message = document.getElementById('message').innerHTML;
           'success'+'-'+message;
         }
-        else if(window.location.pathname.includes('/api/legendpay/failed')){
-          console.log("Exect script gave a true for this");
+        else if(window.location.pathname.includes('/api/v2/legendpay/failed')){
+          console.log("true");
           let message = document.getElementById('message').innerHTML;
           'failure'+'-'+message;
         }
         else{
-          console.log("Exect script gave a false for this");
+          console.log("false");
         }
-        `}).then((resp) =>{ // Traps the innerHTML value of the Pre tag.
+        `}).then((resp) =>{
           if(resp[0]){
             this.paymentResponse = resp[0];
             console.log(this.paymentResponse);

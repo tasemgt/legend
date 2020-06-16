@@ -35,7 +35,7 @@ export class SearchUserTransferPage implements OnInit {
     }
 
     this.utilService.presentAlertConfirm('Fund Transfer', 
-    `Kindly confirm the transfer of <strong>${amount}</strong> Naira from your Legend Pay Wallet to <strong>${username}'s</strong> wallet`, 
+    `Kindly confirm the transfer of <strong>&#8358;${amount}</strong> from your Legend Pay Wallet to <strong>${username}'s</strong> wallet`, 
       () =>{
         //Do tranfer...
 

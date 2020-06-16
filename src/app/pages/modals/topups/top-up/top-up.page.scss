@@ -5,33 +5,41 @@ ion-item{
 }
 
 .payment-method{
-  height: 4.2rem;
   width: 100%;
   font-size: 0.9rem;
   border-radius: 6px;
   border: 1.2px solid var(--ion-color-primary);
   margin-bottom: 1.3rem;
-  padding: 0 1.5rem 1rem 1.5rem;
   background: var(--ion-color-secondary);
   box-shadow: 1px 3px 5px -1px rgba(0,0,0,0.75);
+  padding: .6rem 1.2rem;
   span{
-    margin-top: 1.5rem;
     display: inline-block;
     position: relative;
 
     img{
       position: absolute;
-      top: 0.3rem; //0.35
-      left: 0.15rem; //0.18
+      top: 0.3rem;
+      left: 0.1rem;
+    }
+
+    &:first-child{
+      margin-top: .7rem;
+    }
+
+    &:last-child{
+      float: right;
+      height: 45px;
+      width: 45px;
+      background: var(--ion-color-secondary);
+      border-radius: 50%;
+      border: 1.5px solid var(--ion-color-primary);
     }
   }
-  span:last-child{
-    float: right;
-    margin-top: 10px;
-    height: 45px;
-    width: 45px;
-    background: var(--ion-color-secondary);
-    border-radius: 50%;
-    border: 1.5px solid var(--ion-color-primary);
-  }
+}
+
+.clearfix::after{
+  content: '';
+  clear: both;
+  display: table;
 }
