@@ -109,7 +109,7 @@ ion-grid.tabs-area{
 
 // Name headings of Tabs in Tabs area
 .name-heading{
-    p{ margin: 10px auto; }
+    p{ margin: .625rem auto; }
     span{
         font-family: SourceSansPro;//MuliLight; 
         font-weight: bold; 
@@ -130,7 +130,6 @@ ion-grid.tabs-area{
         margin: 0px;
     }
 }
-
 
 /** 
     Alerts and pop ups
@@ -310,3 +309,10 @@ ion-grid.tabs-area{
     }
 
   }
+
+  /* smaller devices */
+@media only screen and (max-width: 375px) {
+    .name-heading{
+        p{ margin: .48rem auto; }
+    }
+}
