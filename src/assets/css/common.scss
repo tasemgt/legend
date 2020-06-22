@@ -308,7 +308,9 @@ ion-grid.tabs-area{
 
     }[size="3"]{
       div{
-        padding-top: 0.4rem;
+        display: table-cell;
+        vertical-align: middle;
+        // padding-top: 0.4rem;
         text-align: center;
         height: 3.5rem;
         width: 3.5rem;
