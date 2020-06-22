@@ -99,21 +99,28 @@ div[scrollx=true],div[scrolly=true] {
 @media (max-height: 896px) {
     //For iphone 11 size...
     #scroll-content{
-        height: 68vh;
+        height: 67vh;
     }
 }
 
 @media (max-height: 812px) {
     //For iphone X size...
     #scroll-content{
-        height: 67.5vh;
+        height: 69vh;
+    }
+}
+
+@media (max-height: 736px) {
+    //For iphone 6/7/8 plus size...
+    #scroll-content{
+        height: 68vh;
     }
 }
 
 @media (max-height: 667px) {
     //For iphone 6/7/8 size...
     #scroll-content{
-        height: 65.5vh;
+        height: 70vh;
     }
 }
 

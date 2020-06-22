@@ -19,12 +19,35 @@
 }
 
 html{
-  font-size: 107%;
+  font-size: 107%; //17.12px
+}
+
+@media (max-height: 896px) {
+  //For iphone 11 size...
+  html{
+    font-size: 104%;
+  }
 }
 
 /* smaller devices */
-@media only screen and (max-width: 375px) {
+@media only screen and (max-width: 375px), (max-height: 812px) {
+  //For iphone 6/7/8 plus size...
   html{
-    font-size: 97%;
+    font-size: 96%;
+  }
+}
+
+
+@media (max-height: 736px) {
+  //For iphone 6/7/8 plus size...
+  html{
+    font-size: 90%;
+  }
+}
+
+@media (max-height: 667px) {
+  //For iphone 6/7/8 size...
+  html{
+    font-size: 85%;
   }
 }

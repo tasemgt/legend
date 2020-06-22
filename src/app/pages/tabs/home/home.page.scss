@@ -20,21 +20,21 @@ ion-col{
 }
 
 .parent-circle{
-  width: 234px;
-  height: 234px;
+  width: 13.7rem;//234px;
+  height: 13.7rem;//234px;
   border-radius: 50%;
   position: absolute;
   top: 50%;
   left: 50%;
-  margin: -117px 0 0 -117px;
+  margin: -6.85rem 0 0 -6.85rem;
   text-align: center;
   background-color: var(--ion-color-tertiary-shade2);
   opacity: 0.7;
 }
 
 .circle-wrapper{
-  width: 220px;
-  height: 220px;
+  width: 12.9rem;//220px;
+  height: 12.9rem;//220px;
   position: relative;
   margin: 0px auto;
   border: 3px solid var(--ion-color-secondary);
@@ -68,12 +68,12 @@ ion-col{
 }
 
 .circle{
-  width: 180px;
-  height: 180px;
+  width: 10.5rem;
+  height: 10.5rem;
   position: absolute;
   top: 50%;
   left: 50%;
-  margin: -90px 0 0 -90px;
+  margin: -5.25rem 0 0 -5.25rem;
   border-radius: 50%;
   background-color: var(--ion-color-primary);
 
