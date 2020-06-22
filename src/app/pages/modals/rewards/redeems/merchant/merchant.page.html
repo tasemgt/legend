@@ -19,18 +19,51 @@
         <p><span>Redeem Points:</span> {{redeemMerchant.redeem.point}}</p>
         <div class="product-discount-details">
           <h2>{{redeemMerchant.redeem.name}}</h2>
-          <p class="text-small">{{redeemMerchant.redeem.desc}}</p>
+          <!-- <p class="text-small">{{redeemMerchant.redeem.desc}}</p> -->
 
-          <div>
-            <p><span>Merchant:</span><span>{{redeemMerchant.merchant.name}}</span></p>
-            <p><span>Product:</span><span>{{redeemMerchant.product.name}}</span></p>
-            <p><span>Description:</span><span>{{redeemMerchant.product.description}}</span></p>
+          <div class="product-info">
             <p>
-              <span>Price:</span>
-              <span>
-                <s><ion-icon src="assets/imgs/naira.svg"></ion-icon>{{formatWithCommas(redeemMerchant.product.price)}}</s> &nbsp;
-                <ion-icon src="assets/imgs/naira.svg"></ion-icon>{{getDiscount(redeemMerchant.product.price, redeemMerchant.redeem.value)}}
-              </span>
+              <ion-row>
+                <ion-col size="3">
+                  Merchant:
+                </ion-col>
+                <ion-col size="9">
+                  {{redeemMerchant.merchant.name}}
+                </ion-col>
+              </ion-row>
+            </p>
+            <p>
+              <ion-row>
+                <ion-col size="3">
+                  Product:
+                </ion-col>
+                <ion-col size="9">
+                  {{redeemMerchant.product.name}}
+                </ion-col>
+              </ion-row>
+            </p>
+            <p>
+              <ion-row>
+                <ion-col size="3">
+                  Price:
+                </ion-col>
+                <ion-col size="9">
+                  <s>&#8358;{{formatWithCommas(redeemMerchant.product.price)}}</s> &nbsp;
+                &#8358;{{getDiscount(redeemMerchant.product.price, redeemMerchant.redeem.value)}}
+                </ion-col>
+              </ion-row>
+            </p>
+            <p>
+              <ion-row>
+                <ion-col size="6">
+                  Description:
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12">
+                  {{redeemMerchant.product.description}}
+                </ion-col>
+              </ion-row>
             </p>
           </div>
         </div>

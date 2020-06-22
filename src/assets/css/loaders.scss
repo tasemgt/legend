@@ -8,9 +8,9 @@
     --background: transparent;
   }
   
-  .loading-translucent.sc-ion-loading-ios-h .loading-wrapper.sc-ion-loading-ios{
-    backdrop-filter: unset;
-    background-color: transparent;
+.loading-wrapper.sc-ion-loading-ios{
+    backdrop-filter: none !important;
+    background-color: transparent !important;
   }
   
   .loading-wrapper.sc-ion-loading-md,
@@ -25,12 +25,16 @@
   }
 }
 
+.loading-spinner.sc-ion-loading-ios + .loading-content.sc-ion-loading-ios{
+  color: var(--ion-color-primary);
+}
+
 .loader,
   .loader:before,
   .loader:after {
     background: #FFF;
-    -webkit-animation: load1 1.3s infinite ease-in-out;
-    animation: load1 1.3s infinite ease-in-out;
+    -webkit-animation: load1 1s infinite ease-in-out;
+    animation: load1 1s infinite ease-in-out;
     width: 1em;
     height: 4em;
   }
