@@ -38,13 +38,14 @@
       <ion-col size="12">
         <p *ngIf="!(products?.length <= 0 && !showLoading)"><span>Top Products</span> <span tappable (click)="openAllProductsModal()">See all</span></p>
         <div class="products-list" *ngIf="products?.length > 0">
-          <div tappable class="product" *ngFor="let product of products | slice: 0:4"  (click)="openPayMerchantModal(false, product)">
+          <div class="product" *ngFor="let product of products | slice: 0:4">
             <ion-row>
-              <ion-col size="6">
+              <ion-col size="7" tappable (click)="openPayMerchantModal(false, product)">
                 <p> {{product.name}} </p>
               </ion-col>
               <ion-col class="price ion-text-right">
                 <p>&#8358;{{formatWithCommas(product.price)}}</p>
+                <p (click)="presentAlert(product.name, product.description)">show description</p>
               </ion-col>
             </ion-row>
           </div>

@@ -41,9 +41,18 @@
       border-bottom: 0.0008rem solid var(--ion-color-tertiary-tint);
       padding: 0.5rem;
 
+      .price{
+        p:last-child{
+          color: var(--ion-color-primary);
+          font-size: .7rem;
+          display: inline-block;
+        }
+      }
+
       p{
         margin: 0px;
-        padding: 0.3rem;
+        padding: 0.1rem;
+        font-size: .8rem;
       }
 
     }:last-child{

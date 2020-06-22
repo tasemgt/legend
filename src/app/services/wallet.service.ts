@@ -24,6 +24,7 @@ export class WalletService {
     private authService: AuthService,
     private storage: Storage) {
 
+      this.getUniveralBalance();
       this.balanceState.subscribe((reloadBal) =>{
         if(reloadBal){
           this.getUniveralBalance();

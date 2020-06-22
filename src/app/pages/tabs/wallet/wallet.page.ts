@@ -86,12 +86,12 @@ export class WalletPage implements OnInit {
       if(err.status === 0){
         console.log("calling again")
         setTimeout(() =>{
-          if(this.platform.is('android') || (this.platform.is('ios') && this.showIosOnce)){
+          if(this.showIosOnce){
             this.utilService.showToast('Check network connectivity', 1000, 'danger');
             this.showIosOnce = false; 
           }
           this.getBalance(); // Call get balance again after 15secs;
-        }, 10000);
+        }, 5000);
       }
     }
   }
@@ -102,13 +102,7 @@ export class WalletPage implements OnInit {
     reload ? this.listReload = true: this.listReload = false;
 
     this.showLoading = true;
-    //let transactions: Transaction[] = [];
-
     this.walletService.getTransactions().then((trans) =>{
-      // Object.values(trans).map(function(value: Transaction) {
-      //   transactions.push(value)
-      // });
-      console.log("loading")
       this.showLoading = false;
       this.listReload = false;
       this.transactions = trans;
@@ -117,7 +111,7 @@ export class WalletPage implements OnInit {
       if(err.status === 0){
         console.log("calling trans again")
         setTimeout(() =>{
-          this.getTransactions(false); // Call get balance again after 15secs;
+          this.getTransactions(false); // Call get balance again after 10secs;
         }, 10000);
       }
     });

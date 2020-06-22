@@ -29,7 +29,7 @@ export class SelectMerchantPage implements OnInit {
   public balance: Balance;
 
   private showIosOnce: boolean;
-
+  public showLoading: boolean;
 
   public merchantImgBaseUrl = Constants.merchantImageBaseUrl;
 
@@ -52,25 +52,28 @@ export class SelectMerchantPage implements OnInit {
 
 
 
-  private async getMerchants(){
-    try{
-      this.merchantWraper = await this.merchantService.getMerchants(false);
-      this.merchants = this.merchantWraper.data;
-      this.topMerchants = this.merchants.slice(0,4);
-      console.log(this.topMerchants);
-    }
-    catch(err){
-      if(err.status === 0){
-        console.log("calling again")
-        setTimeout(() =>{
-          if(this.platform.is('android') || (this.platform.is('ios') && this.showIosOnce)){
-            this.utilService.showToast('Check network connectivity', 1000, 'danger');
-            this.showIosOnce = false; 
-          }
-          this.getMerchants();
-        }, 15000);
-      }
-    }
+  private getMerchants(){
+    this.showLoading = true;
+    this.merchantService.getMerchants(false)
+      .then((resp) =>{
+        this.showLoading = false;
+        this.merchantWraper = resp;
+        this.merchants = this.merchantWraper.data;
+        this.topMerchants = this.merchants.slice(0,4);
+        console.log(this.topMerchants);
+      })
+      .catch((err) =>{
+        if(err.status === 0){
+          console.log("calling again")
+          setTimeout(() =>{
+            if(this.showIosOnce){
+              this.utilService.showToast('Check network connectivity', 1000, 'danger');
+              this.showIosOnce = false; 
+            }
+            this.getMerchants();
+          }, 10000);
+        }
+      });
   }
 
 

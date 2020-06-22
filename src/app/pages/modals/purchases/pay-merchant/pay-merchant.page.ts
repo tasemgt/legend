@@ -40,6 +40,7 @@ export class PayMerchantPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     console.log(this.balance);
+    this.walletService.balanceState.next(true);
     this.balance = this.walletService.uniBalanceValue;
   }
 

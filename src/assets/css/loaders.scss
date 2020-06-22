@@ -1,5 +1,6 @@
 //Custom Loading Controller Style
-.loading-spinner{
+.legend-loader{
+  .loading-spinner{
     display: none;
   }
   
@@ -22,13 +23,13 @@
       margin-left: 0px;
     }
   }
+}
 
   .loader,
     .loader:before,
     .loader:after {
       background: #FFF;
-      -webkit-animation: load1 1s infinite ease-in-out;
-      animation: load1 1s infinite ease-in-out;
+      animation: load1 1.4s infinite ease-in-out;
       width: 1em;
       height: 4em;
     }
@@ -42,7 +43,6 @@
       -ms-transform: translateZ(0);
       transform: translateZ(0);*/
       transform: rotate(-90deg);
-      -webkit-animation-delay: -0.16s;
       animation-delay: -0.16s;
     }
     .loader:before,
@@ -53,7 +53,6 @@
     }
     .loader:before {
       left: -1.5em;
-      -webkit-animation-delay: -0.32s;
       animation-delay: -0.32s;
     }
     .loader:after {

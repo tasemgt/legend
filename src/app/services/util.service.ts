@@ -36,7 +36,8 @@ export class UtilService {
   public async presentLoading(message: string){
     const loading = await this.loadingCtrl.create({
       message: `<div class="loader"></div>`,
-      translucent: true
+      translucent: true,
+      cssClass: 'legend-loader'
     });
     return loading.present();
   }

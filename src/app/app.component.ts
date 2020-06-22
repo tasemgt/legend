@@ -1,6 +1,6 @@
 import { Component, OnDestroy, AfterViewInit } from '@angular/core';
 
-import { Platform, ModalController } from '@ionic/angular';
+import { Platform, ModalController, LoadingController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Subscription } from 'rxjs';
@@ -22,6 +22,7 @@ export class AppComponent implements  OnDestroy, AfterViewInit{
     private platform: Platform,
     private splashScreen: SplashScreen,
     private modalCtrl: ModalController,
+    private loadingCtrl: LoadingController,
     private mobileAccessibility: MobileAccessibility,
     private appMinimize: AppMinimize,
     private statusBar: StatusBar,
@@ -82,7 +83,13 @@ export class AppComponent implements  OnDestroy, AfterViewInit{
   ngAfterViewInit() {
     this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(0, async () => {
       console.log("Pressed...");
+      const isLoading =  this.loadingCtrl.getTop();
       const isModalOpened = await this.modalCtrl.getTop();
+
+      if(isLoading){
+        this.loadingCtrl.dismiss();
+      }
+
       const url = this.router.url.toString();
       if((url === '/tabs/home' || url === '/tabs/wallet' || url === '/tabs/profile') && isModalOpened){
         this.modalCtrl.dismiss();

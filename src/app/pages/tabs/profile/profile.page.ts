@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
 
 import { EditProfilePage } from '../../modals/profile/edit-profile/edit-profile.page';
-import { ModalController } from '@ionic/angular';
+import { ModalController, LoadingController } from '@ionic/angular';
 import { myEnterAnimation, myEnterAnimation2 } from 'src/app/animations/enter';
 import { myLeaveAnimation } from 'src/app/animations/leave';
 import { QrCodePage } from '../../modals/profile/qr-code/qr-code.page';
@@ -30,7 +30,8 @@ export class ProfilePage implements OnInit, OnDestroy{
     private modalCtrl: ModalController,
     private authService: AuthService,
     private userService: UserService,
-    private utilService: UtilService) {}
+    private utilService: UtilService,
+    private loadingCtrl: LoadingController) {}
 
   ngOnInit(){
 
@@ -67,7 +68,7 @@ export class ProfilePage implements OnInit, OnDestroy{
       if(err.status === 0){
         setTimeout(() => {
           this.getUserProfile(user);
-        }, 15000);
+        }, 5000);
       }
     }
   }
@@ -99,7 +100,7 @@ export class ProfilePage implements OnInit, OnDestroy{
   public logout(){
     this.utilService.presentAlertConfirm('Log Out', 
     `This action will log you out of Legend Pay App. <br><br> Proceed ?`, () =>{
-      this.utilService.presentLoading('')
+      this.presentLoading('Logging you out...')
         .then(() =>{
           console.log('called', this.user);
           return this.authService.logout(this.user);
@@ -113,6 +114,16 @@ export class ProfilePage implements OnInit, OnDestroy{
     });
   }
 
+
+  public async presentLoading(message: string){
+    const loading = await this.loadingCtrl.create({
+      message,
+      translucent: true,
+    });
+    return loading.present();
+  }
+
+  
   ngOnDestroy(){
     this.authSubscription.unsubscribe();
   }

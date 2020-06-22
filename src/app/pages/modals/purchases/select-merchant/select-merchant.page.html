@@ -27,7 +27,13 @@
       </ion-col>
     </ion-row>
 
-    <p class="merchants-row-heading">Top Merchants <span tappable (click)="openAllMerchantsModal()">See all</span></p>
+    <p
+    *ngIf="!(merchants?.length <= 0 && !showLoading)"
+      class="merchants-row-heading">Top Merchants 
+      <span tappable (click)="openAllMerchantsModal()">
+       See all
+      </span>
+    </p>
 
     <ion-row class="merchants-row">
       <ion-col size="12" *ngFor="let merchant of topMerchants" >
@@ -55,6 +61,8 @@
     </ion-fab-button>
   </ion-fab>
 
-  <ion-spinner class="spinner" *ngIf="merchants?.length <= 0" name="dots"></ion-spinner>
+  <ion-spinner class="spinner" *ngIf="merchants?.length <= 0 && showLoading" name="dots"></ion-spinner>
+
+  <div class="no-merchants" *ngIf="merchants?.length <= 0 && !showLoading">No merchants available!</div>
 
 </ion-content>

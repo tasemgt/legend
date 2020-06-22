@@ -146,16 +146,13 @@ export class HomePage implements OnInit, OnDestroy{
     }).catch((err: HttpErrorResponse) => {
       if(err.status === 0){
         setTimeout(() =>{
-          if(this.platform.is('android') || (this.platform.is('ios') && this.showIosOnce)){
+          if((this.platform.is('android') && this.counter <= 2) || (this.platform.is('ios') && this.showIosOnce)){
             this.utilService.showToast('Check network connectivity..', 1000, 'danger');
             this.showIosOnce = false; 
           }
-          if(this.counter >= 10){
-            return;
-          }
           this.counter++;
           this.getBalance(); // Call get balance again after 10secs;
-        }, 10000);
+        }, 5000);
         
       }
     });

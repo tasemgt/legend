@@ -50,7 +50,7 @@ export class AuthService {
   //Check if token has expired
   public checkTokenExpiry(user: User): boolean{
     const currentDate = new Date();
-    const expDate =  new Date(user.expiry); //new Date("2020-06-16T11:47:00.000000Z"); //NB Date is 1hr behind actual West Africa time
+    const expDate =  new Date(user.expiry); //new Date("2020-06-21T11:52:00.000000Z"); //NB Date is 1hr behind actual West Africa time
     console.log(expDate); 
     return currentDate >= expDate ? true : false;
   }

@@ -7,14 +7,14 @@ ion-item{
     height: 4.4rem;
   }
 
-  h3{
-    font-size: 1.2rem;
-    font-weight: bolder;
+  ion-row,ion-col{
+    margin: 0;
+    padding: 0;
+  }
 
-    span{
-      color: #FFFFFF;
-      float: right;
-    }
+  h3{
+    font-size: 1rem;
+    font-weight: bolder;
   }
 
   .sc-ion-label-md-s > p,

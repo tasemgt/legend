@@ -37,6 +37,11 @@
 }
 
 .product-price{
+  ion-row,ion-col{
+    margin: 0;
+    padding: 0;
+  }
+
   h6{
       font-weight: bolder;
       font-size: 0.9rem;
@@ -44,17 +49,17 @@
       margin-bottom: 5px;
   }
   p{
-      height: 3.5rem;
       text-align: left;
       margin: 0px;
       background-color: #1d1c1c;//var(--ion-color-secondary);
       color: var(--ion-color-secondary-contrast);
-      font-size: .95rem;
+      font-size: .85rem;
       border-radius: 5px;
-      padding: 1rem .9rem;
+      padding: .5rem .9rem;
 
       ion-icon{
           font-size: 0.6rem;
       }
+
   }
 }

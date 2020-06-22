@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, NavParams, Platform } from '@ionic/angular';
+import { ModalController, NavParams, Platform, AlertController } from '@ionic/angular';
 import { PayMerchantPage } from '../pay-merchant/pay-merchant.page';
 import { myEnterAnimation, myEnterAnimation2 } from 'src/app/animations/enter';
 import { myLeaveAnimation } from 'src/app/animations/leave';
@@ -34,7 +34,8 @@ export class SelectProductPage implements OnInit {
     private modalCtrl: ModalController,
     private navParams: NavParams,
     private merchantService: MerchantService,
-    private utilService: UtilService) { 
+    private utilService: UtilService,
+    private alertCtrl: AlertController) { 
     
       this.merchant = this.navParams.get('merchant');
       this.balance = this.navParams.get('balance');
@@ -109,6 +110,20 @@ export class SelectProductPage implements OnInit {
     }
     return this.utilService.numberWithCommas(num);
   }
+
+
+  public async presentAlert(header: string, message: string) {
+    const alert = await this.alertCtrl.create({
+      header,
+      // subHeader: 'Subtitle',
+      message,
+      buttons: ['Close'],
+      cssClass: 'legend-alert info-display',
+      backdropDismiss: false
+    });
+    await alert.present();
+  }
+  
 
   public closeModal(){
     this.modalCtrl.dismiss();

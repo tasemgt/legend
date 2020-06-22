@@ -219,6 +219,29 @@ ion-grid.tabs-area{
 
 }
 
+.legend-alert.info-display{
+
+    .alert-wrapper.sc-ion-alert-md,
+    .alert-wrapper.sc-ion-alert-ios{
+        height: unset;
+        max-height: 25rem;
+    }
+
+    .alert-title.sc-ion-alert-md,
+    .alert-title.sc-ion-alert-ios{
+        color: var(--ion-color-primary);
+    }
+
+    .alert-message.sc-ion-alert-md,
+    .alert-message.sc-ion-alert-ios{
+        padding: 0 .3rem;
+        margin-top: 0px;
+        margin-bottom: .5rem;
+        font-size: .9rem;
+        font-weight: lighter;
+    }
+}
+
 
 
 /** 
