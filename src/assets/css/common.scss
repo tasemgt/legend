@@ -234,7 +234,8 @@ ion-grid.tabs-area{
 
     .alert-message.sc-ion-alert-md,
     .alert-message.sc-ion-alert-ios{
-        padding: 0 .3rem;
+        padding: 0 1.2rem;
+        text-align: justify;
         margin-top: 0px;
         margin-bottom: .5rem;
         font-size: .9rem;
@@ -336,6 +337,7 @@ ion-grid.tabs-area{
   /* smaller devices */
 @media only screen and (max-width: 375px) {
     .name-heading{
-        p{ margin: .48rem auto; }
+        margin: 0;
+        p{ margin: .1rem auto .5rem auto; }
     }
 }

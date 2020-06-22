@@ -54,7 +54,7 @@ ion-list{
 
 #scroll-content{
     z-index: 10000;
-    height: 69.5vh;
+    height: auto;
 }
 
 .spinner-wrapper{
@@ -106,7 +106,7 @@ div[scrollx=true],div[scrolly=true] {
 @media (max-height: 812px) {
     //For iphone X size...
     #scroll-content{
-        height: 65vh;
+        height: 67vh;
     }
 }
 

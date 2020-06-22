@@ -1,25 +1,27 @@
 //Custom Loading Controller Style
-.loading-spinner{
-  display: none;
-}
-
-.sc-ion-loading-md-h{
-  --background: transparent;
-}
-
-.loading-translucent.sc-ion-loading-ios-h .loading-wrapper.sc-ion-loading-ios{
-  backdrop-filter: unset;
-  background-color: transparent;
-}
-
-.loading-wrapper.sc-ion-loading-md,
-.loading-wrapper.sc-ion-loading-ios{
-    background: transparent;
-    border: none;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-  .loading-content {
-    margin-left: 0px;
+.legend-loader{
+  .loading-spinner{
+    display: none;
+  }
+  
+  .sc-ion-loading-md-h{
+    --background: transparent;
+  }
+  
+  .loading-translucent.sc-ion-loading-ios-h .loading-wrapper.sc-ion-loading-ios{
+    backdrop-filter: unset;
+    background-color: transparent;
+  }
+  
+  .loading-wrapper.sc-ion-loading-md,
+  .loading-wrapper.sc-ion-loading-ios{
+      background: transparent;
+      border: none;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+    .loading-content {
+      margin-left: 0px;
+    }
   }
 }
 
@@ -27,8 +29,8 @@
   .loader:before,
   .loader:after {
     background: #FFF;
-    -webkit-animation: load1 1.4s infinite ease-in-out;
-    animation: load1 1.4s infinite ease-in-out;
+    -webkit-animation: load1 1.3s infinite ease-in-out;
+    animation: load1 1.3s infinite ease-in-out;
     width: 1em;
     height: 4em;
   }
