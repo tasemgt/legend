@@ -88,7 +88,7 @@ export class FundWalletPage implements OnInit, OnDestroy {
                   this.closeModal();
               }
               else if(status === 'failure'){
-                this.utilService.showToast(message, 3000, 'success');
+                this.utilService.showToast(message, 3000, 'danger');
               }
               else{
                 this.utilService.showToast(`Your payment could not be processed. Please try again.`, 3000, 'danger');
