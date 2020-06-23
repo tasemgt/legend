@@ -187,6 +187,7 @@ ion-grid.tabs-area{
     
     .alert-button-group.sc-ion-alert-md{
         justify-content: center;
+        padding-bottom: .95rem;
     }
 
     
@@ -219,7 +220,7 @@ ion-grid.tabs-area{
 
 }
 
-.legend-alert.info-display{
+.legend-alert.info-display{ //For info display mainly for description
 
     .alert-wrapper.sc-ion-alert-md,
     .alert-wrapper.sc-ion-alert-ios{

@@ -31,18 +31,29 @@ export class LogsPage implements OnInit {
 
     this.authSubscription = this.authService.getAuthStateSubject().subscribe((state) =>{
       if(state){
-        this.authService.getUser()
-          .then((user: User) =>{
-            this.getTransactionRecords(user);
-            this.getUsageLogs(user);
-            this.getFinancialLogs(user);
-          });
+        this.init();
       }
       else{
         this.records = []; this.usageLogs = []; this.financialLogs = []; this.category = 'payment';
       }
     });
     
+  }
+
+  ionViewWillEnter(){
+    if(!this.records || !this.usageLogs || !this.financialLogs){
+      this.init();
+    }
+  }
+
+
+  private init(){
+    this.authService.getUser()
+      .then((user: User) =>{
+        this.getTransactionRecords(user);
+        this.getUsageLogs(user);
+        this.getFinancialLogs(user);
+      });
   }
 
 

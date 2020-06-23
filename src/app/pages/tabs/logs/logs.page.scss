@@ -103,6 +103,12 @@ div[scrollx=true],div[scrolly=true] {
     }
 }
 
+@media (max-height: 875px) { //xiaomi a3
+    #scroll-content{
+        height: 69vh;
+    }
+}
+
 @media (max-height: 812px) {
     //For iphone X size...
     #scroll-content{

@@ -29,6 +29,12 @@ html{
   }
 }
 
+@media only screen and (max-height: 875px) { //a3 xiaomi
+  html{
+    font-size: 106%;
+  }
+}
+
 /* smaller devices */
 @media only screen and (max-width: 375px), (max-height: 812px) {
   //For iphone 6/7/8 plus size...
@@ -48,6 +54,6 @@ html{
 @media (max-height: 667px) {
   //For iphone 6/7/8 size...
   html{
-    font-size: 85%;
+    font-size: 88%;
   }
 }
