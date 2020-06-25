@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, NavParams } from '@ionic/angular';
+import { ModalController, NavParams, AlertController } from '@ionic/angular';
 import { MerchantProduct } from 'src/app/models/merchant';
 import { UtilService } from 'src/app/services/util.service';
 
@@ -15,6 +15,7 @@ export class AllProductsPage implements OnInit {
   constructor(
     private modalCtrl: ModalController,
     private navParams: NavParams,
+    private alertCtrl: AlertController,
     private utilService: UtilService) {
 
       this.products = this.navParams.get('products');
@@ -28,6 +29,18 @@ export class AllProductsPage implements OnInit {
       return;
     }
     return this.utilService.numberWithCommas(num);
+  }
+
+  public async presentAlert(header: string, message: string) {
+    const alert = await this.alertCtrl.create({
+      header,
+      // subHeader: 'Subtitle',
+      message,
+      buttons: ['Close'],
+      cssClass: 'legend-alert info-display',
+      backdropDismiss: false
+    });
+    await alert.present();
   }
 
   public closeModal(product?: MerchantProduct){

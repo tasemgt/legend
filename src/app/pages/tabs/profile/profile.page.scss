@@ -21,10 +21,10 @@ ion-col:nth-of-type(4){
 .profile-image-wrapper{
     display: inline-block;
     position: absolute;
-    top: -50px;
-    left: calc(50% - 50px);
-    width: 100px;
-    height: 100px;
+    top: -2.9rem;
+    left: calc(50% - 2.9rem);
+    width: 5.8rem;
+    height: 5.8rem;
     border-radius: 50%;
     border: 1.2px solid var(--ion-color-primary);
     background: var(--ion-color-secondary);
@@ -33,10 +33,10 @@ ion-col:nth-of-type(4){
 .profile-image{
     display: inline-block;
     position: absolute;
-    top: -40px;
-    left: calc(50% - 40px);
-    width: 80px;
-    height: 80px;
+    top: -2.33rem;
+    left: calc(50% - 2.35rem);
+    width: 4.7rem;
+    height: 4.7rem;
     border-radius: 50%;
     border: 1px solid var(--ion-color-primary);
     background: var(--ion-color-primary);
@@ -45,7 +45,7 @@ ion-col:nth-of-type(4){
     h1{
         font-size: 2rem;
         font-weight: 700;
-        margin-top: 18px;
+        margin-top: 1.05rem;
     }
 }
 

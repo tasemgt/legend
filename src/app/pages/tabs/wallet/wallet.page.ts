@@ -91,7 +91,7 @@ export class WalletPage implements OnInit {
             this.showIosOnce = false; 
           }
           this.getBalance(); // Call get balance again after 15secs;
-        }, 5000);
+        }, 2000);
       }
     }
   }
@@ -112,7 +112,7 @@ export class WalletPage implements OnInit {
         console.log("calling trans again")
         setTimeout(() =>{
           this.getTransactions(false); // Call get balance again after 10secs;
-        }, 10000);
+        }, 5000);
       }
     });
   }

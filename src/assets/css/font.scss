@@ -37,7 +37,7 @@ html{
 
 /* smaller devices */
 @media only screen and (max-width: 375px), (max-height: 812px) {
-  //For iphone 6/7/8 plus size...
+  //For iphone X
   html{
     font-size: 96%;
   }
@@ -51,9 +51,9 @@ html{
   }
 }
 
-@media (max-height: 667px) {
-  //For iphone 6/7/8 size...
-  html{
-    font-size: 88%;
-  }
-}
+// @media (max-height: 667px) {
+//   //For iphone 6/7/8 size...
+//   html{
+//     font-size: 89%;
+//   }
+// }
