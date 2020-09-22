@@ -5,13 +5,13 @@ import { UtilService } from 'src/app/services/util.service';
 import { WalletService } from 'src/app/services/wallet.service';
 
 @Component({
-  selector: 'app-buy-power-confirm',
-  templateUrl: './buy-power-confirm.page.html',
-  styleUrls: ['./buy-power-confirm.page.scss'],
+  selector: 'app-buy-dstv-confirm',
+  templateUrl: './buy-dstv-confirm.page.html',
+  styleUrls: ['./buy-dstv-confirm.page.scss'],
 })
-export class BuyPowerConfirmPage implements OnInit {
+export class BuyDstvConfirmPage implements OnInit {
 
-  public account:any
+  public account: any;
 
   constructor(
     private modalCtrl: ModalController,
@@ -19,41 +19,42 @@ export class BuyPowerConfirmPage implements OnInit {
     private extraService: ExtraServicesService, 
     private utilService: UtilService,
     private loadingCtrl: LoadingController,
-    private alertCtrl: AlertController,
-    private walletService: WalletService){
+    private walletService: WalletService) {
 
       this.account = this.navParams.get('account');
       console.log(this.account);
-  }
+    }
 
   ngOnInit() {
-    //this.presentAlert('Success',`<span>Your Token:</span><br/><strong>Tokenkhbuub</strong>`);
+  }
+
+  public formatNumWithCommas(number){
+    return this.utilService.numberWithCommas(number);
   }
 
   public makePurchase(){
-    this.utilService.presentAlertConfirm('Confirm Power Purchase', 
-    `Kindly confirm the payment of <strong>&#8358;${this.formatNumWithCommas(this.account.total)}</strong> for power purchase.`, 
+    this.utilService.presentAlertConfirm('Confirm DSTV Subscription', 
+    `Kindly confirm the payment of <strong>&#8358;${this.formatNumWithCommas(this.account.total)}</strong> for ${this.account.product} subscription.`, 
       () =>{
 
         let payload = {
-          name: this.account.name,
-          address: this.account.address,
-          meter: this.account.meter,
-          amount: this.account.amount,
-          state: this.account.state
+          smartcard: this.account.smartno,
+          sub: this.account.product,
+          amount: this.account.amount
         }
 
         console.log(payload);
 
         this.utilService.presentLoading('')
           .then(() =>{
-            return this.extraService.buyElectricity(payload, 'pay');
+            return this.extraService.buyDstvSubscription('subscribe', payload);
           })       
           .then((resp) =>{
             this.loadingCtrl.dismiss();
             if(resp.code === 100){
               this.walletService.balanceState.next(true);
-              this.presentAlert(resp.message,`<span>Your Token:</span><br/><strong>${resp.token}</strong>`);
+              this.utilService.showToast(resp.message, 3000, 'danger');
+              this.closeModal({closeParent:true}); //close parent modal as well
             }
             else if(resp.code === 418 || resp.code === 407){
               this.utilService.showToast(resp.message, 2000, 'danger');
@@ -65,26 +66,6 @@ export class BuyPowerConfirmPage implements OnInit {
           });
 
       }, 'Cancel', 'Confirm')
-  }
-
-  public formatNumWithCommas(amount){
-    return this.utilService.numberWithCommas(amount);
-  }
-
-  //Customized alert to show electricity token
-  public async presentAlert(header: string, message: string) {
-    const alert = await this.alertCtrl.create({
-      header,
-      // subHeader: 'Subtitle',
-      message,
-      buttons: ['Close'],
-      cssClass: 'legend-alert',
-      backdropDismiss: false
-    });
-    await alert.present();
-    alert.onDidDismiss().then(() =>{
-      this.closeModal({closeParent:true})
-    });
   }
 
   public closeModal(closeParent?:any){

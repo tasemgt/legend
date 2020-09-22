@@ -24,7 +24,7 @@ export class VoucherFundPage implements OnInit {
     let serial = form.value.serial, pin = form.value.pin;
 
     if(form.invalid){
-      this.utilService.showToast('Serian Number or Pin cannot be empty', 2000, 'danger');
+      this.utilService.showToast('Serial Number or Pin cannot be empty', 2000, 'danger');
       return;
     }
 

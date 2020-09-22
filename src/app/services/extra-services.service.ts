@@ -45,5 +45,40 @@ export class ExtraServicesService {
    });
 }
 
+public buyDstvSubscription(type: string, payload?: any): Promise<any>{
+  return this.authService.getUser()
+    .then(user => {
+      const headers = {Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json'};
+      switch(type){
+        case 'fetch': //Fetching subscription types
+          return this.http.get(`${this.baseUrl}/dstv-sublist`, {headers}).toPromise();
+        case 'verify': // Verify DSTV Account
+          return this.http.post(`${this.baseUrl}/dstv-verify`, payload, {headers}).toPromise();
+        case 'subscribe': // Confirm and subscribe
+          return this.http.post(`${this.baseUrl}/dstv-confirm`, payload, {headers}).toPromise();
+      }
+    })
+    .then(resp => Promise.resolve(resp))
+    .catch(err =>{
+      console.log(err);
+      return Promise.reject(err);
+    });
+}
+
+public buyAirtime(payload: any): Promise<any>{
+  return this.authService.getUser()
+   .then(user => {
+     const headers = {Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json'};
+     return this.http.post(`${this.baseUrl}/airtime`,payload, {headers}).toPromise();
+   })
+   .then(resp => {
+     return Promise.resolve(resp);
+   })
+   .catch(err => {
+     console.log(err)
+     return Promise.reject(err);
+   });
+}
+
 
 }

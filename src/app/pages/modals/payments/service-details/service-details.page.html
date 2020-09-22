@@ -20,7 +20,7 @@
         </ion-col>
       </ion-row>
 
-      <form (ngSubmit)="subscribe(subscribeForm)" #subscribeForm="ngForm" *ngIf="service.id >= 2">
+      <form (ngSubmit)="subscribe(subscribeForm)" #subscribeForm="ngForm" *ngIf="service.id > 4">
         <ion-row>
           <p class="desc ion-text-center">{{service.desc}}</p>
           <ion-col size="12" class="legend-input">
@@ -37,7 +37,7 @@
         </ion-row>
       </form>
 
-      <div class="tv-wrapper" *ngIf="service.id === 1">
+      <div class="tv-wrapper" *ngIf="service.id <= 4">
         <ion-row>
           <p class="desc ion-text-center">{{service.desc}}</p>
           <ion-col size="6">

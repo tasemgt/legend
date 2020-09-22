@@ -4,6 +4,8 @@ import { ServiceDetailsPage } from '../service-details/service-details.page';
 import { myEnterAnimation } from 'src/app/animations/enter';
 import { myLeaveAnimation } from 'src/app/animations/leave';
 import { BuyPowerPage } from '../buy-power/buy-power.page';
+import { BuyDstvPage } from '../buy-dstv/buy-dstv.page';
+import { BuyAirtimePage } from '../buy-airtime/buy-airtime.page';
 
 @Component({
   selector: 'app-select-service',
@@ -27,7 +29,23 @@ export class SelectServicePage implements OnInit {
       img: "",
       icon: "assets/imgs/img-aedc.svg",
       status: 'active',
-      id: 1
+      id: 2
+    },
+    {
+      name: "Dstv",
+      desc: "Legend Pay allows you to pay your Cable bills",
+      img: "assets/imgs/dstvlogo.jpg",
+      icon: "assets/imgs/img-dstv.svg",
+      status: 'active',
+      id: 3
+    },
+    {
+      name: "Airtime",
+      desc: "Legend Pay allows you to buy Airtime.",
+      img: "",
+      icon: "assets/imgs/img-airtime.svg",
+      status: 'active',
+      id: 4
     },
     {
       name: "Netflix",
@@ -35,15 +53,7 @@ export class SelectServicePage implements OnInit {
       img: "assets/imgs/netflixlogo.png",
       icon: "assets/imgs/img-netflix.svg",
       status: 'inactive',
-      id: 2
-    },
-    {
-      name: "Dstv",
-      desc: "Discover new blockbusters & must-see TV shows, selected to keep you glued to your screen on DSTV.",
-      img: "assets/imgs/dstvlogo.jpg",
-      icon: "assets/imgs/img-dstv.svg",
-      status: 'inactive',
-      id: 3
+      id: 5
     }
   ]
 
@@ -54,21 +64,38 @@ export class SelectServicePage implements OnInit {
 
   public async openServiceDetailsModal(service){
     let serviceName = this.getServiceType(service.name);
-    if(serviceName === 'buyelectricity'){
-      return this.openBuyPowerModal(service);
+    let component: any;
+
+    if(serviceName === 'legendtv'){
+      const modal = await this.modalCtrl.create({
+        component: ServiceDetailsPage,
+        enterAnimation: myEnterAnimation,
+        leaveAnimation: myLeaveAnimation,
+        componentProps: {'service': service}
+      });
+      await modal.present();
     }
-    const modal = await this.modalCtrl.create({
-      component: ServiceDetailsPage,
-      enterAnimation: myEnterAnimation,
-      leaveAnimation: myLeaveAnimation,
-      componentProps: {'service': service}
-    });
-    await modal.present();
+    else{
+      switch(serviceName){
+        case 'buyelectricity':
+          component = BuyPowerPage;
+          break;
+        case 'dstv':
+          component = BuyDstvPage;
+          break;
+        case 'airtime':
+          component = BuyAirtimePage;
+          break;
+      }
+      return this.openBuyServiceModal(service, component);
+    }
+    
   }
 
-  public async openBuyPowerModal(service){
+  public async openBuyServiceModal(service, component){
+
     const modal = await this.modalCtrl.create({
-      component: BuyPowerPage,
+      component,
       enterAnimation: myEnterAnimation,
       leaveAnimation: myLeaveAnimation,
       componentProps: {'service': service}

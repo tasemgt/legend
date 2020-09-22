@@ -1,0 +1,42 @@
+<ion-content class="ion-padding legend-modal">
+  <div>
+    <ion-icon name="ios-arrow-back" color="primary" (click)="closeModal()"></ion-icon>
+  </div>
+
+  <ion-grid>
+    
+    <ion-row>
+      <ion-col size="10" class="name-heading-alt ion-text-left">
+        <p>Buy DSTV Subscription</p>
+      </ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+
+    <form (ngSubmit)="verifyAccountDetails(accountForm)" #accountForm="ngForm">
+      <ion-row>
+        <ion-col size="12" class="legend-input">
+          <p>Smart card number</p>
+          <ion-item>
+            <ion-input placeholder="Enter your smart card number" maxlength="10" type="tel" name="smartcard" ngModel #smartcard="ngModel" required></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="12" class="legend-input">
+          <p>Subscription</p>
+          <ion-item>
+            <ion-label>Select Subscription</ion-label>
+            <ion-select interface="action-sheet" name="sub" [(ngModel)]="chosenSub">
+              <ion-select-option [value]="sub" *ngFor="let sub of subscriptions">{{sub.name}} - &#8358;{{formatWithCommas(sub.price)}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-col size="12" class="ion-text-center">
+        <div class="btn-wrapper">
+          <ion-button class="legend-btn ion-text-capitalize" color="primary" type="submit">Verify</ion-button>
+        </div>
+      </ion-col>
+    </form>
+  
+  </ion-grid>
+
+</ion-content>

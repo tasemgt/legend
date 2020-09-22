@@ -35,6 +35,7 @@ export class EditProfilePage implements OnInit {
     }
 
   ngOnInit() {
+   
   }
 
   public updateProfile(form: NgForm){ 
