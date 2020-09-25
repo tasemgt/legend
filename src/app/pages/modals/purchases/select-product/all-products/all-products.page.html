@@ -3,7 +3,10 @@
     <ion-item lines="full" *ngFor="let product of products">
       <ion-label class="ion-text-wrap">
         <ion-text tappable (click)="closeModal(product)" color="primary">
-          <h3>{{product.name}}</h3>
+          <h3>{{product.name.substring(0,43)}}</h3>
+          <span *ngIf="product.name.length > 43">
+            .....
+          </span>
         </ion-text>
         <ion-text color="white">
           <ion-row>
