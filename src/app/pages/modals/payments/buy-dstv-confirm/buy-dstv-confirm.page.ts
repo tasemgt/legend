@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, NavParams, LoadingController, AlertController } from '@ionic/angular';
+import { ModalController, NavParams, LoadingController } from '@ionic/angular';
 import { ExtraServicesService } from 'src/app/services/extra-services.service';
 import { UtilService } from 'src/app/services/util.service';
 import { WalletService } from 'src/app/services/wallet.service';
@@ -22,10 +22,10 @@ export class BuyDstvConfirmPage implements OnInit {
     private walletService: WalletService) {
 
       this.account = this.navParams.get('account');
-      console.log(this.account);
     }
 
   ngOnInit() {
+    console.log("INSIDE INTEDD");
   }
 
   public formatNumWithCommas(number){
@@ -43,8 +43,6 @@ export class BuyDstvConfirmPage implements OnInit {
           amount: this.account.amount
         }
 
-        console.log(payload);
-
         this.utilService.presentLoading('')
           .then(() =>{
             return this.extraService.buyDstvSubscription('subscribe', payload);
@@ -53,22 +51,23 @@ export class BuyDstvConfirmPage implements OnInit {
             this.loadingCtrl.dismiss();
             if(resp.code === 100){
               this.walletService.balanceState.next(true);
-              this.utilService.showToast(resp.message, 3000, 'danger');
+              this.utilService.showToast(resp.message, 3000, 'success');
               this.closeModal({closeParent:true}); //close parent modal as well
             }
             else if(resp.code === 418 || resp.code === 407){
-              this.utilService.showToast(resp.message, 2000, 'danger');
+              this.utilService.showToast(resp.message, 3000, 'danger');
             }
           })
           .catch((err) =>{
             this.loadingCtrl.dismiss();
-            console.log(err);
+            this.utilService.showToast(err.error.message || 'Kindly check your network connection', 3000, 'danger');
           });
 
       }, 'Cancel', 'Confirm')
   }
 
   public closeModal(closeParent?:any){
+    console.log("I am clossing");
     closeParent? this.modalCtrl.dismiss({closeParent}): this.modalCtrl.dismiss();
   }
 }

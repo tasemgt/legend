@@ -50,7 +50,7 @@ export class SelectServicePage implements OnInit {
     {
       name: "Netflix",
       desc: "Watch Netflix movies & TV shows online or stream right to your smart TV, game console, PC, Mac, mobile, tablet and more.",
-      img: "assets/imgs/netflixlogo.png",
+      img: "assets/imgs/logo-netflix.svg",
       icon: "assets/imgs/img-netflix.svg",
       status: 'inactive',
       id: 5
@@ -66,7 +66,7 @@ export class SelectServicePage implements OnInit {
     let serviceName = this.getServiceType(service.name);
     let component: any;
 
-    if(serviceName === 'legendtv'){
+    if(serviceName === 'legendtv' || serviceName === 'netflix'){
       const modal = await this.modalCtrl.create({
         component: ServiceDetailsPage,
         enterAnimation: myEnterAnimation,

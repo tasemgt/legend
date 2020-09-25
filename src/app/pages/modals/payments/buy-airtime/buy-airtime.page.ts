@@ -57,7 +57,7 @@ export class BuyAirtimePage implements OnInit {
           this.loadingCtrl.dismiss();
           if(resp.code === 100){
             this.walletService.balanceState.next(true);
-            this.utilService.showToast(resp.message, 3000, 'danger');
+            this.utilService.showToast(resp.message, 3000, 'success');
             this.closeModal();
           }
           else if(resp.code === 418){
@@ -66,7 +66,7 @@ export class BuyAirtimePage implements OnInit {
         })
         .catch((err) =>{
           this.loadingCtrl.dismiss();
-          this.utilService.showToast(err.error.message || 'Kindly check your network connection', 2000, 'danger');
+          this.utilService.showToast(err.error.message || 'Kindly check your network connection', 3000, 'danger');
         });
 
       }, 'Cancel', 'Confirm');

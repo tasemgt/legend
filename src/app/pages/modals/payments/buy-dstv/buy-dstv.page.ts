@@ -5,6 +5,7 @@ import { UtilService } from 'src/app/services/util.service';
 import { NgForm } from '@angular/forms';
 import { BuyDstvConfirmPage } from '../buy-dstv-confirm/buy-dstv-confirm.page';
 import { myEnterAnimation } from 'src/app/animations/enter';
+import { myLeaveAnimation } from 'src/app/animations/leave';
 
 @Component({
   selector: 'app-buy-dstv',
@@ -26,7 +27,7 @@ export class BuyDstvPage implements OnInit {
     try {
       this.subscriptions = await this.buyServices.buyDstvSubscription('fetch'); 
     } catch (err) {
-      
+      this.utilService.showToast('There\'s a problem getting available subscriptions. Try again.', 3000, 'danger');
     }
   }
 
@@ -50,7 +51,7 @@ export class BuyDstvPage implements OnInit {
           this.openDstvConfirmPage(resp);
         }
         else if(resp.code === 418){
-          this.utilService.showToast(resp.message, 2000, 'danger');
+          this.utilService.showToast(resp.message, 3000, 'danger');
         }
       })
       .catch((err) =>{
@@ -63,7 +64,7 @@ export class BuyDstvPage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: BuyDstvConfirmPage,
       enterAnimation: myEnterAnimation,
-      leaveAnimation: myEnterAnimation,
+      leaveAnimation: myLeaveAnimation,
       componentProps: {'account': dstvAccount}
     });
     await modal.present();
