@@ -24,6 +24,8 @@ export class PayMerchantPage implements OnInit, OnDestroy {
   public merchantImgBaseUrl = Constants.merchantImageBaseUrl;
 
   public _amount: string;
+  public merchantAddress = 'Abuja Store';
+  public chosenLocation: string;
 
   constructor(
     private modalCtrl: ModalController,
@@ -39,7 +41,6 @@ export class PayMerchantPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log(this.balance);
     this.walletService.balanceState.next(true);
     this.balance = this.walletService.uniBalanceValue;
   }
@@ -60,20 +61,33 @@ export class PayMerchantPage implements OnInit, OnDestroy {
   //   }
   // }
 
-
   public payMerchant(form: NgForm){
 
+    
     if(!form.valid){
-      this.utility.showToast('Please enter an amount to pay', 2000, 'danger');
+      if(!form.value.amount && this.isDirectPayment){
+        this.utility.showToast('Please enter an amount to pay', 2000, 'danger');
+      }
+      else if(!this.isDirectPayment){
+        this.utility.showToast('Please enter an address', 2000, 'danger');
+      }
       return;
     }
 
+    if(!this.chosenLocation && !this.isDirectPayment){
+      this.utility.showToast('Please select a location type', 2000, 'danger');
+      return;
+    }
     let amount = form.value.amount;
-    console.log(amount);
+
+    const confirmMessage = this.isDirectPayment ?
+    ``: `${this.chosenLocation === 'Pickup'? 'Pick up Address': 'Delivery Address'}: <strong>${this.chosenLocation === 'Pickup'? this.merchantAddress: form.value.address}</strong>`
 
     this.utility.presentAlertConfirm('Payment Confirmation',
-    `Do you want to proceed with the payment of 
-    <strong>&#8358;${amount || this.formatWithCommas(this.product.price)}</strong> to <strong>${this.merchant.name}</strong>?`, 
+    `Proceed with the payment of 
+    <strong>&#8358;${amount || this.formatWithCommas(this.product.price)}</strong> to <strong>${this.merchant.name}</strong>?<br>
+    ${confirmMessage}
+    `, 
       ()=>{
 
         amount? amount = amount.replace(/,/g, ""): ''; //Ignore amount if paying for a product
@@ -84,7 +98,8 @@ export class PayMerchantPage implements OnInit, OnDestroy {
               return this.merchantService.directPayMerchant(this.merchant.id.toString(), amount);
             }
             else{
-              return this.merchantService.buyProduct(this.product.id.toString());
+              const add = this.chosenLocation === 'Pickup'? this.merchantAddress: form.value.address;
+              return this.merchantService.buyProduct(this.product.id.toString(), form.value.location, add);
             } 
           })
           .then((resp) =>{

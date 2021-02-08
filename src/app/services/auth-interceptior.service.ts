@@ -25,12 +25,10 @@ export class AuthInterceptorService implements HttpInterceptor{
         });
       }
       else{
-        console.log('Token still valid');
         return next.handle(req);
       }
     }
     else{
-      console.log('Req is a login or signup');
       this.counter = 0; // Reset counter
       return next.handle(req); //Request is a login or signup
     }

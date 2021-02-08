@@ -40,13 +40,9 @@ export class PayForFriendPage implements OnInit {
 
     const payload = {username:this.productInfo.username, type:this.productInfo.type};
 
-    console.log(payload, this.chosenSub.products_id);
-
     this.utilService.presentAlertConfirm('Pay For Friend', 
     `Confirm payment for <strong>${this.chosenSub.products_name}</strong> ?`, 
       () =>{
-        //
-
         this.utilService.presentLoading('Purchasing service plan..')
           .then(() =>{
             return this.payForFriend.makePayment(payload, this.chosenSub.products_id);
@@ -69,7 +65,6 @@ export class PayForFriendPage implements OnInit {
           })
           .catch((error) =>{
             this.loadingCtrl.dismiss();
-            console.log(error);
             this.utilService.showToast(`Transaction failed`, 2000, 'danger');
           });
       }, 'Cancel', 'Confirm');

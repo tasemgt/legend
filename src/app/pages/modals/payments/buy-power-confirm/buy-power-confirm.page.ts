@@ -23,7 +23,6 @@ export class BuyPowerConfirmPage implements OnInit {
     private walletService: WalletService){
 
       this.account = this.navParams.get('account');
-      console.log(this.account);
   }
 
   ngOnInit() {
@@ -43,8 +42,6 @@ export class BuyPowerConfirmPage implements OnInit {
           state: this.account.state
         }
 
-        console.log(payload);
-
         this.utilService.presentLoading('')
           .then(() =>{
             return this.extraService.buyElectricity(payload, 'pay');
@@ -61,7 +58,6 @@ export class BuyPowerConfirmPage implements OnInit {
           })
           .catch((err) =>{
             this.loadingCtrl.dismiss();
-            console.log(err);
           });
 
       }, 'Cancel', 'Confirm')

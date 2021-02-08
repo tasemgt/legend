@@ -69,7 +69,6 @@ export class LogsPage implements OnInit {
   private async getFinancialLogs(user: User){
     const response: any  = await this.logService.getFinancialLogs(user);
     this.financialLogs = response.data;
-    console.log(this.financialLogs);
   }
 
   // For toggling of individual Items on list
@@ -90,7 +89,6 @@ export class LogsPage implements OnInit {
 
   // Handles Segment tabs
   segmentChanged(event){
-    console.log(event.detail.value);
     this.category = event.detail.value;
   }
 

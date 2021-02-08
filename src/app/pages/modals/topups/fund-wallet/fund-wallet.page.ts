@@ -73,7 +73,6 @@ export class FundWalletPage implements OnInit, OnDestroy {
 
         this.responseSubscription = this.paymentService.getResponseSubject()
           .subscribe((response: string) =>{
-            console.log("RESP ", response);
             if(!response){
               //Happens when inapp browser closes without payment
               console.log('no response', response);

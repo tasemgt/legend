@@ -30,7 +30,6 @@ export class LoginPage implements OnInit {
 
   
     ionViewWillLeave(){
-      console.log('Clearing');
       this.loginForm.resetForm();
     }
   
@@ -40,8 +39,6 @@ export class LoginPage implements OnInit {
       this.utilService.showToast('Login form cannot be empty.', 2000, 'danger');
       return;
     }
-    
-    console.log(form.value.username, form.value.password);
 
     this.utilService.presentLoading('Logging you in')
       .then(() =>{
@@ -53,10 +50,8 @@ export class LoginPage implements OnInit {
             }
           })
           .catch((error:HttpErrorResponse) => {
-            console.log(error);
             this.loadingCtrl.dismiss();
             if(error.status === 0){
-              console.log('No network')
               this.utilService.showToast('Ooops! something went wrong, please check your connection and try again.', 3000, 'danger');        
             }   
             else{

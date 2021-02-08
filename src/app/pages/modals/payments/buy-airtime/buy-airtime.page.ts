@@ -53,7 +53,6 @@ export class BuyAirtimePage implements OnInit {
           return this.buyServices.buyAirtime(payload);
         })
         .then((resp) =>{
-          console.log(resp);
           this.loadingCtrl.dismiss();
           if(resp.code === 100){
             this.walletService.balanceState.next(true);

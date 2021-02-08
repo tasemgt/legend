@@ -35,6 +35,24 @@
             </p>
           </ion-text>
         </ion-col>
+        <ion-col size="12" class="legend-input" *ngIf="!isDirectPayment">
+          <ion-item mode="md">
+            <ion-label>Location Type</ion-label>
+            <ion-select interface="action-sheet" name="location" [(ngModel)]="chosenLocation">
+              <ion-select-option [value]="'Pickup'">Pick up</ion-select-option>
+              <ion-select-option [value]="'Delivery'">Delivery</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col size="12" class="legend-input animated bounceIn" *ngIf="chosenLocation">
+          <ion-item *ngIf="chosenLocation === 'Delivery'" class="delivery-address">
+            <ion-label>Delivery Address:</ion-label>
+            <ion-input type="text" name="address" ngModel #address="ngModel" required></ion-input>
+          </ion-item>
+          <p class="merchant-address" *ngIf="chosenLocation === 'Pickup'">
+            Merchant Address: &nbsp; &nbsp;<span>{{merchantAddress}}</span>
+          </p>
+        </ion-col>
         <ion-col size="12" class="ion-text-center">
           <h4>Wallet Balance: &nbsp;&nbsp;<span *ngIf="balance">&#8358;{{balance.balance}}</span>
             <span><ion-spinner class="spinner" *ngIf="!balance" name="dots"></ion-spinner></span>

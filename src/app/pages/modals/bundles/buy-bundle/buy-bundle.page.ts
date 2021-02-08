@@ -62,8 +62,6 @@ export class BuyBundlePage implements OnInit {
       return;
     }
 
-    console.log(this.chosenBundle);
-
     let rate;
 
     this.toggle ? rate = this.chosenPlan.value : rate = 0;
@@ -74,8 +72,6 @@ export class BuyBundlePage implements OnInit {
       autorenew: Number(this.toggle),
       autorenew_rate: rate
     }
-
-    console.log(payload);
 
     if(this.renewOrRequest === 0){
       // send a request for subscription..
@@ -113,7 +109,6 @@ export class BuyBundlePage implements OnInit {
     if(this.renewOrRequest === 1){
       //Proceed to subscribe...
 
-      console.log(payload);
       this.utilService.presentAlertConfirm('Confirm Subscription', message, 
     
       () =>{

@@ -25,7 +25,6 @@ export class BuyDstvConfirmPage implements OnInit {
     }
 
   ngOnInit() {
-    console.log("INSIDE INTEDD");
   }
 
   public formatNumWithCommas(number){
@@ -67,7 +66,6 @@ export class BuyDstvConfirmPage implements OnInit {
   }
 
   public closeModal(closeParent?:any){
-    console.log("I am clossing");
     closeParent? this.modalCtrl.dismiss({closeParent}): this.modalCtrl.dismiss();
   }
 }

@@ -14,6 +14,21 @@
       margin-left: 0.3rem;
     }
   }
+
+  ion-item.delivery-address{
+    .sc-ion-input-ios-h{
+      
+    }
+  }
+
+  .merchant-address{
+    border: 1.5px solid var(--ion-color-primary);
+    opacity: .9;
+    border-radius: 7px;
+    padding: 1rem;
+    margin: 0;
+    font-size: .97rem;
+  }
 }
 
 .merchants-row{
@@ -51,11 +66,11 @@
   p{
       text-align: left;
       margin: 0px;
-      background-color: #1d1c1c;//var(--ion-color-secondary);
+      // background-color: #1d1c1c;//var(--ion-color-secondary);
       color: var(--ion-color-secondary-contrast);
       font-size: .85rem;
-      border-radius: 5px;
       padding: .5rem .9rem;
+      border-left: 2px solid var(--ion-color-primary);
 
       ion-icon{
           font-size: 0.6rem;

@@ -44,7 +44,6 @@ export class TopUpPage implements OnInit {
 
 
   public onFundWallet(){
-    console.log(this.paymentType);
     this.paymentType === 'voucher'? this.openVoucherFundModal() : this.openFundWalletModal();
   }
 
@@ -80,7 +79,6 @@ export class TopUpPage implements OnInit {
   public onClickItem(_paymentMethod : PaymentMethod){
     _paymentMethod.isActive = true;
     this.paymentType = _paymentMethod.name.toLowerCase();
-    console.log(this.paymentType);
     for(const paymentMethod of this.paymentMethods){
       if(paymentMethod.value !== _paymentMethod.value){
         paymentMethod.isActive = false;

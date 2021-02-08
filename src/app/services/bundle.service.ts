@@ -33,7 +33,6 @@ export class BundleService{
         return reqPlanChange? this.http.get(`${this.baseUrl}/request-plan`, {headers}).toPromise(): this.http.get(`${this.baseUrl}/bundle-list`, {headers}).toPromise();
       })
       .then((response: any) =>{
-        console.log(response);
         return Promise.resolve(response);
       });
   }
@@ -41,7 +40,6 @@ export class BundleService{
   public getBundle(){
     this.http.get(`${this.baseUrl}/balance`, {headers: {'Content-Type': 'application/json'}})
       .subscribe(resp =>{
-        console.log(resp);
       })
   }
 

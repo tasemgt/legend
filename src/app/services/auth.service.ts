@@ -51,7 +51,6 @@ export class AuthService {
   public checkTokenExpiry(user: User): boolean{
     const currentDate = new Date();
     const expDate =  new Date(user.expiry); //new Date("2020-06-21T11:52:00.000000Z"); //NB Date is 1hr behind actual West Africa time
-    console.log(expDate); 
     return currentDate >= expDate ? true : false;
   }
 
@@ -88,7 +87,6 @@ export class AuthService {
     return this.http.post(`${this.baseUrl}/login`, {username, password}, {headers})
       .toPromise()
       .then((response: any) =>{
-        console.log(response);
         if(response.code === 418){
           return Promise.resolve(response); // Invalid login here, but pass along to be handled by page
         }

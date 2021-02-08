@@ -38,7 +38,6 @@ export class SearchUserPage implements OnInit {
       .then((resp) =>{
         this.loadingCtrl.dismiss();
         if(resp.code === 100){
-          console.log(resp);
           this.openPayForFriendModal(resp);
           return;
         }
@@ -53,7 +52,6 @@ export class SearchUserPage implements OnInit {
       })
       .catch((error) =>{
         this.loadingCtrl.dismiss();
-        console.log(error);
         this.utilService.showToast(`${error.error.errors.username}`, 2000, 'danger');
       });
   }

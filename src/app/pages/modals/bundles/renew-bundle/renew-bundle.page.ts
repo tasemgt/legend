@@ -58,8 +58,6 @@ export class RenewBundlePage{
       else{
         this.disableToggle = true;
       }
-
-      console.log(this.currentBalance.autorenew , this.toggle);
     }
 
 
@@ -72,7 +70,6 @@ export class RenewBundlePage{
   }
 
   public renewBundle(form: NgForm){
-    console.log(this.toggle, this.chosenPlan);
     let amount = form.value.amount;
     const pid = this.currentBalance.bundle_id;
 
@@ -88,8 +85,6 @@ export class RenewBundlePage{
 
     let rate;
     this.toggle ? rate = this.chosenPlan.value : rate = 0;
-
-    console.log(this.toggle, rate, amount, pid);
 
     let message: string;
 

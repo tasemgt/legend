@@ -107,7 +107,6 @@ export class AllMerchantsPage implements OnInit {
   private handleMergingMerchantsList(merchantWrapper: MerchantWrapper): void{
     if(merchantWrapper.data.length > 0){
       this.merchantWrapper = merchantWrapper;
-      console.log(this.merchantWrapper);
       this.totalMerchants = merchantWrapper.data.concat(this.totalMerchants);
       this.displayedMerchants = [...this.totalMerchants];
     }

@@ -84,7 +84,6 @@ export class WalletPage implements OnInit {
     }
     catch(err){
       if(err.status === 0){
-        console.log("calling again")
         setTimeout(() =>{
           if(this.showIosOnce){
             this.utilService.showToast('Check network connectivity', 1000, 'danger');
@@ -109,7 +108,6 @@ export class WalletPage implements OnInit {
     })
     .catch((err) =>{
       if(err.status === 0){
-        console.log("calling trans again")
         setTimeout(() =>{
           this.getTransactions(false); // Call get balance again after 10secs;
         }, 5000);

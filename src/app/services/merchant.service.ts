@@ -93,11 +93,13 @@ export class MerchantService {
       });
   }
 
-  public buyProduct(productID: string): Promise<any>{
+  public buyProduct(productID: string, location: string, address: string): Promise<any>{
+    const url = 'https://legendpay.ng/api/v3'; //Version 3 url
+    console.log(productID, location, address);
     return this.authService.getUser()
       .then(user => {
         const headers = {Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json'};
-        return this.http.post(`${this.baseUrl}/buy-product`, {id:productID}, {headers}).toPromise();
+        return this.http.post(`${url}/buy-product`, {id: productID, location, address}, {headers}).toPromise();
       })
       .then(resp => {
         return Promise.resolve(resp);

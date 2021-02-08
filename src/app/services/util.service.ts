@@ -57,7 +57,6 @@ export class UtilService {
   }
 
   public async presentAlertConfirm(header:string, message: string, okayCallBack: Function, noBut?:string, yesBut?:string) {
-    console.log('Alert called');
     const alert = await this.alertCtrl.create({
         header,
         message,

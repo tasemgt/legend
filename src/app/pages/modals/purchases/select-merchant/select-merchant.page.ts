@@ -60,11 +60,9 @@ export class SelectMerchantPage implements OnInit {
         this.merchantWraper = resp;
         this.merchants = this.merchantWraper.data;
         this.topMerchants = this.merchants.slice(0,4);
-        console.log(this.topMerchants);
       })
       .catch((err) =>{
         if(err.status === 0){
-          console.log("calling again")
           setTimeout(() =>{
             if(this.showIosOnce){
               this.utilService.showToast('Check network connectivity', 1000, 'danger');
@@ -82,7 +80,6 @@ export class SelectMerchantPage implements OnInit {
       this.utilService.showToast('Search field must not be empty', 2000, 'danger');
       return;
     }
-    console.log(this.merchant.length);
     this.openSearchMerchantsModal();
   }
 

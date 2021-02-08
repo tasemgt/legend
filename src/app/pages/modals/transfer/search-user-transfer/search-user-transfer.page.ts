@@ -93,12 +93,6 @@ export class SearchUserTransferPage implements OnInit {
     }
   }
 
-
-   // if(this._amount.startsWith('0')){
-    //   console.log('called', this._amount);
-    //   this._amount = '0';
-    // }
-
   public refreshModel(): void{
     this._amount = this.utilService.numberWithCommas(this._amount);
   }

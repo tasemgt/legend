@@ -33,7 +33,6 @@ export class TopUpService implements OnDestroy {
     const headers = { Authorization: `Bearer ${user.token}`, Accept: 'application/json'};
     return this.http.post(`${this.baseUrl}/webpay`, {amount}, {headers}).toPromise()
       .then((resp) =>{
-        console.log(resp);
       })
       .catch((err) =>{
         console.log(err); // Ask why it is giving me response on error sha..

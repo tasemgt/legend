@@ -45,8 +45,6 @@ export class ServiceDetailsPage implements OnInit {
       type: this.getServiceType(this.service.name)
     }
 
-    console.log(payload);
-
     this.utilService.presentLoading('')
       .then(() =>{
         return this.extraService.SubscribeToTvUpdate(payload)

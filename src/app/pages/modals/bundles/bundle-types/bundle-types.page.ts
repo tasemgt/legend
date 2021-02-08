@@ -26,7 +26,6 @@ export class BundleTypesPage implements OnInit {
     private navParams: NavParams) {
 
       this.reqPlanChange = this.navParams.get('reqPlanChange');
-      console.log(this.reqPlanChange);
     }
 
   ngOnInit() {

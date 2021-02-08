@@ -40,9 +40,6 @@ export class EditProfilePage implements OnInit {
 
   public updateProfile(form: NgForm){ 
 
-    console.log(form.value.email, form.value.phone);
-    console.log(this.tempProfile.email);
-
     if(
       !(this.tempProfile.email !== form.value.email ||
       this.tempProfile.phone !== form.value.phone ||

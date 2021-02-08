@@ -60,7 +60,6 @@ export class SelectProductPage implements OnInit {
 
     const {data} = await modal.onDidDismiss();
     if(data){
-      console.log("Reached here..");
       setTimeout(()=>{
         data.closeParent? this.closeModal(): '';
       },0);
@@ -92,7 +91,6 @@ export class SelectProductPage implements OnInit {
       })
       .catch((err) =>{
         if(err.status === 0){
-          console.log("calling again")
           setTimeout(() =>{
             if(this.platform.is('android') || (this.platform.is('ios') && this.showIosOnce)){
               this.utilService.showToast('Check network connectivity', 1000, 'danger');

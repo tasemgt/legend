@@ -156,11 +156,9 @@ export class RegisterPage implements OnInit {
             }
           })
           .catch((error:HttpErrorResponse) => {
-            console.log(error);
             if(error.status === 0){
               setTimeout(()=>{
                 this.loadingCtrl.dismiss();
-                console.log('No network')
                 this.utilService.showToast('Ooops! something went wrong, please check your connection and try again.', 3000, 'danger');
               },2000);
             }   

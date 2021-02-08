@@ -70,8 +70,6 @@ export class HomePage implements OnInit, OnDestroy{
     this.authSubscription = this.authService.getAuthStateSubject().subscribe((state) =>{
       //Do one time stuff on login here. i.e when state changes from false to true;
       if(state){
-        console.log("Login occured..")
-        console.log(this.daysLeft);
         this.authService.getUser().then(user => {
           this.user = user;
           this.getBalance();
@@ -130,7 +128,6 @@ export class HomePage implements OnInit, OnDestroy{
   private getBalance(from?: string){
     this.walletService.getBalance().then((balance: Balance) =>{
       this.balance = balance;
-      console.log("Show me here ", balance);
       //this.bundleService.setBundleBalanceToStorage(this.balance);
       if(balance){
         this.displaySubNow(balance);
@@ -138,7 +135,6 @@ export class HomePage implements OnInit, OnDestroy{
           return this.daysLeft = '---';
         }
         this.daysLeft = this.getDaysLeft(balance.expiry).toString(); // Computes remaining days of bundle..
-        console.log("Days Left>>>> ",this.daysLeft);
       }
       
       const daysChopped = 30 - Number(this.daysLeft);
@@ -189,11 +185,9 @@ export class HomePage implements OnInit, OnDestroy{
     if(this.balance){
       if(((Number(this.balance.raw_prod_balance)/100) < this.balance.price) && this.balance.expiry_days <= 1){
         this.subscribeNow = true;
-        console.log(this.subscribeNow);
         return;
       }
       this.subscribeNow = false;
-      console.log(this.subscribeNow);
     }
   }
 
