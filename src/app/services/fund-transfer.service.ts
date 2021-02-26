@@ -30,4 +30,26 @@ export class FundTransferService {
       })
       .catch(err => console.log(err) );
   }
+
+  public bankTransfer(action:string, payload?: any): Promise<any>{
+    const url  = 'http://41.73.8.123/horizonaccess/legend/public/api/v3'; //Version 3 url
+    return this.auth.getUser()
+      .then((user) =>{
+        const headers = {Authorization: `Bearer ${user.token}`, Accept: 'application/json', 'Content-Type': 'application/json'};
+        if(action === 'bvn'){
+          return this.http.post(`${url}/bvn`, payload, {headers} ).toPromise();
+        }
+        if(action === 'banklist'){
+          return this.http.get(`${url}/bank-transfer`, {headers} ).toPromise();
+        }
+        else if(action === 'verify'){
+          return this.http.post(`${url}/bank-transfer`, payload, {headers} ).toPromise();
+        }
+        return this.http.post(`${url}/bank-transfer-confirm`, payload, {headers} ).toPromise();
+      })
+      .then((resp:any) => {
+        return Promise.resolve(resp);
+      })
+      .catch(err => console.log(err) );
+  }
 }

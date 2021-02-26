@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.legend.legendpay.mobile" version="2.1.1" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Legend Pay</name>
+<widget id="io.legendy.legendpay.mobile" version="2.2.0" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Legend Pay Test</name>
     <description>Legend Pay Application</description>
     <author email="experience@legend.ng" href="https://www.legend.ng/">Suburban</author>
     <content src="index.html" />

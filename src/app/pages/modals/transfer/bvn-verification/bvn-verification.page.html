@@ -1,0 +1,51 @@
+<ion-content class="ion-padding legend-modal">
+  <div>
+    <ion-icon name="ios-arrow-back" color="primary" (click)="closeModal()"></ion-icon>
+  </div>
+
+  <form #bvnVerifyForm="ngForm" (ngSubmit)="verifyBVN(bvnVerifyForm)">
+    <ion-grid>
+
+      <ion-row>
+        <ion-col size="9" class="name-heading-alt ion-text-left">
+          <p>BVN Verification</p>
+          <p style="font-size: .8rem; opacity: .7;">Verify BVN to access Bank Transfer Feature</p>
+        </ion-col>
+        <ion-col></ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="12" class="legend-input">
+          <ion-item>
+            <ion-input placeholder="First Name" type="text" name="firstname" ngModel #firstname="ngModel" required></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="12" class="legend-input">
+          <ion-item>
+            <ion-input placeholder="Middle Name" type="text" name="middlename" ngModel #middlename="ngModel" required></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="12" class="legend-input">
+          <ion-item>
+            <ion-input placeholder="Last Name" type="text" name="lastname" ngModel #lastname="ngModel" required></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="12" class="legend-input">
+          <ion-item>
+            <ion-input placeholder="BVN" maxlength="11" type="tel" name="bvn" ngModel #bvn="ngModel" required></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="button-row">
+        <ion-col size="12" class="ion-text-center">
+          <div class="btn-wrapper">
+            <ion-button class="legend-btn ion-text-capitalize" color="primary" type="submit">Verify BVN</ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+  </form>
+
+</ion-content>

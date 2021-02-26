@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ComponentRef } from '@angular/core';
 import { ModalController, Platform } from '@ionic/angular';
 import { SelectMerchantPage } from '../../modals/purchases/select-merchant/select-merchant.page';
 import { SearchUserTransferPage } from '../../modals/transfer/search-user-transfer/search-user-transfer.page';
@@ -15,6 +15,8 @@ import { UtilService } from 'src/app/services/util.service';
 import { Transaction } from 'src/app/models/transaction';
 import { SeeAllPage } from '../../modals/transactions/see-all/see-all.page';
 import { SelectServicePage } from '../../modals/payments/select-service/select-service.page';
+import { BankTransferPage } from '../../modals/transfer/bank-transfer/bank-transfer.page';
+import { BvnVerificationPage } from '../../modals/transfer/bvn-verification/bvn-verification.page';
 
 
 
@@ -81,6 +83,7 @@ export class WalletPage implements OnInit {
       let balance: Balance;
       balance = await this.walletService.getBalance();
       this.balance = balance;
+      console.log(balance);
     }
     catch(err){
       if(err.status === 0){
@@ -116,6 +119,29 @@ export class WalletPage implements OnInit {
   }
 
 
+  public async getTransferOptions(){
+    const buttons = [
+      {
+        text: 'Transfer Funds',
+        handler: () =>{
+          console.log(this);
+          this.openSearchUserForTransferModal();
+        }
+      },
+      {
+        text: 'Bank Transfer',
+        handler: () => {
+          this.openbankTransferModal();
+        }
+      }
+    ];
+
+    if(this.balance && this.balance.can_transfer === 'YES'){
+      return await this.utilService.presentActionSheet(buttons); 
+    }
+    this.openSearchUserForTransferModal();
+  }
+
   //Modals for purchases
   public async openSearchMerchantModal(){
     // this.router.navigateByUrl('/edit-profile');
@@ -133,6 +159,22 @@ export class WalletPage implements OnInit {
   public async openSearchUserForTransferModal(){
     const modal = await this.modalCtrl.create({
       component: SearchUserTransferPage,
+      enterAnimation: myEnterAnimation,
+      leaveAnimation: myLeaveAnimation
+    });
+    await modal.present();
+  }
+
+  public async openbankTransferModal(){
+    let component: any;
+    if(this.balance && this.balance.bvn_verified === 'YES'){
+      component = BankTransferPage;
+    }
+    else{
+      component = BvnVerificationPage;
+    }
+    const modal = await this.modalCtrl.create({
+      component,
       enterAnimation: myEnterAnimation,
       leaveAnimation: myLeaveAnimation
     });

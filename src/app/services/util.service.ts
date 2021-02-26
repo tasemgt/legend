@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ToastController, LoadingController, AlertController, Platform } from '@ionic/angular';
+import { ToastController, LoadingController, AlertController, Platform, ActionSheetController } from '@ionic/angular';
 import { HttpErrorResponse } from '@angular/common/http';
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
 
@@ -13,7 +13,8 @@ export class UtilService {
     private platform: Platform,
     private barcodeScanner: BarcodeScanner,
     private loadingCtrl: LoadingController,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private actionSheetController: ActionSheetController
     ) { }
 
   public async showToast(message: string, duration: number, color: string) {
@@ -77,7 +78,25 @@ export class UtilService {
         ]
       });
     await alert.present();
-    }
+  }
+
+  public async presentActionSheet(buttons: any[]) {
+    const actionSheet = await this.actionSheetController.create({
+      cssClass: 'my-custom-class',
+      mode: this.platform.is('ios') ? 'ios' : 'md',
+      buttons: buttons.concat([
+        {
+          text: 'Cancel',
+          // icon: 'close',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ])
+    });
+    await actionSheet.present();
+  }
 
   public validateEmail(email): boolean{
     // tslint:disable-next-line:max-line-length

@@ -10,6 +10,8 @@ import { SearchUserTransferPageModule } from '../../modals/transfer/search-user-
 import { TopUpPageModule } from '../../modals/topups/top-up/top-up.module';
 import { SeeAllPageModule } from '../../modals/transactions/see-all/see-all.module';
 import { SelectServicePageModule } from '../../modals/payments/select-service/select-service.module';
+import { BankTransferPageModule } from '../../modals/transfer/bank-transfer/bank-transfer.module';
+import { BvnVerificationPageModule } from '../../modals/transfer/bvn-verification/bvn-verification.module';
 
 
 
@@ -23,6 +25,8 @@ import { SelectServicePageModule } from '../../modals/payments/select-service/se
     IonicModule,
     SelectMerchantPageModule,
     SearchUserTransferPageModule,
+    BankTransferPageModule,
+    BvnVerificationPageModule,
     TopUpPageModule,
     SelectServicePageModule,
     SeeAllPageModule,

@@ -24,8 +24,8 @@ import { AuthInterceptorService } from './services/auth-interceptior.service';
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
-    BrowserModule, 
-    IonicModule.forRoot(), 
+    BrowserModule,
+    IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
     HttpClientModule,
     AppRoutingModule,

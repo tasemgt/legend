@@ -118,11 +118,13 @@ export class AuthService {
             return Promise.resolve(resp);
           }
           else if(resp.code === 418){
+            this.util.showToast(resp.message, 2000, 'danger');
             return Promise.reject(resp);
           }
         })
         .catch((err) =>{
           this.loadingCtrl.dismiss();
+          this.util.showToast('Please check your network settings', 2000, 'danger');
           return Promise.reject(err);
         });
     }

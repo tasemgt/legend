@@ -60,11 +60,12 @@ export class WalletService {
   }
 
   public getBalance(): Promise<any>{
-     return this.authService.getUser()
+    const url  = 'http://41.73.8.123/horizonaccess/legend/public/api/v2'; //Test Url
+    return this.authService.getUser()
       .then(user => {
         this.user = user;
         const headers = {Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json'};
-        return this.http.get(`${this.baseUrl}/balance`, {headers}).toPromise()
+        return this.http.get(`${url}/balance`, {headers}).toPromise()
       })
       .then(resp => {
         return Promise.resolve(resp);
