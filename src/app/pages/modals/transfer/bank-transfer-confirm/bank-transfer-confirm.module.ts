@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { BankTransferConfirmPage } from './bank-transfer-confirm.page';
+import { ToNumberPipe } from 'src/app/pipes/to-number.pipe';
 
 @NgModule({
   imports: [
@@ -12,7 +13,7 @@ import { BankTransferConfirmPage } from './bank-transfer-confirm.page';
     FormsModule,
     IonicModule
   ],
-  declarations: [BankTransferConfirmPage],
+  declarations: [BankTransferConfirmPage, ToNumberPipe],
   entryComponents: [BankTransferConfirmPage]
 })
 export class BankTransferConfirmPageModule {}
