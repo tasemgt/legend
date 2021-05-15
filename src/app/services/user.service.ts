@@ -37,4 +37,16 @@ export class UserService {
       return Promise.reject(error);
     }
   }
+
+  public async updateUserPin(user:User, payload: any): Promise<any>{
+    const url = 'http://41.73.8.123/horizonaccess/legend/public/api/v3'; //'https://legendpay.ng/api/v3'; //Version 3 url
+    const headers = {Authorization: `Bearer ${user.token}`, Accept: 'application/json', 'Content-Type': 'application/json'};
+    try{
+      const response:any = await this.http.post(`${url}/pin`, payload, {headers}).toPromise();
+      return Promise.resolve(response);
+    }
+    catch(error){
+      return Promise.reject(error);
+    }
+  }
 }

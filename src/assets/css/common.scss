@@ -87,6 +87,19 @@ ion-button.legend-btn{
         --border-style: solid;
         --border-width: 1.5px;
     }
+
+    &.legend-btn-white{
+        font-weight: bolder;
+        --background: #f5f4f4;
+        --color: var(--ion-color-primary);
+        --background-activated: #f5f4f4;
+        --color-activated: var(--ion-color-primary);
+        --background-focused: #f5f4f4;
+        --background-hover: #f5f4f4;
+        --border-color: #f5f4f4;
+        --border-style: solid;
+        --border-width: 1.5px;
+    }
 }
 
 /** 

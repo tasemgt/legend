@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { LoadingController, ModalController, NavParams } from '@ionic/angular';
 import { FundTransferService } from 'src/app/services/fund-transfer.service';
 import { UtilService } from 'src/app/services/util.service';
@@ -26,7 +27,21 @@ export class BankTransferConfirmPage implements OnInit {
   ngOnInit() {
   }
 
-  public makeTransfer(){
+  public makeTransfer(form: NgForm){
+
+    if(!form.valid){
+      this.utilService.showToast('Transfer pin is required', 2000, 'danger');
+      return;
+    }
+
+    console.log(form.value.pin)
+    
+    const reg = /^\d+$/;
+    if(!(reg.test(form.value.pin))){
+      this.utilService.showToast('Transfer pin contains invalid characters', 2000, 'danger');
+      return;
+    }
+
     this.utilService.presentAlertConfirm('Confirm Bank Transfer', 
     `Kindly confirm the transfer of <strong>&#8358;${this.formatNumWithCommas(this.transferDetails.amount)}</strong> from your LegendPay wallet to.
     \n${this.transferDetails.bank_name} <strong>(${this.transferDetails.account_number})</strong>`, 
@@ -36,7 +51,8 @@ export class BankTransferConfirmPage implements OnInit {
           accountno: this.transferDetails.account_number,
           bankcode: this.transferDetails.bank_code,
           ref: this.transferDetails.ref,
-          amount: this.transferDetails.amount
+          amount: this.transferDetails.amount,
+          pin: form.value.pin
         }
 
         this.utilService.presentLoading('')

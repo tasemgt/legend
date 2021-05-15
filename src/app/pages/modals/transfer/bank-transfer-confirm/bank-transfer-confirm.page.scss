@@ -6,7 +6,7 @@ ion-col{
   h6{
       font-weight: bolder;
       font-size: 0.9rem;
-      margin-top: 1rem;
+      margin-top: 0px;
       margin-bottom: 5px;
   }
   p{
@@ -18,6 +18,10 @@ ion-col{
       border-radius: 5px;
       padding: .8rem;
   }
+}
+
+.pin-row{
+  margin-top: 1rem;
 }
 
 .btn-wrapper{

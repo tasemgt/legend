@@ -1,0 +1,92 @@
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Invoice
+    </ion-title>
+    <ion-buttons slot="primary">
+      <ion-button color="primary" (click)="exportPdf()">
+        <ion-icon slot="icon-only" name="print"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="container">
+    <div class="logo">
+      <img src="assets/imgs/legendpay-logo-full.png" alt="logo">
+    </div>
+    <h1>Transaction Receipt</h1>
+    <div class="details">
+      <div class="detail">
+        <span>Invoice To:</span>
+        <span>Mike Tase</span>
+      </div>
+      <div class="detail">
+        <span>Phone Number:</span>
+        <span>2348062254916</span>
+      </div>
+      <div class="detail">
+        <span>Username:</span>
+        <span>tas3</span>
+      </div>
+      <div class="detail">
+        <span>Type:</span>
+        <span>Electricity</span>
+      </div>
+      <div class="detail">
+        <span>Amount:</span>
+        <span>2000</span>
+      </div>
+      <div class="detail">
+        <span>Description:</span>
+        <span>4343-34435-34345-45453-23233</span>
+      </div>
+      <div class="detail">
+        <span>Reference:</span>
+        <span>3443h4e4g4343f</span>
+      </div>
+      <div class="detail">
+        <span>Status:</span>
+        <span>Success</span>
+      </div>
+      <div class="detail">
+        <span>Date:</span>
+        <span>Apr 21, 2021, 9:46 AM</span>
+      </div>
+    </div>
+    <div class="footer">
+      This is electronic receipt of a transaction. For any otherr asssistancee, kindly call legend on 0700-69-534363 or email us at experience@legend.ng
+    </div>
+  </div>
+  <!-- <div class="printable-content">
+    <div class="printable-area" id="printable-area">
+      <table class="header-table">
+        <tr>
+          <td width="100%" style="text-align: right;" class="title"><img src="assets/imgs/legendpay-logo-full.png" alt="logo" height="40px" /></td>
+        </tr>
+      </table>
+
+      <table class="subheader-table">
+        <tr>
+          <td>
+            <dt>Billed To:</dt>
+            <dd>Client Name</dd>
+            <dd>Address 1st Line</dd>
+            <dd>City, State, Country</dd>
+            <dd>Post Code</dd>
+          </td>
+          <td>
+            <dt>Invoice Number:</dt>
+            <dd>009223-222</dd>
+          </td>
+          <td>
+            <dt>Invoice Total:</dt>
+            <dd>$6.600</dd>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div> -->
+</ion-content>

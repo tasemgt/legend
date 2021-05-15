@@ -9,7 +9,6 @@ import { myLeaveAnimation, myLeaveAnimation2 } from 'src/app/animations/leave';
 import { AuthService } from 'src/app/services/auth.service';
 import { Subscription } from 'rxjs';
 import { WalletService } from 'src/app/services/wallet.service';
-import { FundTransferService } from 'src/app/services/fund-transfer.service';
 import { Balance } from 'src/app/models/wallet';
 import { UtilService } from 'src/app/services/util.service';
 import { Transaction } from 'src/app/models/transaction';
@@ -18,7 +17,10 @@ import { SelectServicePage } from '../../modals/payments/select-service/select-s
 import { BankTransferPage } from '../../modals/transfer/bank-transfer/bank-transfer.page';
 import { BvnVerificationPage } from '../../modals/transfer/bvn-verification/bvn-verification.page';
 
-
+import { PDFGenerator, PDFGeneratorOptions, PDFGeneratorOriginal } from '@ionic-native/pdf-generator';
+import { ReceiptPage } from '../../modals/receipt/receipt.page';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { File, IWriteOptions } from '@ionic-native/file/ngx';
 
 
 
@@ -44,11 +46,14 @@ export class WalletPage implements OnInit {
 
 
   constructor(
+    private file: File,
+    private fileOpener: FileOpener,
     private modalCtrl: ModalController,
     private authService: AuthService,
     private walletService: WalletService,
     private platform: Platform,
-    private utilService: UtilService) { 
+    private utilService: UtilService){
+    // private pdfGenerator: PDFGenerator) { 
 
       this.showIosOnce = true;
       this.listReload = false;
@@ -212,6 +217,144 @@ export class WalletPage implements OnInit {
     await modal.present();
   }
 
+  //Modal for receipt
+  public async openReceiptModal(){
+    const modal = await this.modalCtrl.create({
+      component: ReceiptPage,
+      componentProps: {}
+    });
+    await modal.present();
+  }
+
+  // public receiptHtml(): string{
+  //   return ;
+  // }
+
+  public generateReceipt(){
+    console.log('Clicked..');
+
+    const html = `
+    <html>
+      <head>
+        <style>
+        div.container{
+          padding: 1rem 1rem 0 1rem;
+          background-color: #FFF;
+          color: #232323;
+          width: 100%;
+          height: 100%;
+        }
+        
+        div.logo{
+          text-align: right;
+        }
+        
+        div.logo img{
+          width: 200px;
+        }
+        
+        h1{
+          margin: 0;
+          font-weight: bold;
+          text-align: center;
+          font-size: 2rem;
+          text-decoration: underline;
+        }
+        
+        div.details{
+          margin-top: 2rem;
+          font-size: 1.5rem;
+        }
+        
+        div.detail:not(div.detail:last-child){
+          margin-bottom: 1rem;
+        }
+        
+        div.detail span{
+          display: inline-block;
+        }
+        
+        div.detail span:first-child{
+          color: #474747;
+          margin-right: 2rem;
+        }
+
+        div.detail span:last-child{
+          color: #E53F27;
+          font-size: 1.7rem;
+        }
+        
+        div.footer{
+          width: 90%;
+          position: absolute;
+          bottom: 2rem;
+          font-size: .8rem;
+        }
+        </style>
+      </head>
+      <body>
+      <div class="container">
+      <div class="logo">
+        <img src="cdvfile://localhost/persistent/assets/imgs/legendpay-logo-full.png" alt="logo">
+      </div>
+      <h1>Transaction Receipt</h1>
+      <div class="details">
+        <div class="detail">
+          <span>Invoice To:</span>
+          <span>Mike Tase</span>
+        </div>
+        <div class="detail">
+          <span>Phone Number:</span>
+          <span>2348062254916</span>
+        </div>
+        <div class="detail">
+          <span>Username:</span>
+          <span>tas3</span>
+        </div>
+        <div class="detail">
+          <span>Type:</span>
+          <span>Electricity</span>
+        </div>
+        <div class="detail">
+          <span>Amount:</span>
+          <span>2000</span>
+        </div>
+        <div class="detail">
+          <span>Description:</span>
+          <span>4343-34435-34345-45453-23233</span>
+        </div>
+        <div class="detail">
+          <span>Reference:</span>
+          <span>3443h4e4g4343f</span>
+        </div>
+        <div class="detail">
+          <span>Status:</span>
+          <span>Success</span>
+        </div>
+        <div class="detail">
+          <span>Date:</span>
+          <span>Apr 21, 2021, 9:46 AM</span>
+        </div>
+      </div>
+    </div>
+      </body>
+    </html
+  `;
+
+    const options: PDFGeneratorOptions = {
+      documentSize: 'A4',
+      type: 'base64',
+      landscape: 'portrait'
+    };
+
+    PDFGenerator.fromData(html, options)
+    .then(base64 => {
+      console.log('stringyy>>>> ', base64);
+      this.base64ToPDf(base64);
+    })
+    .catch(e => console.log(e));
+    // this  .fromURL('https://google.es', options).then(base64String => console.log(base64String));
+  }
 
   public formatWithCommas(num: any){
     if(!num){
@@ -228,5 +371,67 @@ export class WalletPage implements OnInit {
       event.target.complete();
     }, 1000)
   }
+
+  base64ToPDf(base64_data: string){
+    const directory = this.file.dataDirectory;
+    const fileName = 'receipt.pdf';
+
+    this.file.createFile(directory, fileName, true).then((response) => {
+      console.log('file created',response);
+
+      const byteCharacters = atob(base64_data);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+          byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], {type: 'application/pdf'});
+
+      this.file.writeExistingFile(directory, fileName, blob).then((response) => {
+        console.log('successfully wrote to file',response);
+
+        this.fileOpener.open(directory + fileName, 'application/pdf').then((response) => {
+          console.log('opened PDF file successfully',response);
+        }).catch((err) => {
+            console.log('error in opening pdf file',err);
+        });
+      }).catch((err) => {
+        console.log('error writing to file',err);
+      });
+
+   }).catch((err) => {
+      console.log('Error creating file',err);
+   });
+  }
+
+  // base64ToPDf(base64_data: string){
+  //   this.file.createFile(this.file.externalRootDirectory,'test.pdf',true).then((response) => {
+  //     console.log('file created',response);
+
+  //     const byteCharacters = atob(base64_data);
+  //     const byteNumbers = new Array(byteCharacters.length);
+  //     for (let i = 0; i < byteCharacters.length; i++) {
+  //         byteNumbers[i] = byteCharacters.charCodeAt(i);
+  //     }
+
+  //     const byteArray = new Uint8Array(byteNumbers);
+  //     const blob = new Blob([byteArray], {type: 'application/pdf'});
+
+  //     this.file.writeExistingFile(this.file.externalRootDirectory,'test.pdf',blob).then((response) => {
+  //       console.log('successfully wrote to file',response);
+  //       this.fileOpener.open(this.file.externalRootDirectory + 'test.pdf','application/pdf').then((response) => {
+  //         console.log('opened PDF file successfully',response);
+  //       }).catch((err) => {
+  //           console.log('error in opening pdf file',err);
+  //       });
+  //     }).catch((err) => {
+  //       console.log('error writing to file',err);
+  //     });
+
+  //  }).catch((err) => {
+  //     console.log('Error creating file',err);
+  //  });
+  // }
 
 }

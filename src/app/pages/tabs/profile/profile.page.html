@@ -37,6 +37,11 @@
       </ion-col>
       <ion-col size="12">
         <div class="btn-wrapper">
+          <ion-button class="legend-btn legend-btn-white ion-text-capitalize" type="button" [disabled]="!profile" (click)="openUpdatePinModal()">Update Pin</ion-button>
+        </div>
+      </ion-col>
+      <ion-col size="12">
+        <div class="btn-wrapper">
           <ion-button class="legend-btn legend-btn-inverse ion-text-capitalize" [disabled]="!profile" type="button" (click)="logout()">Log Out</ion-button>
         </div>
       </ion-col>

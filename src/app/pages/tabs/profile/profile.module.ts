@@ -9,6 +9,7 @@ import {NgxQRCodeModule} from 'ngx-qrcode2';
 
 import { EditProfilePageModule } from '../../modals/profile/edit-profile/edit-profile.module';
 import { QrCodePage } from '../../modals/profile/qr-code/qr-code.page';
+import { UpdatePinPageModule } from '../../modals/profile/update-pin/update-pin.module';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { QrCodePage } from '../../modals/profile/qr-code/qr-code.page';
     FormsModule,
     RouterModule.forChild([{ path: '', component: ProfilePage }]),
     EditProfilePageModule,
+    UpdatePinPageModule,
     NgxQRCodeModule
   ],
   declarations: [ProfilePage, QrCodePage],

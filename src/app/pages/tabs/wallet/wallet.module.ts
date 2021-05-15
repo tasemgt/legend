@@ -12,6 +12,7 @@ import { SeeAllPageModule } from '../../modals/transactions/see-all/see-all.modu
 import { SelectServicePageModule } from '../../modals/payments/select-service/select-service.module';
 import { BankTransferPageModule } from '../../modals/transfer/bank-transfer/bank-transfer.module';
 import { BvnVerificationPageModule } from '../../modals/transfer/bvn-verification/bvn-verification.module';
+import { ReceiptPageModule } from '../../modals/receipt/receipt.module';
 
 
 
@@ -30,6 +31,7 @@ import { BvnVerificationPageModule } from '../../modals/transfer/bvn-verificatio
     TopUpPageModule,
     SelectServicePageModule,
     SeeAllPageModule,
+    ReceiptPageModule,
     RouterModule.forChild([{ path: '', component: WalletPage }]),
   ],
   declarations: [WalletPage]

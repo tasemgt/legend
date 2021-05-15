@@ -11,6 +11,8 @@ import { ModalController, LoadingController } from '@ionic/angular';
 import { myEnterAnimation, myEnterAnimation2 } from 'src/app/animations/enter';
 import { myLeaveAnimation } from 'src/app/animations/leave';
 import { QrCodePage } from '../../modals/profile/qr-code/qr-code.page';
+import { UpdatePinPageModule } from '../../modals/profile/update-pin/update-pin.module';
+import { UpdatePinPage } from '../../modals/profile/update-pin/update-pin.page';
 
 
 @Component({
@@ -77,6 +79,20 @@ export class ProfilePage implements OnInit, OnDestroy{
     // this.router.navigateByUrl('/edit-profile');
     const modal = await this.modalCtrl.create({
       component: EditProfilePage,
+      enterAnimation: myEnterAnimation,
+      leaveAnimation: myLeaveAnimation,
+      componentProps: {'profile': this.profile, 'user': this.user}
+    });
+    await modal.present();
+    const {data} = await modal.onDidDismiss();
+    if(data){
+      this.profile = data.profile;
+    }
+  }
+
+  public async openUpdatePinModal(){
+    const modal = await this.modalCtrl.create({
+      component: UpdatePinPage,
       enterAnimation: myEnterAnimation,
       leaveAnimation: myLeaveAnimation,
       componentProps: {'profile': this.profile, 'user': this.user}

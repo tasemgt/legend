@@ -49,12 +49,21 @@
           <p>&#8358;&nbsp;{{  formatNumWithCommas((transferDetails.amount | toNumber ) + 100) }}</p>
         </ion-text>
       </ion-col>
-      <ion-col size="12" class="ion-text-center">
-        <div class="btn-wrapper">
-          <ion-button (click)="makeTransfer()" class="legend-btn ion-text-capitalize" color="primary" type="button">Make Transfer</ion-button>
-        </div>
-      </ion-col>
     </ion-row>
+    <form #confirmBankTransferForm="ngForm" (ngSubmit)="makeTransfer(confirmBankTransferForm)">
+      <ion-row class="pin-row">
+        <ion-col size="12" class="legend-input">
+          <ion-item>
+            <ion-input placeholder="Enter transfer pin" type="password" maxLength="4" name="pin" ngModel #pin="ngModel" required></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="12" class="ion-text-center">
+          <div class="btn-wrapper">
+            <ion-button class="legend-btn ion-text-capitalize" color="primary" type="submit">Make Transfer</ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </form>
   </ion-grid>
 
 </ion-content>
