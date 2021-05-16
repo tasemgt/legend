@@ -5,12 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { BuyAirtimePage } from './buy-airtime.page';
+import { BvnVerificationPageModule } from '../../transfer/bvn-verification/bvn-verification.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    IonicModule
+    IonicModule,
+    BvnVerificationPageModule
   ],
   declarations: [BuyAirtimePage],
   entryComponents: [BuyAirtimePage]

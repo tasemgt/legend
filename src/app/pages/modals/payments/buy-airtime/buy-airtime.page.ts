@@ -4,6 +4,9 @@ import { NgForm } from '@angular/forms';
 import { UtilService } from 'src/app/services/util.service';
 import { ExtraServicesService } from 'src/app/services/extra-services.service';
 import { WalletService } from 'src/app/services/wallet.service';
+import { BvnVerificationPage } from '../../transfer/bvn-verification/bvn-verification.page';
+import { myEnterAnimation } from 'src/app/animations/enter';
+import { myLeaveAnimation } from 'src/app/animations/leave';
 
 @Component({
   selector: 'app-buy-airtime',
@@ -59,7 +62,14 @@ export class BuyAirtimePage implements OnInit {
             this.utilService.showToast(resp.message, 3000, 'success');
             this.closeModal();
           }
+          else if(resp.code === 318){
+            this.utilService.showToast(resp.message, 2000, 'danger');
+            this.openBVNVerificationPage();
+          }
           else if(resp.code === 418){
+            this.utilService.showToast(resp.message, 2000, 'danger');
+          }
+          else{
             this.utilService.showToast(resp.message, 2000, 'danger');
           }
         })
@@ -69,6 +79,15 @@ export class BuyAirtimePage implements OnInit {
         });
 
       }, 'Cancel', 'Confirm');
+  }
+
+  public async openBVNVerificationPage(){
+    const modal = await this.modalCtrl.create({
+      component: BvnVerificationPage,
+      enterAnimation: myEnterAnimation,
+      leaveAnimation: myLeaveAnimation
+    });
+    await modal.present();
   }
 
   public refreshModel(): void{

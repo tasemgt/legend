@@ -203,6 +203,19 @@ div.logo{
   text-align: right;
 }
 
+div.logo p{
+  font-size: 1.5rem;
+}
+
+div.logo span:first-child{
+  color: #E53F27;
+}
+
+div.logo span:last-child{
+  color: #232323;
+  font-weight: bold;
+}
+
 div.logo img{
   width: 40%;
 }

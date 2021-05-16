@@ -6,6 +6,7 @@ import { NgForm } from '@angular/forms';
 import { BuyDstvConfirmPage } from '../buy-dstv-confirm/buy-dstv-confirm.page';
 import { myEnterAnimation } from 'src/app/animations/enter';
 import { myLeaveAnimation } from 'src/app/animations/leave';
+import { BvnVerificationPage } from '../../transfer/bvn-verification/bvn-verification.page';
 
 @Component({
   selector: 'app-buy-dstv',
@@ -50,8 +51,15 @@ export class BuyDstvPage implements OnInit {
         if(resp.code === 100){
           this.openDstvConfirmPage(resp);
         }
+        else if(resp.code === 318){
+          this.utilService.showToast(resp.message, 2000, 'danger');
+          this.openBVNVerificationPage();
+        }
         else if(resp.code === 418){
           this.utilService.showToast(resp.message, 3000, 'danger');
+        }
+        else{
+          this.utilService.showToast(resp.message, 2000, 'danger');
         }
       })
       .catch((err) =>{
@@ -75,6 +83,15 @@ export class BuyDstvPage implements OnInit {
         data.closeParent? this.closeModal(): '';
       },0);
     }
+  }
+
+  public async openBVNVerificationPage(){
+    const modal = await this.modalCtrl.create({
+      component: BvnVerificationPage,
+      enterAnimation: myEnterAnimation,
+      leaveAnimation: myLeaveAnimation
+    });
+    await modal.present();
   }
 
   public formatWithCommas(number){

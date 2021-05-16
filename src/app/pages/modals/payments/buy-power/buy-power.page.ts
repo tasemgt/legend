@@ -6,6 +6,7 @@ import { myLeaveAnimation } from 'src/app/animations/leave';
 import { BuyPowerConfirmPage } from '../buy-power-confirm/buy-power-confirm.page';
 import { NgForm } from '@angular/forms';
 import { ExtraServicesService } from 'src/app/services/extra-services.service';
+import { BvnVerificationPage } from '../../transfer/bvn-verification/bvn-verification.page';
 
 @Component({
   selector: 'app-buy-power',
@@ -56,7 +57,14 @@ export class BuyPowerPage implements OnInit {
         if(resp.code === 100){
           this.openBuyPowerModal(resp);
         }
+        else if(resp.code === 318){
+          this.utilService.showToast(resp.message, 2000, 'danger');
+          this.openBVNVerificationPage();
+        }
         else if(resp.code === 418){
+          this.utilService.showToast(resp.message, 2000, 'danger');
+        }
+        else{
           this.utilService.showToast(resp.message, 2000, 'danger');
         }
       })
@@ -85,6 +93,15 @@ export class BuyPowerPage implements OnInit {
         data.closeParent? this.closeModal(): '';
       },0);
     }
+  }
+
+  public async openBVNVerificationPage(){
+    const modal = await this.modalCtrl.create({
+      component: BvnVerificationPage,
+      enterAnimation: myEnterAnimation,
+      leaveAnimation: myLeaveAnimation
+    });
+    await modal.present();
   }
 
   public closeModal(){

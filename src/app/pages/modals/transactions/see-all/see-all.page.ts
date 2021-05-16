@@ -31,4 +31,8 @@ export class SeeAllPage implements OnInit {
   public closeModal(){
     this.modalCtrl.dismiss();
   }
+
+  public generateReceipt(transaction: Transaction){
+    this.utilService.generateReceipt(transaction);
+  }
 }

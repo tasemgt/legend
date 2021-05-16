@@ -54,7 +54,7 @@
         <div class="transactions-list" *ngIf="transactions?.length > 0">
           <div 
           class="transaction" 
-          *ngFor="let transaction of transactions | slice:0:4"  (click)="generateReceipt()">
+          *ngFor="let transaction of transactions | slice:0:4"  (click)="generateReceipt(transaction)">
             <ion-row>
               <ion-col size="2">
                 <ion-icon class="circle" src="assets/imgs/circle-add.svg"></ion-icon>

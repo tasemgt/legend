@@ -1,6 +1,6 @@
 <ion-content class="ion-padding">
   <ion-list>
-    <ion-item lines="full" *ngFor="let transaction of transactions">
+    <ion-item lines="full" *ngFor="let transaction of transactions" (click)="generateReceipt(transaction)">
       <ion-label class="ion-text-wrap">
         <ion-text color="primary">
           <h3>{{transaction.type}} <span>&#8358;{{formatWithCommas(transaction.amount)}}</span></h3>

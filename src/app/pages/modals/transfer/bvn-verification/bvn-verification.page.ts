@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { LoadingController, ModalController, NavParams } from '@ionic/angular';
 import { myEnterAnimation } from 'src/app/animations/enter';
 import { myLeaveAnimation } from 'src/app/animations/leave';
 import { FundTransferService } from 'src/app/services/fund-transfer.service';
@@ -14,11 +14,18 @@ import { BankTransferPage } from '../bank-transfer/bank-transfer.page';
 })
 export class BvnVerificationPage implements OnInit {
 
+  public fromBankTransfer: boolean;
+
   constructor(
     private modalCtrl: ModalController,
     private utilService: UtilService,
     private transferService: FundTransferService,
-    private loadingCtrl: LoadingController) { }
+    private loadingCtrl: LoadingController,
+    private navParams: NavParams) {
+
+      this.fromBankTransfer = this.navParams.get('bankTransfer');
+      console.log(this.fromBankTransfer);
+    }
 
   ngOnInit() {
   }
@@ -49,7 +56,7 @@ export class BvnVerificationPage implements OnInit {
         this.loadingCtrl.dismiss();
         if(resp.code === 100){
           this.utilService.showToast(resp.message, 2000, 'success');
-          this.openBankTransferModal();
+          this.fromBankTransfer ? this.openBankTransferModal(): this.closeModal();
         }
         else if(resp.code === 418){
           this.utilService.showToast(resp.message, 3000, 'danger');

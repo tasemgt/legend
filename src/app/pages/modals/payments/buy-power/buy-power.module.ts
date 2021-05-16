@@ -6,13 +6,15 @@ import { IonicModule } from '@ionic/angular';
 
 import { BuyPowerPage } from './buy-power.page';
 import { BuyPowerConfirmPageModule } from '../buy-power-confirm/buy-power-confirm.module';
+import { BvnVerificationPageModule } from '../../transfer/bvn-verification/bvn-verification.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    BuyPowerConfirmPageModule
+    BuyPowerConfirmPageModule,
+    BvnVerificationPageModule
   ],
   declarations: [BuyPowerPage],
   entryComponents: [BuyPowerPage]

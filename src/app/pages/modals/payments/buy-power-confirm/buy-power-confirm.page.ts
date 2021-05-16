@@ -55,6 +55,9 @@ export class BuyPowerConfirmPage implements OnInit {
             else if(resp.code === 418 || resp.code === 407){
               this.utilService.showToast(resp.message, 2000, 'danger');
             }
+            else{
+              this.utilService.showToast(resp.message, 2000, 'danger');
+            }
           })
           .catch((err) =>{
             this.loadingCtrl.dismiss();

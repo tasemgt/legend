@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { ToastController, LoadingController, AlertController, Platform, ActionSheetController } from '@ionic/angular';
 import { HttpErrorResponse } from '@angular/common/http';
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
+import { Transaction } from '../models/transaction';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { File, IWriteOptions } from '@ionic-native/file/ngx';
+import { PDFGenerator, PDFGeneratorOptions, PDFGeneratorOriginal } from '@ionic-native/pdf-generator';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +13,8 @@ import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-sca
 export class UtilService {
 
   constructor(
+    private file: File,
+    private fileOpener: FileOpener,
     private toastCtrl: ToastController,
     private platform: Platform,
     private barcodeScanner: BarcodeScanner,
@@ -183,6 +189,171 @@ export class UtilService {
       return true;
     }
     return false;
+  }
+
+  public generateHtmlForPdf(transaction: Transaction): string{
+    const html = `
+    <html>
+      <head>
+        <style>
+        div.container{
+          padding: 1rem 1rem 0 1rem;
+          background-color: #FFF;
+          color: #232323;
+        }
+        div.logo{
+          text-align: right;
+          padding-right: 1rem;
+        }
+        div.logo p{
+          font-size: 2rem;
+        }
+        div.logo span:first-child{
+          color: #E53F27;
+        }
+        div.logo span:last-child{
+          color: #232323;
+          font-weight: bold;
+        }
+        div.logo img{
+          width: 200px;
+        }
+        h1{
+          margin: 0;
+          text-align: center;
+          font-size: 2rem;
+          text-decoration: underline;
+        }
+        div.details{
+          margin-top: 4rem;
+          margin-bottom: -4rem;
+          font-size: 1.5rem;
+        }
+        div.detail:not(div.detail:last-child){
+          margin-bottom: 1rem;
+        }
+        div.detail span{
+          display: inline-block;
+        }
+        div.detail span:first-child{
+          color: #474747;
+          margin-right: 2rem;
+        }
+        div.detail span:last-child{
+          color: #E53F27;
+          font-size: 1.7rem;
+        }
+        div.footer{
+          width: 90%;
+          position: absolute;
+          bottom: 2rem;
+          font-size: .8rem;
+        }
+        </style>
+      </head>
+      <body>
+      <div class="container">
+      <div class="logo">
+        <p><span>Legend</span><span>Pay</span></p>
+      </div>
+      <h1>Transaction Receipt</h1>
+      <div class="details">
+        <div class="detail">
+          <span>Invoice To:</span>
+          <span>${transaction.name}</span>
+        </div>
+        <div class="detail">
+          <span>Phone Number:</span>
+          <span>${transaction.phone}</span>
+        </div>
+        <div class="detail">
+          <span>Username:</span>
+          <span>${transaction.username}</span>
+        </div>
+        <div class="detail">
+          <span>Type:</span>
+          <span>${transaction.type}</span>
+        </div>
+        <div class="detail">
+          <span>Amount:</span>
+          <span>${transaction.amount}</span>
+        </div>
+        <div class="detail">
+          <span>Description:</span>
+          <span>${transaction.product}</span>
+        </div>
+        <div class="detail">
+          <span>Reference:</span>
+          <span>${transaction.ref}</span>
+        </div>
+        <div class="detail">
+          <span>Status:</span>
+          <span>${transaction.status}</span>
+        </div>
+        <div class="detail">
+          <span>Date:</span>
+          <span>${transaction.date}</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+        This is an electronic receipt of a transaction. For any other assistance, kindly call Legend on 0700-69-534363 or email us at experience@legend.ng.
+      </div>
+      </body>
+    </html
+  `;
+        return html;
+  }
+
+  public generateReceipt(transaction: Transaction){
+    console.log('Clicked..');
+    const html = this.generateHtmlForPdf(transaction);
+    const options: PDFGeneratorOptions = {
+      documentSize: 'A4',
+      type: 'base64',
+      landscape: 'portrait'
+    };
+
+    PDFGenerator.fromData(html, options)
+    .then(base64 => {
+      console.log('stringyy>>>> ', base64);
+      this.base64ToPDf(base64);
+    })
+    .catch(e => console.log(e));
+    // this  .fromURL('https://google.es', options).then(base64String => console.log(base64String));
+  }
+
+  public base64ToPDf(base64_data: string){
+    const directory = this.file.dataDirectory;
+    const fileName = 'receipt.pdf';
+
+    this.file.createFile(directory, fileName, true).then((response) => {
+      console.log('file created',response);
+
+      const byteCharacters = atob(base64_data);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+          byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], {type: 'application/pdf'});
+
+      this.file.writeExistingFile(directory, fileName, blob).then((response) => {
+        console.log('successfully wrote to file',response);
+
+        this.fileOpener.open(directory + fileName, 'application/pdf').then((response) => {
+          console.log('opened PDF file successfully',response);
+        }).catch((err) => {
+            console.log('error in opening pdf file',err);
+        });
+      }).catch((err) => {
+        console.log('error writing to file',err);
+      });
+
+   }).catch((err) => {
+      console.log('Error creating file',err);
+   });
   }
 
   public getErrorMessage(error: HttpErrorResponse): string {
