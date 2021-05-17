@@ -14,7 +14,7 @@
 
   <form class="auth-form" (ngSubmit)="updatePin(editPinForm)" #editPinForm="ngForm">
     <ion-row>
-      <ion-col size="12" class="legend-input" *ngIf="balance?.pin === 'YES'">
+      <ion-col size="12" class="legend-input" *ngIf="profile.pin === 'YES'">
         <ion-item>
           <ion-label>Old Pin:</ion-label>
           <ion-input type="password" name="oldpin" maxLength="4" ngModel #oldpin="ngModel" required></ion-input>

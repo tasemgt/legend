@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { LoadingController, ModalController, NavParams } from '@ionic/angular';
-import { User } from 'src/app/models/user';
-import { Balance } from 'src/app/models/wallet';
+import { Profile, User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import { UtilService } from 'src/app/services/util.service';
 import { WalletService } from 'src/app/services/wallet.service';
@@ -14,8 +13,8 @@ import { WalletService } from 'src/app/services/wallet.service';
 })
 export class UpdatePinPage implements OnInit {
 
-  public balance: Balance;
   public user: User;
+  public profile: Profile;
 
   constructor(private modalCtel: ModalController,
     private navParams: NavParams,
@@ -25,14 +24,10 @@ export class UpdatePinPage implements OnInit {
     private userService: UserService) {
 
       this.user = this.navParams.get('user');
+      this.profile = this.navParams.get('profile');
   }
 
   ngOnInit() {
-    this.getBalance();
-  }
-
-  private async getBalance(){
-    this.balance =  this.walletService.uniBalanceValue;
   }
 
   public updatePin(form: NgForm){
@@ -53,7 +48,7 @@ export class UpdatePinPage implements OnInit {
     }
     console.log(form.value.pin, form.value.oldpin, form.value.pin_confirmation);
     const payload: any = {pin: form.value.pin, pin_confirmation: form.value.pin_confirmation};
-    this.balance.pin === 'YES' ? payload.oldpin = form.value.oldpin: '';
+    this.profile.pin === 'YES' ? payload.oldpin = form.value.oldpin: '';
     this.utilService.presentLoading('')
       .then(() =>{
         return this.userService.updateUserPin(this.user, payload);
