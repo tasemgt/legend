@@ -24,6 +24,7 @@ export class ProfilePage implements OnInit, OnDestroy{
 
   public profile: Profile;
   public user: User;
+  public canTransfer: boolean;
   
   public authSubscription: Subscription;
 
@@ -33,7 +34,10 @@ export class ProfilePage implements OnInit, OnDestroy{
     private authService: AuthService,
     private userService: UserService,
     private utilService: UtilService,
-    private loadingCtrl: LoadingController) {}
+    private loadingCtrl: LoadingController) {
+
+      this.canTransfer = false;
+    }
 
   ngOnInit(){
 
@@ -65,6 +69,8 @@ export class ProfilePage implements OnInit, OnDestroy{
   private async getUserProfile(user: User){
     try{
       this.profile = await this.userService.getUserProfile(user);
+      this.canTransfer = this.profile.can_transfer === 'NO' ? false : true;
+      console.log(this.profile.can_transfer, this.canTransfer);
     }
     catch(err){
       if(err.status === 0){

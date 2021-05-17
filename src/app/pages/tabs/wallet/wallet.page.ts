@@ -136,10 +136,10 @@ export class WalletPage implements OnInit {
       }
     ];
 
-    // if(this.balance && this.balance.can_transfer === 'YES'){
+    if(this.balance && this.balance.can_transfer === 'YES'){
       return await this.utilService.presentActionSheet(buttons); 
-    // }
-    // this.openSearchUserForTransferModal();
+    }
+    this.openSearchUserForTransferModal();
   }
 
   //Modals for purchases

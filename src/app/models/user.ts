@@ -19,6 +19,8 @@ export interface Profile{
     streetname?: string;
     city?: string;
     code?: string;
+    pin?: string;
+    can_transfer: string;
 }
 
 export interface UserCred{

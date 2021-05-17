@@ -5,6 +5,7 @@
     <author email="experience@legend.ng" href="https://www.legend.ng/">Suburban</author>
     <content src="index.html" />
     <access origin="*" />
+    <access origin="cdvfile://*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />

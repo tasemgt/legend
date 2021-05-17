@@ -197,7 +197,7 @@ export class UtilService {
       <head>
         <style>
         div.container{
-          padding: 1rem 1rem 0 1rem;
+          padding: .5rem 1rem 0 1rem;
           background-color: #FFF;
           color: #232323;
         }
@@ -206,7 +206,7 @@ export class UtilService {
           padding-right: 1rem;
         }
         div.logo p{
-          font-size: 2rem;
+          font-size: 1.5rem;
         }
         div.logo span:first-child{
           color: #E53F27;
@@ -219,7 +219,7 @@ export class UtilService {
           width: 200px;
         }
         h1{
-          margin: 0;
+          margin: 2rem 0 3rem 0;
           text-align: center;
           font-size: 2rem;
           text-decoration: underline;
@@ -230,7 +230,7 @@ export class UtilService {
           font-size: 1.5rem;
         }
         div.detail:not(div.detail:last-child){
-          margin-bottom: 1rem;
+          margin-bottom: .8rem;
         }
         div.detail span{
           display: inline-block;
@@ -238,6 +238,8 @@ export class UtilService {
         div.detail span:first-child{
           color: #474747;
           margin-right: 2rem;
+          width: 25%;
+          font-size: 1.5rem;
         }
         div.detail span:last-child{
           color: #E53F27;
@@ -247,7 +249,7 @@ export class UtilService {
           width: 90%;
           position: absolute;
           bottom: 2rem;
-          font-size: .8rem;
+          font-size: 1rem;
         }
         </style>
       </head>
@@ -257,50 +259,48 @@ export class UtilService {
         <p><span>Legend</span><span>Pay</span></p>
       </div>
       <h1>Transaction Receipt</h1>
-      <div class="details">
-        <div class="detail">
-          <span>Invoice To:</span>
-          <span>${transaction.name}</span>
-        </div>
-        <div class="detail">
-          <span>Phone Number:</span>
-          <span>${transaction.phone}</span>
-        </div>
-        <div class="detail">
-          <span>Username:</span>
-          <span>${transaction.username}</span>
-        </div>
-        <div class="detail">
-          <span>Type:</span>
-          <span>${transaction.type}</span>
-        </div>
-        <div class="detail">
-          <span>Amount:</span>
-          <span>${transaction.amount}</span>
-        </div>
-        <div class="detail">
-          <span>Description:</span>
-          <span>${transaction.product}</span>
-        </div>
-        <div class="detail">
-          <span>Reference:</span>
-          <span>${transaction.ref}</span>
-        </div>
-        <div class="detail">
-          <span>Status:</span>
-          <span>${transaction.status}</span>
-        </div>
-        <div class="detail">
-          <span>Date:</span>
-          <span>${transaction.date}</span>
-        </div>
+      <div class="detail">
+        <span>Invoice To:</span>
+        <span>${transaction.name}</span>
+      </div>
+      <div class="detail">
+        <span>Phone Number:</span>
+        <span>${transaction.phone}</span>
+      </div>
+      <div class="detail">
+        <span>Username:</span>
+        <span>${transaction.username}</span>
+      </div>
+      <div class="detail">
+        <span>Type:</span>
+        <span>${transaction.type}</span>
+      </div>
+      <div class="detail">
+        <span>Amount:</span>
+        <span>${transaction.amount}</span>
+      </div>
+      <div class="detail">
+        <span>Description:</span>
+        <span>${transaction.product}</span>
+      </div>
+      <div class="detail">
+        <span>Reference:</span>
+        <span>${transaction.ref}</span>
+      </div>
+      <div class="detail">
+        <span>Status:</span>
+        <span>${transaction.status}</span>
+      </div>
+      <div class="detail">
+        <span>Date:</span>
+        <span>${transaction.date}</span>
       </div>
     </div>
     <div class="footer">
-        This is an electronic receipt of a transaction. For any other assistance, kindly call Legend on 0700-69-534363 or email us at experience@legend.ng.
-      </div>
-      </body>
-    </html
+      This is an electronic receipt of a transaction. For any other assistance, kindly call Legend on 0700-69-534363 or email us at experience@legend.ng.
+    </div>
+  </body>
+  </html
   `;
         return html;
   }

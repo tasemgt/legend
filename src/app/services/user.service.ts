@@ -15,11 +15,11 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
   
-
   public async getUserProfile(user: User) : Promise<Profile>{
+    const url = 'http://41.73.8.123/horizonaccess/legend/public/api/v2'; //Version 3 url
     const headers = {Authorization: `Bearer ${user.token}`, Accept: 'application/json', 'Content-Type': 'application/json'};
     try{
-      const profile:any = await this.http.get(`${this.baseUrl}/profile`, {headers}).toPromise();
+      const profile:any = await this.http.get(`${url}/profile`, {headers}).toPromise();
       return Promise.resolve(profile);
     }
     catch(error){
