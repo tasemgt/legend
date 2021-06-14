@@ -12,7 +12,6 @@ import { Network } from '@ionic-native/network/ngx';
 import { AppMinimize } from '@ionic-native/app-minimize/ngx';
 
 import { MobileAccessibility } from '@ionic-native/mobile-accessibility/ngx';
-import { PDFGenerator } from '@ionic-native/pdf-generator';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,6 +20,8 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { AuthInterceptorService } from './services/auth-interceptior.service';
+
+import { OneSignal } from '@ionic-native/onesignal/ngx';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { AuthInterceptorService } from './services/auth-interceptior.service';
     BarcodeScanner,
     File,
     FileOpener,
+    OneSignal,
     // PDFGenerator,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true},
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

@@ -1,7 +1,9 @@
 export const Constants = {
     baseUrl:  'https://legendpay.ng/api/v2',
-    merchantImageBaseUrl: "http://pos.legend.ng/storage/merchant-image/",
-    authUser: 'authUser'
+    merchantImageBaseUrl: "http://merchant.legend.ng/storage/merchant-image/",
+    authUser: 'authUser',
+    oneSignalAppID: 'a34ce124-7e9a-4f6a-947c-0768ff828796',
+    googleProjectNumberSenderID: '914926673400'
 }
 
 export const BundleImage = {

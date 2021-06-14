@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "914926673400",
+    "project_id": "legend-pay",
+    "storage_bucket": "legend-pay.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:914926673400:android:c1a69cdb71ad4ecb8e4a0d",
+        "android_client_info": {
+          "package_name": "io.legend.legendpay.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "914926673400-sisljos2stgmvfs18es6k5qsqrq9sntc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAu2MhCd0LkZKGujNiP3OgA9WbkgIZOX5I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "914926673400-sisljos2stgmvfs18es6k5qsqrq9sntc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

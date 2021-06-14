@@ -11,7 +11,6 @@ import { ModalController, LoadingController } from '@ionic/angular';
 import { myEnterAnimation, myEnterAnimation2 } from 'src/app/animations/enter';
 import { myLeaveAnimation } from 'src/app/animations/leave';
 import { QrCodePage } from '../../modals/profile/qr-code/qr-code.page';
-import { UpdatePinPageModule } from '../../modals/profile/update-pin/update-pin.module';
 import { UpdatePinPage } from '../../modals/profile/update-pin/update-pin.page';
 
 
@@ -25,7 +24,6 @@ export class ProfilePage implements OnInit, OnDestroy{
   public profile: Profile;
   public user: User;
   public canTransfer: boolean;
-  
   public authSubscription: Subscription;
 
 

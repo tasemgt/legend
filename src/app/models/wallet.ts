@@ -29,6 +29,7 @@ export class Balance{
     can_transfer?: string;
     bvn_verified?: string;
     pin?: string;
+    notification_id: string;
 
     public resetBalance(): void{
         this.balance = ''; this.prod_balance = ''; this.bundle = '';
