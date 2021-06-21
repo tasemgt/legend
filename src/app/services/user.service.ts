@@ -17,7 +17,7 @@ export class UserService {
   constructor(private http: HttpClient, private authService: AuthService) { }
   
   public async getUserProfile(user: User) : Promise<Profile>{
-    const url = 'http://41.73.8.123/horizonaccess/legend/public/api/v2'; //Version 3 url
+    const url = this.baseUrl; //'http://41.73.8.123/horizonaccess/legend/public/api/v2'; //Version 3 url
     const headers = {Authorization: `Bearer ${user.token}`, Accept: 'application/json', 'Content-Type': 'application/json'};
     try{
       const profile:any = await this.http.get(`${url}/profile`, {headers}).toPromise();
@@ -40,7 +40,7 @@ export class UserService {
   }
 
   public async updateUserPin(user:User, payload: any): Promise<any>{
-    const url = 'http://41.73.8.123/horizonaccess/legend/public/api/v3'; //'https://legendpay.ng/api/v3'; //Version 3 url
+    const url = this.baseUrl; //'http://41.73.8.123/horizonaccess/legend/public/api/v3'; //'https://legendpay.ng/api/v3'; //Version 3 url
     const headers = {Authorization: `Bearer ${user.token}`, Accept: 'application/json', 'Content-Type': 'application/json'};
     try{
       const response:any = await this.http.post(`${url}/pin`, payload, {headers}).toPromise();
@@ -53,7 +53,7 @@ export class UserService {
 
   public async registerNotificationId(payload: any): Promise<any>{
     const user = await this.authService.getUser();
-    const url = 'http://41.73.8.123/horizonaccess/legend/public/api/v3'; //'https://legendpay.ng/api/v3'; //Version 3 url
+    const url = this.baseUrl; //'http://41.73.8.123/horizonaccess/legend/public/api/v3'; //'https://legendpay.ng/api/v3'; //Version 3 url
     const headers = {Authorization: `Bearer ${user.token}`, Accept: 'application/json', 'Content-Type': 'application/json'};
     try{
       const response:any = await this.http.post(`${url}/notification`, payload, {headers}).toPromise();

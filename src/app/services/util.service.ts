@@ -6,13 +6,17 @@ import { Transaction } from '../models/transaction';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { File, IWriteOptions } from '@ionic-native/file/ngx';
 import { PDFGenerator, PDFGeneratorOptions, PDFGeneratorOriginal } from '@ionic-native/pdf-generator';
+import { TransactionReceiptTypes } from '../models/constants';
 
 import imageToBase64 from 'image-to-base64';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilService {
+
+  public transRptTypes = TransactionReceiptTypes;
 
   constructor(
     private file: File,
@@ -195,16 +199,16 @@ export class UtilService {
 
   private async imgToBase64(): Promise<string | void>{
     try{
-      const b64 = await imageToBase64('../../assets/imgs/legendpay-logo-full.png');
-      console.log('B64>>>',b64);
+      const b64 = await imageToBase64('https://play-lh.googleusercontent.com/RbnLrWomJ6hJ9DeaUj2lrz0VeujeO-46ylEhC-LxWIBDO_v-RnniVfluCFRyWvUTtQ');
+      console.log('B64>>>>',b64);
     }
     catch(e){
-      console.log('B64-EEE>>', e);
+      console.log('B64-EEE>>>', e);
     }
   }
 
   public async generateHtmlForPdf(transaction: Transaction){
-    // const img = await this.imgToBase64();
+    const img = await this.imgToBase64();
     const html = `
   <html>
     <head>
@@ -215,32 +219,34 @@ export class UtilService {
         color: #232323;
       }
       div.logo{
-        text-align: right;
-        padding-right: 1rem;
-      }
-      div.logo p{
-        font-size: 1.5rem;
-      }
-      div.logo span:first-child{
-        color: #E53F27;
-      }
-      div.logo span:last-child{
-        color: #232323;
-        font-weight: bold;
+        position: relative;
       }
       div.logo img{
         width: 200px;
+        position: absolute;
       }
-      h1{
-        margin: 2rem 0 3rem 0;
-        text-align: center;
-        font-size: 2rem;
-        text-decoration: underline;
+      div.logo img:first-child{
+        left: 0rem
       }
-      div.details{
-        margin-top: 4rem;
-        margin-bottom: -4rem;
+      div.logo img:last-child{
+        right: 1rem;
+      }
+      p{
+        position: relative;
         font-size: 1.5rem;
+      }
+      p span{
+        position: absolute;
+        top: 8rem;
+      }
+      p span:first-child{
+        left: 0rem
+      }
+      p span:last-child{
+        right: 1rem;
+      }
+      div.empty{
+        margin-top: 15rem;
       }
       div.detail:not(div.detail:last-child){
         margin-bottom: .8rem;
@@ -251,7 +257,7 @@ export class UtilService {
       div.detail span:first-child{
         color: #474747;
         margin-right: 2rem;
-        width: 25%;
+        width: 40%;
         font-size: 1.5rem;
       }
       div.detail span:last-child{
@@ -260,12 +266,10 @@ export class UtilService {
       }
       div.footer{
         position: absolute;
-        background-color: #e95728;
-        width: 100%;
-        color: #FFF;
+        width: 90%;
         bottom: 0rem;
-        font-size: 1.3rem;
-        margin: 0 -1rem;
+        font-size: 1.1rem;
+        text-align: center;
         z-index: 1000;
       }
       </style>
@@ -273,53 +277,24 @@ export class UtilService {
     <body>
       <div class="container">
         <div class="logo">
-          <p><span>Legend</span><span>Pay</span></p>
+          <img src="https://www.legendpay.ng/sets/img/logo-dark2.png" alt="Legend Pay">
+          ${this.transRptTypes[transaction.type].img}
         </div>
-        <h1>Transaction Receipt</h1>
-        <div class="detail">
-          <span>Invoice To:</span>
-          <span>${transaction.name}</span>
-        </div>
-        <div class="detail">
-          <span>Phone Number:</span>
-          <span>${transaction.phone}</span>
-        </div>
-        <div class="detail">
-          <span>Username:</span>
-          <span>${transaction.username}</span>
-        </div>
-        <div class="detail">
-          <span>Type:</span>
-          <span>${transaction.type}</span>
-        </div>
-        <div class="detail">
-          <span>Amount:</span>
-          <span>${transaction.amount}</span>
-        </div>
-        <div class="detail">
-          <span>Description:</span>
-          <span>${transaction.product}</span>
-        </div>
-        <div class="detail">
-          <span>Reference:</span>
-          <span>${transaction.ref}</span>
-        </div>
-        <div class="detail">
-          <span>Status:</span>
-          <span>${transaction.status}</span>
-        </div>
-        <div class="detail">
-          <span>Date:</span>
-          <span>${transaction.date}</span>
-        </div>
+        <p>
+          <span>Transaction id: ${transaction.id}</span>
+          <span>Date: ${transaction.date}</span>
+        </p>
+        <div class="empty"></div>
+        ${this.transRptTypes[transaction.type].fields(transaction)}
       </div>
       <div class="footer">
-        This is an electronic receipt of a transaction. For any other assistance, kindly call Legend on 0700-69-534363 or email us at experience@legend.ng.
+        This is an electronic receipt of a transaction. For further assistance or enquiries, kindly call us on 0700-MY-LEGEND (0700-69-534363) or email us at experience@legend.ng.
       </div>
     </body>
-  </html
+  </html>
   `;
       return html;
+      //background-color: #e95728;
   }
 
   public async generateReceipt(transaction: Transaction){

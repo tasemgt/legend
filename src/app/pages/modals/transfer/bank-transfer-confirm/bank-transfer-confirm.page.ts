@@ -49,6 +49,8 @@ export class BankTransferConfirmPage implements OnInit {
 
         let payload = {
           accountno: this.transferDetails.account_number,
+          accountname: this.transferDetails.account_name,
+          bank: this.transferDetails.bank_name,
           bankcode: this.transferDetails.bank_code,
           ref: this.transferDetails.ref,
           amount: this.transferDetails.amount,

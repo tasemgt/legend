@@ -60,7 +60,7 @@ export class WalletService {
   }
 
   public getBalance(): Promise<any>{
-    const url  = 'http://41.73.8.123/horizonaccess/legend/public/api/v2'; //Test Url
+    const url  = this.baseUrl; //'http://41.73.8.123/horizonaccess/legend/public/api/v2'; //Test Url
     return this.authService.getUser()
       .then(user => {
         this.user = user;

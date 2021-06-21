@@ -32,7 +32,7 @@ export class FundTransferService {
   }
 
   public bankTransfer(action:string, payload?: any): Promise<any>{
-    const url  = 'http://41.73.8.123/horizonaccess/legend/public/api/v3'; //Version 3 url
+    const url  = this.baseUrl; // 'http://41.73.8.123/horizonaccess/legend/public/api/v3'; //Version 3 url
     return this.auth.getUser()
       .then((user) =>{
         const headers = {Authorization: `Bearer ${user.token}`, Accept: 'application/json', 'Content-Type': 'application/json'};

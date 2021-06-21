@@ -8,7 +8,7 @@ import { AuthService } from './auth.service';
 })
 export class ExtraServicesService {
 
-  private baseUrl = 'http://41.73.8.123/horizonaccess/legend/public/api/v2' //Constants.baseUrl;
+  private baseUrl = Constants.baseUrl; //'http://41.73.8.123/horizonaccess/legend/public/api/v2' //
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 

@@ -14,4 +14,8 @@ export interface Transaction{
   time: string;
   created_at: string;
   updated_at: string;
+  airtime_num: string;
+  extra_one: string;
+  extra_two: string;
+  extra_three: string;
 }
