@@ -76,7 +76,6 @@ export class WalletService {
       });
   }
 
-
   public getTransactions(): Promise<any>{
     return this.authService.getUser()
       .then(user => {

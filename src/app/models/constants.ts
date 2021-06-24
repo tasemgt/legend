@@ -21,7 +21,7 @@ export const Plans = [
 
 export const TransactionReceiptTypes = {
     Electricity: {
-        img: '<img src="https://www.legendpay.ng/sets/img/payments/aedc.jpeg" alt="Vendor">',
+        img: '',
         fields: (transaction: Transaction) => `<div class="detail">
                     <span>Username:</span>
                     <span>${transaction.username}</span>
@@ -61,7 +61,7 @@ export const TransactionReceiptTypes = {
                 `
     },
     Airtime: {
-        img: '<img src="https://www.legendpay.ng/sets/img/payments/airtime.jpg" alt="Vendor">',
+        img: '',
         fields: (transaction: Transaction) => `<div class="detail">
                     <span>Username:</span>
                     <span>${transaction.username}</span>
@@ -76,7 +76,7 @@ export const TransactionReceiptTypes = {
                 </div>
                 <div class="detail">
                     <span>Amount:</span>
-                    <span>${transaction.amount}</span>
+                    <del>N</del><span>${transaction.amount}</span>
                 </div>
                 <div class="detail">
                     <span>Transaction Status:</span>
@@ -169,7 +169,7 @@ export const TransactionReceiptTypes = {
                 `
     },
     DSTV:{
-        img: '<img src="https://www.legendpay.ng/sets/img/payments/mydstv.jpg" alt="Vendor">',
+        img: '',
         fields: (transaction: Transaction) => `<div class="detail">
                     <span>Username:</span>
                     <span>${transaction.username}</span>

@@ -28,6 +28,8 @@ npm-debug.log*
 /dist
 /node_modules
 /platforms
+/_platforms
+/__platforms
 /plugins
 /www
 app-release-unsigned.apk

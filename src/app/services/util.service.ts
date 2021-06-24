@@ -197,26 +197,29 @@ export class UtilService {
     return false;
   }
 
-  private async imgToBase64(): Promise<string | void>{
-    try{
-      const b64 = await imageToBase64('https://play-lh.googleusercontent.com/RbnLrWomJ6hJ9DeaUj2lrz0VeujeO-46ylEhC-LxWIBDO_v-RnniVfluCFRyWvUTtQ');
-      console.log('B64>>>>',b64);
-    }
-    catch(e){
-      console.log('B64-EEE>>>', e);
-    }
-  }
+  // private async imgToBase64(): Promise<string | void>{
+  //   try{
+  //     const b64 = await imageToBase64('https://play-lh.googleusercontent.com/RbnLrWomJ6hJ9DeaUj2lrz0VeujeO-46ylEhC-LxWIBDO_v-RnniVfluCFRyWvUTtQ');
+  //     console.log('B64>>>>',b64);
+  //   }
+  //   catch(e){
+  //     console.log('B64-EEE>>>', e);
+  //   }
+  // }
 
   public async generateHtmlForPdf(transaction: Transaction){
-    const img = await this.imgToBase64();
+    // const img = await this.imgToBase64();
     const html = `
   <html>
     <head>
+      <link rel="preconnect" href="https://fonts.gstatic.com">
+      <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
       <style>
       div.container{
         padding: .5rem 1rem 0 1rem;
         background-color: #FFF;
         color: #232323;
+        font-family: 'Source Sans Pro', sans-serif;
       }
       div.logo{
         position: relative;
@@ -261,7 +264,6 @@ export class UtilService {
         font-size: 1.5rem;
       }
       div.detail span:last-child{
-        color: #E53F27;
         font-size: 1.7rem;
       }
       div.footer{
@@ -281,7 +283,7 @@ export class UtilService {
           ${this.transRptTypes[transaction.type].img}
         </div>
         <p>
-          <span>Transaction id: ${transaction.id}</span>
+          <span>Transaction id: ${transaction.ref}</span>
           <span>Date: ${transaction.date}</span>
         </p>
         <div class="empty"></div>
@@ -294,7 +296,7 @@ export class UtilService {
   </html>
   `;
       return html;
-      //background-color: #e95728;
+      //background-color: #e95728; 
   }
 
   public async generateReceipt(transaction: Transaction){
@@ -312,7 +314,7 @@ export class UtilService {
 
     PDFGenerator.fromData(html, options)
     .then(base64 => {
-      // console.log('stringyy>>>> ', base64);
+      // console.log('stringyy>>>>', base64);
       this.base64ToPDf(base64);
     })
     .catch(e => console.log(e));
