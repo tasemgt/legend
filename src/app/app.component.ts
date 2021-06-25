@@ -48,6 +48,8 @@ export class AppComponent implements  OnDestroy, AfterViewInit{
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       
+      this.onesignal.setSubscription(false);
+
       // Handles zoom fonts on android devices
       this.mobileAccessibility.usePreferredTextZoom(false);
 
@@ -65,10 +67,17 @@ export class AppComponent implements  OnDestroy, AfterViewInit{
 
       this.authService.authState.subscribe(async (state) => {
         if (state === true) {
-          console.log('Go to tabs, you\'re logged in');
+          console.log('Logged In..');
           this.router.navigateByUrl('/tabs');
-        } else if (state === false) {
-          console.log('You\'re logged out');
+          //Register for push notifications
+          if(this.platform.is('capacitor') || this.platform.is('cordova')){
+            console.log('Setting up push notifications');
+            this.setupPushNotifications();
+          }
+          this.onesignal.setSubscription(true);
+        } 
+        else if (state === false) {
+          console.log('Logged Out');
           let isModalOpened = await this.modalCtrl.getTop();
           if(isModalOpened){
             this.modalCtrl.dismiss().then(async() =>{
@@ -84,13 +93,9 @@ export class AppComponent implements  OnDestroy, AfterViewInit{
             });
           }
           this.router.navigateByUrl('/login');
+          this.onesignal.setSubscription(false);
         }
       });
-
-      if(this.platform.is('capacitor') || this.platform.is('cordova')){
-        console.log('Setting up push notifications');
-        this.setupPushNotifications();
-      }
     });
   }
 

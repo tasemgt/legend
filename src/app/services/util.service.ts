@@ -197,16 +197,6 @@ export class UtilService {
     return false;
   }
 
-  // private async imgToBase64(): Promise<string | void>{
-  //   try{
-  //     const b64 = await imageToBase64('https://play-lh.googleusercontent.com/RbnLrWomJ6hJ9DeaUj2lrz0VeujeO-46ylEhC-LxWIBDO_v-RnniVfluCFRyWvUTtQ');
-  //     console.log('B64>>>>',b64);
-  //   }
-  //   catch(e){
-  //     console.log('B64-EEE>>>', e);
-  //   }
-  // }
-
   public async generateHtmlForPdf(transaction: Transaction){
     // const img = await this.imgToBase64();
     const html = `
@@ -268,6 +258,7 @@ export class UtilService {
       }
       div.footer{
         position: absolute;
+        font-family: 'Source Sans Pro', sans-serif;
         width: 90%;
         bottom: 0rem;
         font-size: 1.1rem;
@@ -304,7 +295,7 @@ export class UtilService {
     await this.presentLoading('');
     setTimeout(() => {
       this.loadingCtrl.dismiss();
-    }, 1000);
+    }, 3000);
     const html = await this.generateHtmlForPdf(transaction);
     const options: PDFGeneratorOptions = {
       documentSize: 'A4',
@@ -316,6 +307,7 @@ export class UtilService {
     .then(base64 => {
       // console.log('stringyy>>>>', base64);
       this.base64ToPDf(base64);
+      this.loadingCtrl.dismiss();
     })
     .catch(e => console.log(e));
     // this  .fromURL('https://google.es', options).then(base64String => console.log(base64String));
