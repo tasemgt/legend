@@ -250,11 +250,11 @@ export class UtilService {
       div.detail span:first-child{
         color: #474747;
         margin-right: 2rem;
-        width: 40%;
-        font-size: 1.5rem;
+        width: 37%;
+        font-size: 1.4rem;
       }
       div.detail span:last-child{
-        font-size: 1.7rem;
+        font-size: 1.5rem;
       }
       div.footer{
         position: absolute;
@@ -271,14 +271,14 @@ export class UtilService {
       <div class="container">
         <div class="logo">
           <img src="https://www.legendpay.ng/sets/img/logo-dark2.png" alt="Legend Pay">
-          ${this.transRptTypes[transaction.type].img}
+          ${this.transRptTypes[transaction.type] ? this.transRptTypes[transaction.type].img: ''}
         </div>
         <p>
           <span>Transaction id: ${transaction.ref}</span>
           <span>Date: ${transaction.date}</span>
         </p>
         <div class="empty"></div>
-        ${this.transRptTypes[transaction.type].fields(transaction)}
+        ${this.transRptTypes[transaction.type] ? this.transRptTypes[transaction.type].fields(transaction) : this.transRptTypes.GenericTemplate(transaction)}
       </div>
       <div class="footer">
         This is an electronic receipt of a transaction. For further assistance or enquiries, kindly call us on 0700-MY-LEGEND (0700-69-534363) or email us at experience@legend.ng.
@@ -292,6 +292,7 @@ export class UtilService {
 
   public async generateReceipt(transaction: Transaction){
     console.log('Clicked..');
+    console.log(this.transRptTypes[transaction.type]);
     await this.presentLoading('');
     setTimeout(() => {
       this.loadingCtrl.dismiss();

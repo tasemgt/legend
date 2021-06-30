@@ -21,6 +21,7 @@ import { File } from '@ionic-native/file/ngx';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { AuthInterceptorService } from './services/auth-interceptior.service';
 
+import { FlutterwaveModule } from 'flutterwave-angular-v3';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
 
 
@@ -33,6 +34,7 @@ import { OneSignal } from '@ionic-native/onesignal/ngx';
     IonicStorageModule.forRoot(),
     HttpClientModule,
     AppRoutingModule,
+    FlutterwaveModule
   ],
   providers: [
     StatusBar,

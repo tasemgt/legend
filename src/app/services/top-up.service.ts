@@ -29,17 +29,16 @@ export class TopUpService implements OnDestroy {
 
   // Function to Handle requests for pay url and response for fund wallet modal
   public async makePayment(amount: string){
-    const user = await this.authService.getUser();
-    const headers = { Authorization: `Bearer ${user.token}`, Accept: 'application/json'};
+    const headers = await this.getHeaders();
     return this.http.post(`${this.baseUrl}/webpay`, {amount}, {headers}).toPromise()
       .then((resp) =>{
       })
       .catch((err) =>{
-        console.log(err); // Ask why it is giving me response on error sha..
+        console.log(err); // ???
         if(err.status === 0){
           return Promise.resolve({message: 'Connection unsuccessful, check network and try again'});
         }
-        if(err.error.code === 100){  // Where the deal happens
+        if(err.error.code === 100){  //Success here, spin up iab and proceed to payment page...
           console.log(err.error.url);
           const url = `${err.error.url}`;
           this.openBrowser(url)
@@ -98,7 +97,14 @@ export class TopUpService implements OnDestroy {
     return this.responseSubject;
   }
 
+  //Handles payment using flw-sdk
+  public async makePaymentV2(transactionId: number){
+    const headers = await this.getHeaders();
+    return await this.http.get(`${this.baseUrl}/verify-payment/${transactionId}`, {headers}).toPromise();
+  }
 
+
+  //Handles payment with voucher
   public fundWithVoucher(payload: {serial:string, pin:string}){
     return this.authService.getUser()
       .then((user) =>{
@@ -112,6 +118,11 @@ export class TopUpService implements OnDestroy {
         return Promise.resolve(resp);
       })
       .catch(err => console.log(err) );
+  }
+
+  private async getHeaders(): Promise<any>{
+    const user = await this.authService.getUser();
+    return { Authorization: `Bearer ${user.token}`, Accept: 'application/json'};
   }
 
   ngOnDestroy(){

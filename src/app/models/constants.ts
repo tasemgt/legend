@@ -3,6 +3,7 @@ import { Transaction } from "./transaction"
 export const Constants = {
     baseUrl:  'https://legendpay.ng/api/v2',
     merchantImageBaseUrl: "http://merchant.legend.ng/storage/merchant-image/",
+    flutterwavePublicKey: 'FLWPUBK-f4ae78bd6a1439f2adc7dea888036aac-X',//'FLWPUBK_TEST-2ce49153bfb447b6f65c6e39949ce6b9-X',
     authUser: 'authUser',
     oneSignalAppID: 'a34ce124-7e9a-4f6a-947c-0768ff828796',
     googleProjectNumberSenderID: '914926673400'
@@ -151,10 +152,6 @@ export const TransactionReceiptTypes = {
                     <span>${transaction.name}</span>
                 </div>
                 <div class="detail">
-                    <span>Bank Name:</span>
-                    <span>${transaction.extra_one || '---'}</span>
-                </div>
-                <div class="detail">
                     <span>Wallet Recharge Amount:</span>
                     <span>${transaction.amount}</span>
                 </div>
@@ -200,8 +197,31 @@ export const TransactionReceiptTypes = {
                 </div>
                 `
     },
-    Product: {
-        img: '',
-        fields: ''
-    }
+
+    GenericTemplate: (transaction: Transaction) => `
+        <div class="detail">
+            <span>Username:</span>
+            <span>${transaction.username}</span>
+        </div>
+        <div class="detail">
+            <span>Full name:</span>
+            <span>${transaction.name}</span>
+        </div>
+        <div class="detail">
+            <span>Service Name:</span>
+            <span>${transaction.type}</span>
+        </div>
+        <div class="detail">
+            <span>Description:</span>
+            <span>${transaction.product}</span>
+        </div>
+        <div class="detail">
+            <span>Amount:</span>
+            <span>${transaction.amount}</span>
+        </div>
+        <div class="detail">
+            <span>Transaction Status:</span>
+            <span>${transaction.status}</span>
+        </div>
+    `
 }

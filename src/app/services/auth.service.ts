@@ -90,6 +90,7 @@ export class AuthService {
         if(response.code === 418){
           return Promise.resolve(response); // Invalid login here, but pass along to be handled by page
         }
+        response['username'] = username; //Add username to the authUser object for future reference
         usr = response;
         if(!fromRegstr){
           return this.storage.set(this.authUser, response)
@@ -99,7 +100,7 @@ export class AuthService {
             });
         }
         else{
-          return Promise.resolve(usr); //Only return the user object if api is called from register
+          return Promise.resolve(usr); //Only return the user object if api is called from register page
         }
       })
       .catch((error: HttpErrorResponse) =>{
@@ -153,6 +154,10 @@ export class AuthService {
     this.storage.clear().then(() => {
       this.authState.next(false);
     });
+  }
+
+  public async setUserToStorage(user: User){
+    await this.storage.set(this.authUser, user);
   }
 
   public getAuthStateSubject(){

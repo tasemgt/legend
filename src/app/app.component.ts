@@ -146,7 +146,6 @@ export class AppComponent implements  OnDestroy, AfterViewInit{
     this.onesignal.endInit();
     this.registerPlayerId();
 
-    // this.onesignal.
   }
 
   private async registerPlayerId(){

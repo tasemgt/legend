@@ -61,9 +61,9 @@
               </ion-col>
               <ion-col class="trans-name">
                 <h6>{{transaction.type}}</h6>
-                <p>{{transaction.product.substring(0,30)}}<span *ngIf="transaction.product.length >= 31">...</span></p>
+                <p>{{transaction.product.substring(0,23)}}<span *ngIf="transaction.product.length > 24">...</span></p>
               </ion-col>
-              <ion-col size="5" class="ion-text-right amount-date">
+              <ion-col size="4" class="ion-text-right amount-date">
                 <h4>
                   <span [ngStyle]="{'background-color':transaction.status === 'Success' ? '#05c46b' : '#a20a0a'}">
                     <!-- #054e1c -->

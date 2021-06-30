@@ -7,6 +7,7 @@ export interface User {
     token_type: string;
     expiry: string;
     message: string;
+    username?: string;
 }
 
 export interface Profile{
