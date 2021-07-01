@@ -165,7 +165,7 @@ export class FundWalletPage implements OnInit, OnDestroy {
   }
 
   private generateReference(): string {
-    const prefix = this.platform.is('ios') ? 'OCI' : 'OCA';
+    const prefix = this.platform.is('ios') ? 'LPI' : 'LPA';
     const date = new Date();
     return `${prefix}${date.getTime().toString()}`;
   }
