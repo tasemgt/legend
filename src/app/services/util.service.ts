@@ -55,6 +55,14 @@ export class UtilService {
     return loading.present();
   }
 
+  public async presentLoading2(message: string){
+    const loading = await this.loadingCtrl.create({
+      message,
+      translucent: true,
+    });
+    return loading.present();
+  }
+
   public async dismissLoading(id?: string){
     return await this.loadingCtrl.dismiss(null, null, id);
   }

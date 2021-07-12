@@ -52,13 +52,8 @@ export class FundWalletPage implements OnInit, OnDestroy {
 
   async ngOnInit() {
     this.fundWalletForm.resetForm(); //Reset form when modal loads
-    this.user = await this.auth.getUser();
-    let profile: Profile;
-    if(!this.user.username){
-      profile = await this.userService.getUserProfile(this.user);
-      this.user['username'] = profile.username;
-      this.auth.setUserToStorage(this.user);
-    }
+    this.user = await this.userService.updateUserNameInStorage('fund');
+    this.loadingCtrl.dismiss();
   }
 
   //Check for token expiry and close...
@@ -119,7 +114,7 @@ export class FundWalletPage implements OnInit, OnDestroy {
           }
           else{
             this.utilService.showToast(`Your payment could not be processed. Please try again.`, 3000, 'danger');
-          }  
+          } 
         }
       }
     );

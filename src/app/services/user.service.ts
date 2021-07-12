@@ -5,6 +5,7 @@ import { Constants } from '../models/constants';
 
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from './auth.service';
+import { UtilService } from './util.service';
 
 
 @Injectable({
@@ -14,7 +15,10 @@ export class UserService {
 
   private baseUrl = Constants.baseUrl;
 
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  constructor(
+    private http: HttpClient, 
+    private authService: AuthService,
+    private util: UtilService) { }
   
   public async getUserProfile(user: User) : Promise<Profile>{
     const url = this.baseUrl; //'http://41.73.8.123/horizonaccess/legend/public/api/v2'; //Version 3 url
@@ -62,5 +66,18 @@ export class UserService {
     catch(error){
       return Promise.reject(error);
     }
+  }
+
+  public async updateUserNameInStorage(from: string): Promise<User>{
+    const user = await this.authService.getUser();
+    let profile: Profile;
+    if(!user.username){
+      console.log('Updating username');
+      from === 'fund' ? this.util.presentLoading2('Preparing. Please wait...') : '';
+      profile = await this.getUserProfile(user);
+      user['username'] = profile.username;
+      this.authService.setUserToStorage(user);
+    }
+    return user;
   }
 }

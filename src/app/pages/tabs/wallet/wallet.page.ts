@@ -18,6 +18,7 @@ import { BankTransferPage } from '../../modals/transfer/bank-transfer/bank-trans
 import { BvnVerificationPage } from '../../modals/transfer/bvn-verification/bvn-verification.page';
 
 import { ReceiptPage } from '../../modals/receipt/receipt.page';
+import { UserService } from 'src/app/services/user.service';
 
 
 
@@ -47,7 +48,8 @@ export class WalletPage implements OnInit {
     private authService: AuthService,
     private walletService: WalletService,
     private platform: Platform,
-    private utilService: UtilService){
+    private utilService: UtilService,
+    private userService: UserService){
     // private pdfGenerator: PDFGenerator) { 
 
       this.showIosOnce = true;
@@ -60,6 +62,7 @@ export class WalletPage implements OnInit {
       if(state){
         this.getBalance();
         this.getTransactions(false);
+        this.userService.updateUserNameInStorage('wallet');
       }
       else{
         this.balance = null;
